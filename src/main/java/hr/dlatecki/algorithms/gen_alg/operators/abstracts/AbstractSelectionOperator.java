@@ -35,11 +35,13 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
         this.selectionSize = selectionSize;
     }
     
+    @Override
     public void setSelectionSize(int size) {
         
         selectionSize = size;
     }
     
+    @Override
     public SortedSet<C> select(SortedSet<C> pool) {
         
         return select(pool, selectionSize);

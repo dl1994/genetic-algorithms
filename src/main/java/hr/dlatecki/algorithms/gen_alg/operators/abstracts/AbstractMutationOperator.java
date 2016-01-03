@@ -34,6 +34,7 @@ public abstract class AbstractMutationOperator<C extends IChromosome> extends Ab
         this.mutationChance = mutationChance;
     }
     
+    @Override
     public void setMutationChance(double chance) {
         
         mutationChance = chance;

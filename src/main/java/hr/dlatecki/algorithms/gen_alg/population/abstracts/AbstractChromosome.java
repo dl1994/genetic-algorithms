@@ -30,6 +30,7 @@ public abstract class AbstractChromosome implements IChromosome {
      */
     private boolean fitnessEvaluated;
     
+    @Override
     public int compareTo(IChromosome other) {
         
         if (other == null) {
@@ -43,6 +44,7 @@ public abstract class AbstractChromosome implements IChromosome {
         return fitness > other.getFitness() ? 1 : -1;
     }
     
+    @Override
     public double getFitness() throws FitnessNotEvaluatedException {
         
         if (!fitnessEvaluated) {
@@ -52,6 +54,7 @@ public abstract class AbstractChromosome implements IChromosome {
         return fitness;
     }
     
+    @Override
     public void setFitness(double fitness) {
         
         this.fitness = fitness;
