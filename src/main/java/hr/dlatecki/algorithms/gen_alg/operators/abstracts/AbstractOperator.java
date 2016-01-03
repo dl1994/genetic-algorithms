@@ -7,6 +7,7 @@ import java.util.Random;
  * 
  * @author Domagoj Latečki
  * @version 1.0
+ * @since 1.8
  */
 abstract class AbstractOperator {
     

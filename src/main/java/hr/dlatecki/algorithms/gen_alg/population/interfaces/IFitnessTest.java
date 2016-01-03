@@ -6,6 +6,7 @@ package hr.dlatecki.algorithms.gen_alg.population.interfaces;
  * 
  * @author Domagoj Latečki
  * @version 1.0
+ * @since 1.8
  * @param <C> Type of chromosome which will be evaluated in the fitness test.
  * @see IChromosome
  */

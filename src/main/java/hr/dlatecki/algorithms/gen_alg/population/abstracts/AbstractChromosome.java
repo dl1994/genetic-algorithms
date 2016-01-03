@@ -13,6 +13,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IFitnessTest;
  * 
  * @author Domagoj Latečki
  * @version 1.0
+ * @since 1.8
  * @see IChromosome
  */
 public abstract class AbstractChromosome implements IChromosome {

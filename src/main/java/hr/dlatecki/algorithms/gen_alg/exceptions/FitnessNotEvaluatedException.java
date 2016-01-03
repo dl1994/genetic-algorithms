@@ -5,6 +5,7 @@ package hr.dlatecki.algorithms.gen_alg.exceptions;
  * 
  * @author Domagoj Latečki
  * @version 1.0
+ * @since 1.8
  */
 public class FitnessNotEvaluatedException extends RuntimeException {
     
