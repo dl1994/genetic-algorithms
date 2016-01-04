@@ -6,7 +6,7 @@ import java.util.Random;
  * An abstract class which offers a constructor which takes a <code>Random</code> object as a parameter.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 1.1
  * @since 1.8
  */
 abstract class AbstractOperator {
@@ -22,6 +22,26 @@ abstract class AbstractOperator {
      * @param rand object used to generate random numbers.
      */
     public AbstractOperator(Random rand) {
+        this.rand = rand;
+    }
+    
+    /**
+     * Fetches the <code>Random</code> object which is used in this object.
+     * 
+     * @return <code>Random</code> object which is used in this object.
+     */
+    public Random getRand() {
+        
+        return rand;
+    }
+    
+    /**
+     * Sets the <code>Random</code> object which will be used in this object.
+     * 
+     * @param rand object used to generate random numbers.
+     */
+    public void setRandom(Random rand) {
+        
         this.rand = rand;
     }
 }

@@ -1,3 +1,9 @@
+### 0.2.2
+Added getter and setter for Random object in AbstractOperator. Creates tests for all abstract classes. Mutation and
+selection operators now throw exceptions if illegal argument is provided in constructor or setter.
+AbstractSeectionOperator now specifies a single abstract method that needs to be overridden in order to perform
+selection.
+
 ### 0.2.1
 
 Added tests for FitnessNotEvaluatedException. Updated documentation for all classes and packages, they now include

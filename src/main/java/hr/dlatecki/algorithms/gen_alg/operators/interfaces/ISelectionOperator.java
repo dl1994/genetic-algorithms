@@ -9,7 +9,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * operator extend <code>AbstractSelectionOperator</code> instead of directly implementing this interface.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 1.1
  * @since 1.8
  * @param <C> Type of chromosome which will be used in the selection operator.
  * @see IChromosome
@@ -40,6 +40,7 @@ public interface ISelectionOperator<C extends IChromosome> {
      * @param size number of chromosomes to select. Must be a number greater than or equal to 1.
      * @return Set which contains selected chromosomes. The set is sorted by fitness of the chromosomes, in descending
      *         order.
+     * @throws IllegalArgumentException thrown if provided size is less than 1.
      */
     public SortedSet<C> select(SortedSet<C> pool, int size);
     
@@ -48,6 +49,7 @@ public interface ISelectionOperator<C extends IChromosome> {
      * than or equal to 1.
      * 
      * @param size number of chromosomes to select. Must be a number greater than or equal to 1.
+     * @throws IllegalArgumentException thrown if provided size is less than 1.
      */
     public void setSelectionSize(int size);
 }

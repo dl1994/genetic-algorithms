@@ -8,7 +8,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * operator extend <code>AbstractMutationOperator</code> instead of directly implementing this interface.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 1.1
  * @since 1.8
  * @param <C> Type of chromosome which will be used in the mutation operator.
  * @see IChromosome
@@ -30,6 +30,7 @@ public interface IMutationOperator<C extends IChromosome> {
      * Sets the probability for mutation to occur. Provided value must be in range [0, 1].
      * 
      * @param chance probability for mutation to occur. Valid value range is [0, 1].
+     * @throws IllegalArgumentException thrown if provided value is invalid.
      */
     public void setMutationChance(double chance);
 }

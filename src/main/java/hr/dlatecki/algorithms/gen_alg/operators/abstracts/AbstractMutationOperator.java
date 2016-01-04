@@ -9,7 +9,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * class instead of directly implementing <code>IMutationOperator</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 1.1
  * @since 1.8
  * @param <C> Type of chromosome which will be used in the mutation operator.
  * @see IChromosome
@@ -29,14 +29,20 @@ public abstract class AbstractMutationOperator<C extends IChromosome> extends Ab
      * 
      * @param rand object used to generate random numbers.
      * @param mutationChance probability for mutation to occur. Valid value range is [0, 1].
+     * @throws IllegalArgumentException thrown if provided value for mutation chance is invalid.
      */
     public AbstractMutationOperator(Random rand, double mutationChance) {
         super(rand);
-        this.mutationChance = mutationChance;
+        
+        setMutationChance(mutationChance);
     }
     
     @Override
     public void setMutationChance(double chance) {
+        
+        if (chance < 0.0 || chance > 1.0) {
+            throw new IllegalArgumentException("Mutation chance must be in range [0, 1].");
+        }
         
         mutationChance = chance;
     }
