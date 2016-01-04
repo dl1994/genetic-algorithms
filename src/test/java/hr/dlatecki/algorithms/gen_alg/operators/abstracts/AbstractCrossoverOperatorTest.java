@@ -19,7 +19,7 @@ public class AbstractCrossoverOperatorTest {
     /**
      * <code>Random</code> object used in tests.
      */
-    private static Random RAND = new Random();
+    private static final Random RAND = new Random();
     
     /**
      * Tests the constructor.
