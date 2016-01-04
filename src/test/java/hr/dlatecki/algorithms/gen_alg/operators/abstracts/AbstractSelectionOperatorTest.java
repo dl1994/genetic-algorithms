@@ -40,6 +40,8 @@ public class AbstractSelectionOperatorTest {
             }
         };
         
+        a.select(null);
+        
         Assert.assertEquals(RAND, a.getRand());
     }
     
@@ -93,6 +95,7 @@ public class AbstractSelectionOperatorTest {
             }
         };
         
+        a.performSelection(null, 1);
         a.setSelectionSize(0);
     }
 }
