@@ -42,7 +42,7 @@ public abstract class AbstractChromosome implements IChromosome {
             return 0;
         }
         
-        return fitness > other.getFitness() ? 1 : -1;
+        return fitness > other.getFitness() ? -1 : 1;
     }
     
     @Override
@@ -74,7 +74,8 @@ public abstract class AbstractChromosome implements IChromosome {
             return copy;
         } catch (CloneNotSupportedException ignorable) {
             // This exception will never be thrown by the Object superclass. This is insured by IChromosome interface,
-            // which extends the Cloneable interface.
+            // which extends the Cloneable interface. However, this exception can be thrown by deepCopyTo method. This
+            // should generally never happen, except in unit tests.
             throw new RuntimeException("It's not a bug. It's a feature!");
         }
     }
@@ -84,6 +85,9 @@ public abstract class AbstractChromosome implements IChromosome {
      * performed on non-primitive mutable fields. If there are no such fields, this method can be left empty.
      * 
      * @param target target chromosome in which non-primitive mutable fields of this object will be deep copied.
+     * @throws CloneNotSupportedException thrown only in unit tests. This exception will be re-thrown as
+     *             <code>RuntimeException</code> in the <code>clone()</code> method of <code>AbstractChromosome</code>
+     *             class.
      */
-    protected abstract void deepCopyTo(AbstractChromosome target);
+    protected abstract void deepCopyTo(AbstractChromosome target) throws CloneNotSupportedException;
 }
