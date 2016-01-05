@@ -55,9 +55,9 @@ public class AbstractMutationOperatorTest {
         }
         
         /**
-         * Fetches the mutation chance stored in superclass.
+         * Fetches the mutation chance stored in the superclass.
          * 
-         * @return Mutation chance stored in superclass.
+         * @return Mutation chance stored in the superclass.
          */
         public double getMutationChance() {
             

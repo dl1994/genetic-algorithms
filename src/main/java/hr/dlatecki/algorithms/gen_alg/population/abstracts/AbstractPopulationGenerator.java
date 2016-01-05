@@ -1,6 +1,7 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
 import java.util.Random;
+import java.util.SortedSet;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IPopulationGenerator;
 
@@ -9,7 +10,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IPopulationGenerator
  * extend this class instead of directly implementing <code>IPopulationGenerator</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 1.1
  * @since 1.8
  * @param <C> Type of chromosome which will be used in the population generator.
  * @see IChromosome
@@ -30,4 +31,26 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
     public AbstractPopulationGenerator(Random rand) {
         this.rand = rand;
     }
+    
+    @Override
+    public SortedSet<C> generatePopulation(int size) {
+        
+        if (size < 0) {
+            throw new IllegalArgumentException("Cannot generate population of negative size.");
+        }
+        
+        return createPopulation(size);
+    }
+    
+    /**
+     * Creates the population of chromosomes of provided size. All chromosomes should have initial fitness value of 0.
+     * Chromosomes are supposed to be generated randomly in order to cover as large search space as possible. The
+     * <code>size</code> argument is guaranteed to be greater than or equal to 0. This is insured by
+     * <code>AbstractPopulationGenerator</code>, which will call this method when {@link #generatePopulation(int)}
+     * method is invoked externally.
+     * 
+     * @param size number of chromosomes to generate. Guaranteed to be greater than or equal to 0.
+     * @return Set of chromosomes which represents generated population.
+     */
+    protected abstract SortedSet<C> createPopulation(int size);
 }

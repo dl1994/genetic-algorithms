@@ -85,5 +85,5 @@ public abstract class AbstractChromosome implements IChromosome {
      * 
      * @param target target chromosome in which non-primitive mutable fields of this object will be deep copied.
      */
-    protected abstract void deepCopyTo(IChromosome target);
+    protected abstract void deepCopyTo(AbstractChromosome target);
 }
