@@ -12,7 +12,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IFitnessTest;
  * <code>IChromosome</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 1.2
  * @since 1.8
  * @see IChromosome
  */
@@ -78,6 +78,18 @@ public abstract class AbstractChromosome implements IChromosome {
             // should generally never happen, except in unit tests.
             throw new RuntimeException("It's not a bug. It's a feature!");
         }
+    }
+    
+    @Override
+    public final boolean equals(Object obj) {
+        
+        return super.equals(obj);
+    }
+    
+    @Override
+    public final int hashCode() {
+        
+        return super.hashCode();
     }
     
     /**

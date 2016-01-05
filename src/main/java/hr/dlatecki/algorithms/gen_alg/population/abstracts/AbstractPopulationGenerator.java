@@ -1,7 +1,7 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
+import java.util.Collection;
 import java.util.Random;
-import java.util.SortedSet;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IPopulationGenerator;
 
@@ -10,7 +10,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IPopulationGenerator
  * extend this class instead of directly implementing <code>IPopulationGenerator</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 1.1
+ * @version 2.0
  * @since 1.8
  * @param <C> Type of chromosome which will be used in the population generator.
  * @see IChromosome
@@ -33,7 +33,7 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
     }
     
     @Override
-    public SortedSet<C> generatePopulation(int size) {
+    public Collection<C> generatePopulation(int size) {
         
         if (size < 0) {
             throw new IllegalArgumentException("Cannot generate population of negative size.");
@@ -50,7 +50,7 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
      * method is invoked externally.
      * 
      * @param size number of chromosomes to generate. Guaranteed to be greater than or equal to 0.
-     * @return Set of chromosomes which represents generated population.
+     * @return Collection of chromosomes which represents generated population.
      */
-    protected abstract SortedSet<C> createPopulation(int size);
+    protected abstract Collection<C> createPopulation(int size);
 }

@@ -1,7 +1,7 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
+import java.util.Collection;
 import java.util.Random;
-import java.util.SortedSet;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
@@ -51,7 +51,7 @@ public class AbstractPopulationGeneratorTest {
         }
         
         @Override
-        protected SortedSet<IChromosome> createPopulation(int size) {
+        protected Collection<IChromosome> createPopulation(int size) {
             
             // TODO Auto-generated method stub
             return null;

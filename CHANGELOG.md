@@ -1,5 +1,11 @@
+### 0.2.3
+IPopulationGenerator now specifies return type of generatePopulation(int) to Collection instead of SortedSet.
+Both IPopulationGenerator and AbstractPopulationGenerator now have new version to indicate this change. Methods 
+equals(Object) and hashCode() in AbstractChromosome are now marked as final in order to insure they cannot be
+overridden.
+
 ### 0.2.2
-Added getter and setter for Random object in AbstractOperator. Creates tests for all abstract classes. Mutation and
+Added getter and setter for Random object in AbstractOperator. Created tests for all abstract classes. Mutation and
 selection operators now throw exceptions if illegal argument is provided in constructor or setter.
 AbstractSeectionOperator now specifies a single abstract method that needs to be overridden in order to perform
 selection. AbstractPopulationGenerator now throws exception if requested population size is less than 0. Corrected
