@@ -1,5 +1,5 @@
 ### v0.3.0
-Created DoubleArrayWrapperChromosome and added interface which specifies a codec for DoubleArrayWrapperChromosome.
+Created DoubleArrayWrapperChromosome and added an interface which specifies a codec for DoubleArrayWrapperChromosome.
 
 ### v0.2.4
 All methods that are not supposed to be overridden in abstract classes are not marked as final.
