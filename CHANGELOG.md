@@ -1,9 +1,12 @@
+### v0.3.0
+Created DoubleArrayWrapperChromosome and added interface which specifies a codec for DoubleArrayWrapperChromosome.
+
 ### v0.2.4
 All methods that are not supposed to be overridden in abstract classes are not marked as final.
 
 ### v0.2.3
 IPopulationGenerator now specifies return type of generatePopulation(int) to Collection instead of SortedSet.
-Both IPopulationGenerator and AbstractPopulationGenerator now have new version to indicate this change. Methods 
+Both IPopulationGenerator and AbstractPopulationGenerator now have new version to indicate this change. Methods
 equals(Object) and hashCode() in AbstractChromosome are now marked as final in order to insure they cannot be
 overridden.
 

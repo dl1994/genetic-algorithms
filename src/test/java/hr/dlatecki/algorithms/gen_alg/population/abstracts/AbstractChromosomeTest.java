@@ -211,4 +211,6 @@ public class AbstractChromosomeTest {
         Assert.assertTrue(large.compareTo(large) == 0);
         Assert.assertTrue(large.compareTo(sameLage) != 0);
     }
+    
+    // TODO: test serlialization
 }

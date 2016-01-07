@@ -6,7 +6,7 @@
 	<groupId>hr.dlatecki.java.libraries</groupId>
 	<artifactId>genetic-algorithms</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.4</version>
+	<version>0.3.0</version>
 	<name>Genetic Algorithm Library</name>
 	<url>http://maven.apache.org</url>
 	
