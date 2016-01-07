@@ -39,7 +39,7 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
     }
     
     @Override
-    public void setSelectionSize(int size) {
+    public final void setSelectionSize(int size) {
         
         checkSelectionSize(size);
         
@@ -47,13 +47,13 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
     }
     
     @Override
-    public SortedSet<C> select(SortedSet<C> pool) {
+    public final SortedSet<C> select(SortedSet<C> pool) {
         
         return select(pool, selectionSize);
     }
     
     @Override
-    public SortedSet<C> select(SortedSet<C> pool, int size) {
+    public final SortedSet<C> select(SortedSet<C> pool, int size) {
         
         checkSelectionSize(size);
         

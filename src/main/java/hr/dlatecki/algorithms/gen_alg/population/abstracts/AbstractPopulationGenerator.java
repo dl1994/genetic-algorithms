@@ -33,7 +33,7 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
     }
     
     @Override
-    public Collection<C> generatePopulation(int size) {
+    public final Collection<C> generatePopulation(int size) {
         
         if (size < 0) {
             throw new IllegalArgumentException("Cannot generate population of negative size.");

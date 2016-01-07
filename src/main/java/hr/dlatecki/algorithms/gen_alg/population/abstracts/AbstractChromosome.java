@@ -32,7 +32,7 @@ public abstract class AbstractChromosome implements IChromosome {
     private boolean fitnessEvaluated;
     
     @Override
-    public int compareTo(IChromosome other) {
+    public final int compareTo(IChromosome other) {
         
         if (other == null) {
             return 1;
@@ -46,7 +46,7 @@ public abstract class AbstractChromosome implements IChromosome {
     }
     
     @Override
-    public double getFitness() throws FitnessNotEvaluatedException {
+    public final double getFitness() throws FitnessNotEvaluatedException {
         
         if (!fitnessEvaluated) {
             throw new FitnessNotEvaluatedException();
@@ -56,7 +56,7 @@ public abstract class AbstractChromosome implements IChromosome {
     }
     
     @Override
-    public void setFitness(double fitness) {
+    public final void setFitness(double fitness) {
         
         this.fitness = fitness;
         
@@ -64,7 +64,7 @@ public abstract class AbstractChromosome implements IChromosome {
     }
     
     @Override
-    public IChromosome clone() {
+    public final IChromosome clone() {
         
         try {
             AbstractChromosome copy = (AbstractChromosome) super.clone();

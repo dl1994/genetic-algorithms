@@ -30,7 +30,7 @@ abstract class AbstractOperator {
      * 
      * @return <code>Random</code> object which is used in this object.
      */
-    public Random getRand() {
+    public final Random getRand() {
         
         return rand;
     }
@@ -40,7 +40,7 @@ abstract class AbstractOperator {
      * 
      * @param rand object used to generate random numbers.
      */
-    public void setRandom(Random rand) {
+    public final void setRandom(Random rand) {
         
         this.rand = rand;
     }

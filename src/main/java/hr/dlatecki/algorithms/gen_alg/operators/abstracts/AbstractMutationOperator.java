@@ -38,7 +38,7 @@ public abstract class AbstractMutationOperator<C extends IChromosome> extends Ab
     }
     
     @Override
-    public void setMutationChance(double chance) {
+    public final void setMutationChance(double chance) {
         
         if (chance < 0.0 || chance > 1.0) {
             throw new IllegalArgumentException("Mutation chance must be in range [0, 1].");
