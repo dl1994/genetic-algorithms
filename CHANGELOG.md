@@ -1,3 +1,6 @@
+###v0.3.1
+Created DoubleArrayChromosome. DoubleArrayWrapperChromosome now extends DoubleArrayChromosome.
+
 ### v0.3.0
 Created DoubleArrayWrapperChromosome and added interface which specifies a codec for DoubleArrayWrapperChromosome.
 

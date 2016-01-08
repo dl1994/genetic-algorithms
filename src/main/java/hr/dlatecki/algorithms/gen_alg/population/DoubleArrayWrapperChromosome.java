@@ -16,17 +16,14 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * @version 1.0
  * @param <I> type of the object to wrap.
  * @since 1.8
+ * @see DoubleArrayChromosome
  */
-public class DoubleArrayWrapperChromosome<I> extends AbstractChromosome {
+public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 4428769866923824574L;
-    /**
-     * An array of <code>double</code>s which represents the item wrapped in this object.
-     */
-    private double[] values;
+    private static final long serialVersionUID = 6889342943515258765L;
     /**
      * Indicates if the currently stored item is immutable.
      */
@@ -105,28 +102,10 @@ public class DoubleArrayWrapperChromosome<I> extends AbstractChromosome {
         ((DoubleArrayWrapperChromosome<I>) target).item = immutable ? item : codec.decode(values);
     }
     
-    /**
-     * Creates an array which will contain the values stored in this object.
-     * 
-     * @return Array which contains values stored in this object.
-     */
-    public double[] getValues() {
-        
-        return Arrays.copyOf(values, values.length);
-    }
-    
-    /**
-     * Copies the provided values into an array stored in this object.
-     * 
-     * @param values the new values which will be stored in this object.
-     */
+    @Override
     public void setValues(double[] values) {
         
-        if (values.length == this.values.length) {
-            System.arraycopy(values, 0, this.values, 0, this.values.length);
-        } else {
-            this.values = Arrays.copyOf(values, values.length);
-        }
+        super.setValues(values);
         
         item = codec.decode(this.values);
         immutable = true;
