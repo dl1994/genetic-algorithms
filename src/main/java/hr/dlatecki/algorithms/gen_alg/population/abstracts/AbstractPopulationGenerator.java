@@ -10,7 +10,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IPopulationGenerator
  * extend this class instead of directly implementing <code>IPopulationGenerator</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 2.0
+ * @version 1.0
  * @since 1.8
  * @param <C> the type of chromosome which will be used in the population generator.
  * @see IChromosome

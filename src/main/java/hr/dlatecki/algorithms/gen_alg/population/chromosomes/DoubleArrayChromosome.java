@@ -4,7 +4,7 @@ import java.util.Arrays;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 
 /**
- * An implementation of the chromosome which is represented by an array of double values.
+ * An implementation of the chromosome which is represented by an array of <code>double</code> values.
  * 
  * @author Domagoj Latečki
  * @version 1.0

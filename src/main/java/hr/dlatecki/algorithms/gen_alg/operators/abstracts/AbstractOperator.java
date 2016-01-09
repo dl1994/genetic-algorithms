@@ -6,7 +6,7 @@ import java.util.Random;
  * An abstract class which offers a constructor which takes a <code>Random</code> object as a parameter.
  * 
  * @author Domagoj Latečki
- * @version 1.1
+ * @version 1.0
  * @since 1.8
  */
 abstract class AbstractOperator {

@@ -11,7 +11,7 @@ package hr.dlatecki.algorithms.gen_alg.codecs.interfaces;
 public interface IDoubleArrayCodec<I> {
     
     /**
-     * Encodes the object as an array of <code>double</code>s.
+     * Encodes the object into an array of <code>double</code>s.
      * 
      * @param item object to encode.
      * @return Array which represents the encoded item.

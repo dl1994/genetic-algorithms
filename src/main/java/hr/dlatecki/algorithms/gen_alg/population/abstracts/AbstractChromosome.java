@@ -12,7 +12,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IFitnessTest;
  * <code>IChromosome</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 1.2
+ * @version 1.0
  * @since 1.8
  * @see IChromosome
  */

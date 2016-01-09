@@ -1,3 +1,7 @@
+### v0.3.4
+All classes and interface now have documented version 1.0. The versions won't change until v1.0.0. Created
+implementations of binary chromosomes: ByteArrayChromosome and ByteArrayWrapperChromosome.
+
 ### v0.3.3
 Added test for serialization in AbstractChromosomeTest. Created class for various testing utilities. Removed package
 hr.dlatecki.algorithms.gen\_alg.impl. Algorithms will be in hr.dlatecki.algorithms.gen\_alg package instead. Interfaces

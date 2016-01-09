@@ -8,7 +8,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * operator extend <code>AbstractMutationOperator</code> instead of directly implementing this interface.
  * 
  * @author Domagoj Latečki
- * @version 1.1
+ * @version 1.0
  * @since 1.8
  * @param <C> Type of chromosome which will be used in the mutation operator.
  * @see IChromosome

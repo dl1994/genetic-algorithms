@@ -10,7 +10,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * this class instead of directly implementing <code>ISelectionOperator</code> interface.
  * 
  * @author Domagoj Latečki
- * @version 1.1
+ * @version 1.0
  * @since 1.8
  * @param <C> the type of chromosome which will be used in the selection operator.
  * @see IChromosome
