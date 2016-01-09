@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import org.junit.Assert;
@@ -47,8 +48,12 @@ public class AbstractChromosomeTest {
      * @version 1.0
      * @since 1.8
      */
-    private static class MutableContainer {
+    private static class MutableContainer implements Serializable {
         
+        /**
+         * Serial version UID.
+         */
+        private static final long serialVersionUID = 585747696495607118L;
         /**
          * Mutable number.
          */
