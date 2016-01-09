@@ -1,5 +1,12 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import org.junit.Assert;
@@ -212,5 +219,31 @@ public class AbstractChromosomeTest {
         Assert.assertTrue(large.compareTo(sameLage) != 0);
     }
     
-    // TODO: test serlialization
+    /**
+     * Tests the serlialization.
+     * 
+     * @throws IOException thrown if any stream is unable to read or write.
+     * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
+     */
+    @Test
+    public void testSerialization() throws IOException, ClassNotFoundException {
+        
+        AbstractChromosome toSend = new AbstractChromosomeExtender(NUMBER);
+        
+        toSend.setFitness(FITNESS);
+        
+        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(byteOutput));
+        
+        out.writeObject(toSend);
+        out.flush();
+        
+        byte[] outputBytes = byteOutput.toByteArray();
+        
+        ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new ByteArrayInputStream(outputBytes)));
+        Object recieved = in.readObject();
+        Assert.assertTrue(recieved instanceof AbstractChromosome);
+        Assert.assertTrue(recieved instanceof AbstractChromosomeExtender);
+        Assert.assertEquals(FITNESS, ((AbstractChromosomeExtender) recieved).getFitness(), PRECISION);
+    }
 }

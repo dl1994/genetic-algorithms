@@ -39,7 +39,7 @@ public class FitnessNotEvaluatedExceptionTest {
     }
     
     /**
-     * Tests the serlialization of the exception.
+     * Tests the serlialization.
      * 
      * @throws IOException thrown if any stream is unable to read or write.
      * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
