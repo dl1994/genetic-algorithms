@@ -1,3 +1,6 @@
+### v0.3.3
+Added test for serialization in AbstractChromosomeTest. Created class for various testing utilities.
+
 ### v0.3.2
 Altered DoubleArrayWrapperChromosome, constructor which takes item as one of the arguments is now private. The
 chromosome which has an item as initial value can now be created using appropriate static methods.

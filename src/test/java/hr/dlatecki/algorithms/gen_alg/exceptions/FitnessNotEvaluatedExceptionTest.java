@@ -1,14 +1,9 @@
 package hr.dlatecki.algorithms.gen_alg.exceptions;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import org.junit.Assert;
 import org.junit.Test;
+import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
  * Class which contains tests for <code>FitnessNotEvaluatedException</code>.
@@ -39,7 +34,7 @@ public class FitnessNotEvaluatedExceptionTest {
     }
     
     /**
-     * Tests the serlialization.
+     * Tests the serialization.
      * 
      * @throws IOException thrown if any stream is unable to read or write.
      * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
@@ -48,16 +43,7 @@ public class FitnessNotEvaluatedExceptionTest {
     public void testSerialization() throws IOException, ClassNotFoundException {
         
         FitnessNotEvaluatedException toSend = new FitnessNotEvaluatedException(MESSAGE);
-        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(byteOutput));
-        
-        out.writeObject(toSend);
-        out.flush();
-        
-        byte[] outputBytes = byteOutput.toByteArray();
-        
-        ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new ByteArrayInputStream(outputBytes)));
-        Object recieved = in.readObject();
+        Object recieved = TestUtilities.serializeDeserialize(toSend);
         Assert.assertTrue(recieved instanceof FitnessNotEvaluatedException);
         Assert.assertEquals(MESSAGE, ((FitnessNotEvaluatedException) recieved).getMessage());
     }

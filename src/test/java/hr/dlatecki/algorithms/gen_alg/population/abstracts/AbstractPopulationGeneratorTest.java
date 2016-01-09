@@ -5,6 +5,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
+import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
  * Class which contains tests for <code>AbstractPopulationGenerator</code>.
@@ -15,11 +16,6 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * @see AbstractPopulationGenerator
  */
 public class AbstractPopulationGeneratorTest {
-    
-    /**
-     * <code>Random</code> object used in tests.
-     */
-    private static final Random RAND = new Random();
     
     /**
      * Class which extends <code>AbstractPopulationGenerator</code> in order to gain access to protected parameters in
@@ -64,8 +60,8 @@ public class AbstractPopulationGeneratorTest {
     @Test
     public void testConstructor() {
         
-        AbstractPopulationGeneratorExtender a = new AbstractPopulationGeneratorExtender(RAND);
-        Assert.assertEquals(RAND, a.getRand());
+        AbstractPopulationGeneratorExtender a = new AbstractPopulationGeneratorExtender(TestUtilities.RAND);
+        Assert.assertEquals(TestUtilities.RAND, a.getRand());
         
         a.generatePopulation(0);
     }
@@ -76,7 +72,7 @@ public class AbstractPopulationGeneratorTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGeneratePopulationThrowsException() {
         
-        AbstractPopulationGeneratorExtender a = new AbstractPopulationGeneratorExtender(RAND);
+        AbstractPopulationGeneratorExtender a = new AbstractPopulationGeneratorExtender(TestUtilities.RAND);
         
         a.generatePopulation(-1);
     }

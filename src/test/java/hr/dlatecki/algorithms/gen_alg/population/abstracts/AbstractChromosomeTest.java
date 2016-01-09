@@ -1,18 +1,13 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.exceptions.FitnessNotEvaluatedException;
+import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
  * Class which contains tests for <code>AbstractChromosome</code>.
@@ -36,10 +31,6 @@ public class AbstractChromosomeTest {
      * Fitness value used in tests. Must be positive for tests to run correctly.
      */
     private static final double FITNESS = 50.0;
-    /**
-     * Precision to use when comparing if double numbers are equal.
-     */
-    private static final double PRECISION = 10E-5;
     
     /**
      * Class which represents a mutable container class. This class should be deep copied when cloning.
@@ -175,7 +166,7 @@ public class AbstractChromosomeTest {
         
         a.setFitness(FITNESS);
         
-        Assert.assertEquals(FITNESS, a.getFitness(), PRECISION);
+        Assert.assertEquals(FITNESS, a.getFitness(), TestUtilities.PRECISION);
     }
     
     /**
@@ -225,7 +216,21 @@ public class AbstractChromosomeTest {
     }
     
     /**
-     * Tests the serlialization.
+     * Tests the <code>equals(Object)</code> and <code>hashCode()</code> methods.
+     */
+    @Test
+    public void testEqualsAndHashcode() {
+        
+        AbstractChromosomeExtender a = new AbstractChromosomeExtender(NUMBER);
+        AbstractChromosomeExtender b = new AbstractChromosomeExtender(NUMBER);
+        
+        Assert.assertFalse(a.equals(b));
+        Assert.assertTrue(a.equals(a));
+        Assert.assertEquals(a.hashCode(), a.hashCode());
+    }
+    
+    /**
+     * Tests the serialization.
      * 
      * @throws IOException thrown if any stream is unable to read or write.
      * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
@@ -237,18 +242,9 @@ public class AbstractChromosomeTest {
         
         toSend.setFitness(FITNESS);
         
-        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(byteOutput));
-        
-        out.writeObject(toSend);
-        out.flush();
-        
-        byte[] outputBytes = byteOutput.toByteArray();
-        
-        ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new ByteArrayInputStream(outputBytes)));
-        Object recieved = in.readObject();
+        Object recieved = TestUtilities.serializeDeserialize(toSend);
         Assert.assertTrue(recieved instanceof AbstractChromosome);
         Assert.assertTrue(recieved instanceof AbstractChromosomeExtender);
-        Assert.assertEquals(FITNESS, ((AbstractChromosomeExtender) recieved).getFitness(), PRECISION);
+        Assert.assertEquals(FITNESS, ((AbstractChromosomeExtender) recieved).getFitness(), TestUtilities.PRECISION);
     }
 }

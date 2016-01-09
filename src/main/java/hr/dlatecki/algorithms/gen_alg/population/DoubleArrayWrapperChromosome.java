@@ -16,7 +16,7 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * {@link #fromImmutable(Object, IDoubleArrayCodec)} static methods of this class.
  * 
  * @author Domagoj Latečki
- * @version 1.0
+ * @version 2.0
  * @param <I> type of the object to wrap.
  * @since 1.8
  * @see DoubleArrayChromosome

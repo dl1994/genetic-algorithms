@@ -1,10 +1,10 @@
 package hr.dlatecki.algorithms.gen_alg.operators.abstracts;
 
-import java.util.Random;
 import java.util.SortedSet;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
+import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
  * Class which contains tests for <code>AbstractSelectionOperator</code>.
@@ -20,10 +20,6 @@ public class AbstractSelectionOperatorTest {
      * Size of selection used in tests.
      */
     private static final int SIZE = 10;
-    /**
-     * <code>Random</code> object used in tests.
-     */
-    private static final Random RAND = new Random();
     
     /**
      * Tests the constructor.
@@ -31,18 +27,19 @@ public class AbstractSelectionOperatorTest {
     @Test
     public void testConstructor() {
         
-        AbstractSelectionOperator<IChromosome> a = new AbstractSelectionOperator<IChromosome>(RAND, SIZE) {
-            
-            @Override
-            protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+        AbstractSelectionOperator<IChromosome> a =
+                new AbstractSelectionOperator<IChromosome>(TestUtilities.RAND, SIZE) {
+                    
+                    @Override
+                    protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+                        
+                        return null;
+                    }
+                };
                 
-                return null;
-            }
-        };
-        
         a.select(null);
         
-        Assert.assertEquals(RAND, a.getRand());
+        Assert.assertEquals(TestUtilities.RAND, a.getRand());
     }
     
     /**
@@ -51,22 +48,23 @@ public class AbstractSelectionOperatorTest {
     @Test
     public void testSelection() {
         
-        AbstractSelectionOperator<IChromosome> a = new AbstractSelectionOperator<IChromosome>(RAND, SIZE) {
-            
-            @Override
-            protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+        AbstractSelectionOperator<IChromosome> a =
+                new AbstractSelectionOperator<IChromosome>(TestUtilities.RAND, SIZE) {
+                    
+                    @Override
+                    protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+                        
+                        Assert.assertEquals(SIZE, size);
+                        
+                        return null;
+                    }
+                };
                 
-                Assert.assertEquals(SIZE, size);
-                
-                return null;
-            }
-        };
-        
         a.select(null);
         
         int expectedSize = SIZE * 2;
         
-        a = new AbstractSelectionOperator<IChromosome>(RAND, SIZE) {
+        a = new AbstractSelectionOperator<IChromosome>(TestUtilities.RAND, SIZE) {
             
             @Override
             protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
@@ -86,15 +84,16 @@ public class AbstractSelectionOperatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCheckSelectionSizeThrowsException() {
         
-        AbstractSelectionOperator<IChromosome> a = new AbstractSelectionOperator<IChromosome>(RAND, SIZE) {
-            
-            @Override
-            protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+        AbstractSelectionOperator<IChromosome> a =
+                new AbstractSelectionOperator<IChromosome>(TestUtilities.RAND, SIZE) {
+                    
+                    @Override
+                    protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+                        
+                        return null;
+                    }
+                };
                 
-                return null;
-            }
-        };
-        
         a.performSelection(null, 1);
         a.setSelectionSize(0);
     }

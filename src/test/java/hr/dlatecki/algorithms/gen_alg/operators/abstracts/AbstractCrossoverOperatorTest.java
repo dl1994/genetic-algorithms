@@ -1,10 +1,10 @@
 package hr.dlatecki.algorithms.gen_alg.operators.abstracts;
 
-import java.util.Random;
 import java.util.SortedSet;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
+import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
  * Class which contains tests for <code>AbstractCrossoverOperator</code>.
@@ -17,17 +17,12 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
 public class AbstractCrossoverOperatorTest {
     
     /**
-     * <code>Random</code> object used in tests.
-     */
-    private static final Random RAND = new Random();
-    
-    /**
      * Tests the constructor.
      */
     @Test
     public void testConstructor() {
         
-        AbstractCrossoverOperator<IChromosome> a = new AbstractCrossoverOperator<IChromosome>(RAND) {
+        AbstractCrossoverOperator<IChromosome> a = new AbstractCrossoverOperator<IChromosome>(TestUtilities.RAND) {
             
             @Override
             public IChromosome doCrossover(SortedSet<IChromosome> parents) {
@@ -36,7 +31,7 @@ public class AbstractCrossoverOperatorTest {
             }
         };
         
-        Assert.assertEquals(RAND, a.getRand());
+        Assert.assertEquals(TestUtilities.RAND, a.getRand());
         Assert.assertNull(a.doCrossover(null));
     }
 }

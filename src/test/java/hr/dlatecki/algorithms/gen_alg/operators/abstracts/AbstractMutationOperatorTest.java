@@ -4,6 +4,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
+import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
  * Class which contains tests for <code>AbstractMutationOperator</code>.
@@ -19,14 +20,6 @@ public class AbstractMutationOperatorTest {
      * Mutation chance used in tests.
      */
     private static final double MUTATION_CHANCE = 0.5;
-    /**
-     * Precision to use when comparing if double numbers are equal.
-     */
-    private static final double PRECISION = 10E-5;
-    /**
-     * <code>Random</code> object used in tests.
-     */
-    private static final Random RAND = new Random();
     
     /**
      * Class which extends <code>AbstractMutationOperator</code> in order to gain access to protected parameters in
@@ -71,9 +64,9 @@ public class AbstractMutationOperatorTest {
     @Test
     public void testConstructor() {
         
-        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(RAND, MUTATION_CHANCE);
-        Assert.assertEquals(RAND, a.getRand());
-        Assert.assertEquals(MUTATION_CHANCE, a.getMutationChance(), PRECISION);
+        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
+        Assert.assertEquals(TestUtilities.RAND, a.getRand());
+        Assert.assertEquals(MUTATION_CHANCE, a.getMutationChance(), TestUtilities.PRECISION);
         
         a.mutate(null);
     }
@@ -84,13 +77,13 @@ public class AbstractMutationOperatorTest {
     @Test
     public void testSetter() {
         
-        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(RAND, MUTATION_CHANCE);
+        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         
         a.setMutationChance(0.0);
         a.setMutationChance(1.0);
         a.setMutationChance(MUTATION_CHANCE / 2.0);
         
-        Assert.assertEquals(MUTATION_CHANCE / 2.0, a.getMutationChance(), PRECISION);
+        Assert.assertEquals(MUTATION_CHANCE / 2.0, a.getMutationChance(), TestUtilities.PRECISION);
     }
     
     /**
@@ -99,7 +92,7 @@ public class AbstractMutationOperatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetterThrowsExceptionForTooSmallNumber() {
         
-        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(RAND, MUTATION_CHANCE);
+        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         
         a.setMutationChance(-0.1);
     }
@@ -110,7 +103,7 @@ public class AbstractMutationOperatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetterThrowsExceptionForTooLargeNumber() {
         
-        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(RAND, MUTATION_CHANCE);
+        AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         
         a.setMutationChance(1.1);
     }
