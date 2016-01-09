@@ -1,4 +1,8 @@
-###v0.3.1
+### v0.3.2
+Altered DoubleArrayWrapperChromosome, constructor which takes item as one of the arguments is now private. The
+chromosome which has an item as initial value can now be created using appropriate static methods.
+
+### v0.3.1
 Created DoubleArrayChromosome. DoubleArrayWrapperChromosome now extends DoubleArrayChromosome.
 
 ### v0.3.0
