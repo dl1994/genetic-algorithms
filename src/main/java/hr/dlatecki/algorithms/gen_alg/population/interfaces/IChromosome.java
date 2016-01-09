@@ -7,9 +7,9 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 /**
  * Interface which defines methods for chromosome. Chromosome is a population unit used in genetic algorithms.
  * Chromosomes should be considered equal only if they are the same object. Otherwise, the genetic algorithms
- * implemented in {@link hr.dlatecki.algorithms.gen_alg.impl} package may not work properly. Fitness of the chromosome
- * is determined by fitness tests. It is highly recommended not to directly implement this interface. Instead, extend
- * the <code>AbstractChromosome</code> class which already implements this interface and all of its methods.
+ * implemented in {@link hr.dlatecki.algorithms.gen_alg} package may not work properly. Fitness of the chromosome is
+ * determined by fitness tests. It is highly recommended not to directly implement this interface. Instead, extend the
+ * <code>AbstractChromosome</code> class which already implements this interface and all of its methods.
  * 
  * @author Domagoj Latečki
  * @version 1.0

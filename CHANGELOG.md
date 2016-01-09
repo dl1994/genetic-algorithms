@@ -1,5 +1,7 @@
 ### v0.3.3
-Added test for serialization in AbstractChromosomeTest. Created class for various testing utilities.
+Added test for serialization in AbstractChromosomeTest. Created class for various testing utilities. Removed package
+hr.dlatecki.algorithms.gen\_alg.impl. Algorithms will be in hr.dlatecki.algorithms.gen\_alg package instead. Interfaces
+for codecs now have their own sub-package. Chromosome implementation now have their own sub-package.
 
 ### v0.3.2
 Altered DoubleArrayWrapperChromosome, constructor which takes item as one of the arguments is now private. The

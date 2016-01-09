@@ -1,4 +1,4 @@
-package hr.dlatecki.algorithms.gen_alg.codecs;
+package hr.dlatecki.algorithms.gen_alg.codecs.interfaces;
 
 /**
  * Interface which specifies methods for encoding and decoding an object into and from an array of <code>double</code>s.

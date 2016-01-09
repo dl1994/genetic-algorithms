@@ -1,7 +1,6 @@
 /**
- * Package which contains implementations of the chromosomes and population generators used in genetic algorithms
- * defined in {@link hr.dlatecki.algorithms.gen_alg.impl} package. Also contains sub-packages which define interfaces
- * and abstract classes for chromosomes, population generators and fitness tests.
+ * Contains sub-packages which define interfaces and abstract classes for chromosomes, population generators and fitness
+ * tests. Also contains several implementations of the chromosomes and population generators.
  * 
  * @author Domagoj Latečki
  * @since 1.8

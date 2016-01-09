@@ -6,7 +6,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IFitnessTest;
 
 /**
  * An abstract class which represents a chromosome. Chromosome is a population unit used in genetic algorithms from
- * {@link hr.dlatecki.algorithms.gen_alg.impl} package. Each chromosome has a fitness value. The fitness value is set by
+ * {@link hr.dlatecki.algorithms.gen_alg} package. Each chromosome has a fitness value. The fitness value is set by
  * fitness tests (see {@link IFitnessTest} for more details). It is highly recommended that any chromosome which is to
  * be used in the algorithms from previously specified package extends this class instead of directly implementing the
  * <code>IChromosome</code> interface.

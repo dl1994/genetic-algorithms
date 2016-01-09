@@ -11,7 +11,7 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
  * @author Domagoj Latečki
  * @version 1.1
  * @since 1.8
- * @param <C> the ype of chromosome which will be used in the mutation operator.
+ * @param <C> the type of chromosome which will be used in the mutation operator.
  * @see IChromosome
  * @see IMutationOperator
  */

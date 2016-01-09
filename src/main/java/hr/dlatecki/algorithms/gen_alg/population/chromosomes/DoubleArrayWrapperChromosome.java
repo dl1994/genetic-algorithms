@@ -1,7 +1,7 @@
-package hr.dlatecki.algorithms.gen_alg.population;
+package hr.dlatecki.algorithms.gen_alg.population.chromosomes;
 
 import java.util.Arrays;
-import hr.dlatecki.algorithms.gen_alg.codecs.IDoubleArrayCodec;
+import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IDoubleArrayCodec;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 
 /**
