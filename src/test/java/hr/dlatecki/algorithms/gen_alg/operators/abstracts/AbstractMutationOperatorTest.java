@@ -67,8 +67,6 @@ public class AbstractMutationOperatorTest {
         AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         Assert.assertEquals(TestUtilities.RAND, a.getRand());
         Assert.assertEquals(MUTATION_CHANCE, a.getMutationChance(), TestUtilities.PRECISION);
-        
-        a.mutate(null);
     }
     
     /**

@@ -1,5 +1,6 @@
 package hr.dlatecki.algorithms.gen_alg.operators.abstracts;
 
+import java.util.Random;
 import java.util.SortedSet;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,23 +23,38 @@ public class AbstractSelectionOperatorTest {
     private static final int SIZE = 10;
     
     /**
+     * Class which extends <code>AbstractSelectionOperator</code>.
+     * 
+     * @author Domagoj Latečki
+     * @version 1.0
+     * @since 1.8
+     */
+    private static class AbstractSelectionOperatorExtender extends AbstractSelectionOperator<IChromosome> {
+        
+        /**
+         * Constructor used to pass arguments to superclass constructor.
+         * 
+         * @param rand <code>Random</code> object to be passed to superclass constructor.
+         * @param selectionSize selection size to be passed to superclass constructor.
+         */
+        public AbstractSelectionOperatorExtender(Random rand, int selectionSize) {
+            super(rand, selectionSize);
+        }
+        
+        @Override
+        protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
+            
+            return null;
+        }
+    }
+    
+    /**
      * Tests the constructor.
      */
     @Test
     public void testConstructor() {
         
-        AbstractSelectionOperator<IChromosome> a =
-                new AbstractSelectionOperator<IChromosome>(TestUtilities.RAND, SIZE) {
-                    
-                    @Override
-                    protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
-                        
-                        return null;
-                    }
-                };
-                
-        a.select(null);
-        
+        AbstractSelectionOperator<IChromosome> a = new AbstractSelectionOperatorExtender(TestUtilities.RAND, SIZE);
         Assert.assertEquals(TestUtilities.RAND, a.getRand());
     }
     
@@ -84,17 +100,8 @@ public class AbstractSelectionOperatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCheckSelectionSizeThrowsException() {
         
-        AbstractSelectionOperator<IChromosome> a =
-                new AbstractSelectionOperator<IChromosome>(TestUtilities.RAND, SIZE) {
-                    
-                    @Override
-                    protected SortedSet<IChromosome> performSelection(SortedSet<IChromosome> pool, int size) {
-                        
-                        return null;
-                    }
-                };
-                
-        a.performSelection(null, 1);
+        AbstractSelectionOperator<IChromosome> a = new AbstractSelectionOperatorExtender(TestUtilities.RAND, SIZE);
+        
         a.setSelectionSize(0);
     }
 }

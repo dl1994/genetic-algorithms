@@ -32,6 +32,5 @@ public class AbstractCrossoverOperatorTest {
         };
         
         Assert.assertEquals(TestUtilities.RAND, a.getRand());
-        Assert.assertNull(a.doCrossover(null));
     }
 }

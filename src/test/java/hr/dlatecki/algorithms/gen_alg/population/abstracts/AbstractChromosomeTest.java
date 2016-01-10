@@ -1,7 +1,6 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import org.junit.Assert;
@@ -39,12 +38,8 @@ public class AbstractChromosomeTest {
      * @version 1.0
      * @since 1.8
      */
-    private static class MutableContainer implements Serializable {
+    private static class MutableContainer {
         
-        /**
-         * Serial version UID.
-         */
-        private static final long serialVersionUID = 585747696495607118L;
         /**
          * Mutable number.
          */
@@ -96,7 +91,7 @@ public class AbstractChromosomeTest {
         /**
          * Object which is a mutable container.
          */
-        private MutableContainer contaianer;
+        private transient MutableContainer contaianer;
         
         /**
          * Constructs the <code>AbstractChromosomeExtender</code> which will contain mutable container with provided

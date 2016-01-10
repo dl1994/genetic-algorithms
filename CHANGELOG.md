@@ -1,6 +1,8 @@
 ### v0.3.4
 All classes and interface now have documented version 1.0. The versions won't change until v1.0.0. Created
-implementations of binary chromosomes: ByteArrayChromosome and ByteArrayWrapperChromosome.
+implementations of binary chromosomes: ByteArrayChromosome and ByteArrayWrapperChromosome. MutableContainer in
+AbstractChromosomeTest is no longer serializable, it is instead marked as transient property. Some tests are
+restructured slightly.
 
 ### v0.3.3
 Added test for serialization in AbstractChromosomeTest. Created class for various testing utilities. Removed package
