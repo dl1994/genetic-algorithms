@@ -1,3 +1,8 @@
+# Development version history
+
+### v0.3.5
+Added package-info for package which contains operators. Added tests for DoubleArrayChromosome.
+
 ### v0.3.4
 All classes and interface now have documented version 1.0. The versions won't change until v1.0.0. Created
 implementations of binary chromosomes: ByteArrayChromosome and ByteArrayWrapperChromosome. MutableContainer in
