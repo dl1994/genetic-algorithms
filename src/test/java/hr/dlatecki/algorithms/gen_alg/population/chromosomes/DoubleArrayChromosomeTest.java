@@ -46,25 +46,23 @@ public class DoubleArrayChromosomeTest {
         
         Assert.assertNotSame(ARRAY_1, values);
         Assert.assertNotSame(values, a.getValues());
+        TestUtilities.assertArrayElementsEqual(ARRAY_1, values);
         
-        assertArrayElementsEqual(ARRAY_1, values);
         a.setValues(ARRAY_2);
         values = a.getValues();
         
         Assert.assertNotSame(ARRAY_2, values);
-        
-        assertArrayElementsEqual(ARRAY_2, values);
+        TestUtilities.assertArrayElementsEqual(ARRAY_2, values);
         
         ARRAY_2[0] = NUMBER;
         
         Assert.assertNotEquals(NUMBER, a.getValues()[0]);
         
         a.setValues(ARRAY_3);
-        assertArrayElementsEqual(ARRAY_3, a.getValues());
         
+        TestUtilities.assertArrayElementsEqual(ARRAY_3, a.getValues());
         DoubleArrayChromosome b = (DoubleArrayChromosome) a.clone();
-        
-        assertArrayElementsEqual(a.getValues(), b.getValues());
+        TestUtilities.assertArrayElementsEqual(a.getValues(), b.getValues());
     }
     
     /**
@@ -79,22 +77,6 @@ public class DoubleArrayChromosomeTest {
         DoubleArrayChromosome toSend = new DoubleArrayChromosome(ARRAY_1);
         Object recieved = TestUtilities.serializeDeserialize(toSend);
         Assert.assertTrue(recieved instanceof DoubleArrayChromosome);
-        
-        assertArrayElementsEqual(ARRAY_1, ((DoubleArrayChromosome) recieved).getValues());
-    }
-    
-    /**
-     * Tests if two arrays have equal elements.
-     * 
-     * @param expected array of expected values.
-     * @param actual actual values.
-     */
-    private void assertArrayElementsEqual(double[] expected, double[] actual) {
-        
-        Assert.assertEquals(expected.length, actual.length);
-        
-        for (int i = 0; i < expected.length; i++) {
-            Assert.assertEquals(expected[i], actual[i], TestUtilities.PRECISION);
-        }
+        TestUtilities.assertArrayElementsEqual(ARRAY_1, ((DoubleArrayChromosome) recieved).getValues());
     }
 }

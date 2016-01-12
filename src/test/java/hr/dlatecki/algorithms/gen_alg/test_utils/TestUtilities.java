@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Random;
+import org.junit.Assert;
 
 /**
  * Class which contains various methods and constants for testing.
@@ -50,5 +51,35 @@ public class TestUtilities {
         ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new ByteArrayInputStream(outputBytes)));
         
         return in.readObject();
+    }
+    
+    /**
+     * Tests if two arrays of <code>double</code>s have equal elements.
+     * 
+     * @param expected array of expected values.
+     * @param actual actual values.
+     */
+    public static void assertArrayElementsEqual(double[] expected, double[] actual) {
+        
+        Assert.assertEquals(expected.length, actual.length);
+        
+        for (int i = 0; i < expected.length; i++) {
+            Assert.assertEquals(expected[i], actual[i], TestUtilities.PRECISION);
+        }
+    }
+    
+    /**
+     * Tests if two arrays of <code>byte</code>s have equal elements.
+     * 
+     * @param expected array of expected values.
+     * @param actual actual values.
+     */
+    public static void assertArrayElementsEqual(byte[] expected, byte[] actual) {
+        
+        Assert.assertEquals(expected.length, actual.length);
+        
+        for (int i = 0; i < expected.length; i++) {
+            Assert.assertEquals(expected[i], actual[i]);
+        }
     }
 }

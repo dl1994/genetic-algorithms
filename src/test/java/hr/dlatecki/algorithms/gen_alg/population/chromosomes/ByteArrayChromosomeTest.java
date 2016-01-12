@@ -46,25 +46,23 @@ public class ByteArrayChromosomeTest {
         
         Assert.assertNotSame(ARRAY_1, values);
         Assert.assertNotSame(values, a.getBytes());
+        TestUtilities.assertArrayElementsEqual(ARRAY_1, values);
         
-        assertArrayElementsEqual(ARRAY_1, values);
         a.setBytes(ARRAY_2);
         values = a.getBytes();
         
         Assert.assertNotSame(ARRAY_2, values);
-        
-        assertArrayElementsEqual(ARRAY_2, values);
+        TestUtilities.assertArrayElementsEqual(ARRAY_2, values);
         
         ARRAY_2[0] = NUMBER;
         
         Assert.assertNotEquals(NUMBER, a.getBytes()[0]);
         
         a.setBytes(ARRAY_3);
-        assertArrayElementsEqual(ARRAY_3, a.getBytes());
         
+        TestUtilities.assertArrayElementsEqual(ARRAY_3, a.getBytes());
         ByteArrayChromosome b = (ByteArrayChromosome) a.clone();
-        
-        assertArrayElementsEqual(a.getBytes(), b.getBytes());
+        TestUtilities.assertArrayElementsEqual(a.getBytes(), b.getBytes());
     }
     
     /**
@@ -79,22 +77,6 @@ public class ByteArrayChromosomeTest {
         ByteArrayChromosome toSend = new ByteArrayChromosome(ARRAY_1);
         Object recieved = TestUtilities.serializeDeserialize(toSend);
         Assert.assertTrue(recieved instanceof ByteArrayChromosome);
-        
-        assertArrayElementsEqual(ARRAY_1, ((ByteArrayChromosome) recieved).getBytes());
-    }
-    
-    /**
-     * Tests if two arrays have equal elements.
-     * 
-     * @param expected array of expected values.
-     * @param actual actual values.
-     */
-    private void assertArrayElementsEqual(byte[] expected, byte[] actual) {
-        
-        Assert.assertEquals(expected.length, actual.length);
-        
-        for (int i = 0; i < expected.length; i++) {
-            Assert.assertEquals(expected[i], actual[i], TestUtilities.PRECISION);
-        }
+        TestUtilities.assertArrayElementsEqual(ARRAY_1, ((ByteArrayChromosome) recieved).getBytes());
     }
 }
