@@ -8,31 +8,31 @@ import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
- * Class which contains tests for <code>DoubleArrayChromosome</code>.
+ * Class which contains tests for <code>ByteArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8
- * @see DoubleArrayChromosome
+ * @see ByteArrayChromosome
  */
-public class DoubleArrayChromosomeTest {
+public class ByteArrayChromosomeTest {
     
     /**
-     * First array of <code>double</code>s used in tests.
+     * First array of <code>byte</code>s used in tests.
      */
-    private static final double[] ARRAY_1 = { 1.0, 2.0, 3.0 };
+    private static final byte[] ARRAY_1 = { 0, 1, 5 };
     /**
-     * Second array of <code>double</code>s used in tests.
+     * Second array of <code>byte</code>s used in tests.
      */
-    private static final double[] ARRAY_2 = { 5.0, -2.0, 2.0, 1.0, 11.9, 7.7 };
+    private static final byte[] ARRAY_2 = { 7, 11, -5, -3, 1, 0 };
     /**
-     * Third array of <code>double</code>s used in tests. Must have same length as {@link #ARRAY_2}.
+     * Third array of <code>byte</code>s used in tests. Must have same length as {@link #ARRAY_2}.
      */
-    private static final double[] ARRAY_3 = { -5.0, -1.0, 5.0, 3.0, 1341.9, -9.7 };
+    private static final byte[] ARRAY_3 = { 4, 0, 3, 2, 5, -100 };
     /**
      * Number used in tests. Must be different from first element of {@link #ARRAY_2}.
      */
-    private static final double NUMBER = 0.0;
+    private static final byte NUMBER = 14;
     
     /**
      * Tests the constructor, getter and setter.
@@ -40,16 +40,16 @@ public class DoubleArrayChromosomeTest {
     @Test
     public void testConstructorGetterAndSetter() {
         
-        DoubleArrayChromosome a = new DoubleArrayChromosome(ARRAY_1);
+        ByteArrayChromosome a = new ByteArrayChromosome(ARRAY_1);
         
-        double[] values = a.getValues();
+        byte[] values = a.getBytes();
         
         Assert.assertNotSame(ARRAY_1, values);
-        Assert.assertNotSame(values, a.getValues());
+        Assert.assertNotSame(values, a.getBytes());
         
         assertArrayElementsEqual(ARRAY_1, values);
-        a.setValues(ARRAY_2);
-        values = a.getValues();
+        a.setBytes(ARRAY_2);
+        values = a.getBytes();
         
         Assert.assertNotSame(ARRAY_2, values);
         
@@ -57,14 +57,14 @@ public class DoubleArrayChromosomeTest {
         
         ARRAY_2[0] = NUMBER;
         
-        Assert.assertNotEquals(NUMBER, a.getValues()[0]);
+        Assert.assertNotEquals(NUMBER, a.getBytes()[0]);
         
-        a.setValues(ARRAY_3);
-        assertArrayElementsEqual(ARRAY_3, a.getValues());
+        a.setBytes(ARRAY_3);
+        assertArrayElementsEqual(ARRAY_3, a.getBytes());
         
-        DoubleArrayChromosome b = (DoubleArrayChromosome) a.clone();
+        ByteArrayChromosome b = (ByteArrayChromosome) a.clone();
         
-        assertArrayElementsEqual(a.getValues(), b.getValues());
+        assertArrayElementsEqual(a.getBytes(), b.getBytes());
     }
     
     /**
@@ -76,11 +76,11 @@ public class DoubleArrayChromosomeTest {
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
         
-        DoubleArrayChromosome toSend = new DoubleArrayChromosome(ARRAY_1);
+        ByteArrayChromosome toSend = new ByteArrayChromosome(ARRAY_1);
         Object recieved = TestUtilities.serializeDeserialize(toSend);
-        Assert.assertTrue(recieved instanceof DoubleArrayChromosome);
+        Assert.assertTrue(recieved instanceof ByteArrayChromosome);
         
-        assertArrayElementsEqual(ARRAY_1, ((DoubleArrayChromosome) recieved).getValues());
+        assertArrayElementsEqual(ARRAY_1, ((ByteArrayChromosome) recieved).getBytes());
     }
     
     /**
@@ -89,7 +89,7 @@ public class DoubleArrayChromosomeTest {
      * @param expected array of expected values.
      * @param actual actual values.
      */
-    private void assertArrayElementsEqual(double[] expected, double[] actual) {
+    private void assertArrayElementsEqual(byte[] expected, byte[] actual) {
         
         Assert.assertEquals(expected.length, actual.length);
         
