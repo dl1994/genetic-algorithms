@@ -1,5 +1,9 @@
 # Development history
 
+### v0.3.6
+Created DoubleArrayToNaturalBinaryCodec, but it is not finished yet. It currently only encodes values if 8 bits per
+value are specified.
+
 ### v0.3.5
 Added package-info for package which contains operators. Added tests for DoubleArrayChromosome and ByteArrayChromosome.
 
