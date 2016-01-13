@@ -60,17 +60,17 @@ public class DoubleArrayToNaturalBinaryCodec implements IByteArrayCodec<double[]
         if (bitsPerNumber == 8) {
             encode8Bits(item, output);
         } else if (bitsPerNumber < 16) {
-            // TODO: add method for encoding 9-15 bits
+            encode9To15Bits(item, output);
         } else if (bitsPerNumber == 16) {
-            // TODO: add method for encoding 16 bits
+            encode16Bits(item, output);
         } else if (bitsPerNumber < 24) {
-            // TODO: add method for encoding 17-13 bits
+            encode17To23Bits(item, output);
         } else if (bitsPerNumber == 24) {
-            // TODO: add method for encoding 24 bits
+            encode24Bits(item, output);
         } else if (bitsPerNumber < 32) {
-            // TODO: add method for encoding 25-31 bits
+            encode25To31Bits(item, output);
         } else {
-            // TODO: add method for encoding 32 bits
+            encode32Bits(item, output);
         }
         
         return output;
@@ -110,6 +110,76 @@ public class DoubleArrayToNaturalBinaryCodec implements IByteArrayCodec<double[]
             long encodedValue = encodeValue(value);
             
             bytes[i] = (byte) encodedValue;
+            i++;
+        }
+    }
+    
+    private void encode9To15Bits(double[] values, byte[] bytes) {
+        // TODO: add code
+    }
+    
+    /**
+     * Used to encode and store values when each value is assigned exactly 16 bits.
+     * 
+     * @param values values to encode and store.
+     * @param bytes array in which encoded bits will be written.
+     */
+    private void encode16Bits(double values[], byte[] bytes) {
+        
+        int i = 0;
+        for (double value : values) {
+            long encodedValue = encodeValue(value);
+            
+            bytes[i] = (byte) (encodedValue >>> 8L);
+            bytes[i + 1] = (byte) (encodedValue & 0xFFL);
+            i += 2;
+        }
+    }
+    
+    private void encode17To23Bits(double[] values, byte[] bytes) {
+        // TODO: add code
+    }
+    
+    /**
+     * Used to encode and store values when each value is assigned exactly 24 bits.
+     * 
+     * @param values values to encode and store.
+     * @param bytes array in which encoded bits will be written.
+     */
+    private void encode24Bits(double values[], byte[] bytes) {
+        
+        int i = 0;
+        for (double value : values) {
+            long encodedValue = encodeValue(value);
+            
+            bytes[i] = (byte) (encodedValue >>> 16L);
+            bytes[i + 1] = (byte) ((encodedValue >>> 8L) & 0xFFL);
+            bytes[i + 2] = (byte) (encodedValue & 0xFFL);
+            i += 3;
+        }
+    }
+    
+    private void encode25To31Bits(double[] values, byte[] bytes) {
+        // TODO: add code
+    }
+    
+    /**
+     * Used to encode and store values when each value is assigned exactly 24 bits.
+     * 
+     * @param values values to encode and store.
+     * @param bytes array in which encoded bits will be written.
+     */
+    private void encode32Bits(double values[], byte[] bytes) {
+        
+        int i = 0;
+        for (double value : values) {
+            long encodedValue = encodeValue(value);
+            
+            bytes[i] = (byte) (encodedValue >>> 24L);
+            bytes[i + 1] = (byte) ((encodedValue >>> 16L) & 0xFFL);
+            bytes[i + 2] = (byte) ((encodedValue >>> 8L) & 0xFFL);
+            bytes[i + 3] = (byte) (encodedValue & 0xFFL);
+            i += 4;
         }
     }
     
