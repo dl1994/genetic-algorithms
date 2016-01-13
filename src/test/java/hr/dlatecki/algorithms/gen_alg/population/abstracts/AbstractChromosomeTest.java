@@ -220,7 +220,6 @@ public class AbstractChromosomeTest {
         
         AbstractChromosomeExtender a = new AbstractChromosomeExtender(NUMBER);
         AbstractChromosomeExtender b = new AbstractChromosomeExtender(NUMBER);
-        
         Assert.assertFalse(a.equals(b));
         Assert.assertTrue(a.equals(a));
         Assert.assertEquals(a.hashCode(), a.hashCode());

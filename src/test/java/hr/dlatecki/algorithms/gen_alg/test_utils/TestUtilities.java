@@ -31,6 +31,11 @@ public class TestUtilities {
     public static final Random RAND = new Random();
     
     /**
+     * Empty protected constructor - this class only has static methods and fields.
+     */
+    protected TestUtilities() {}
+    
+    /**
      * Serializes and deserializes an object. The returned object should have same values as the sent object.
      * 
      * @param object object to send through serialization/deserialization process.

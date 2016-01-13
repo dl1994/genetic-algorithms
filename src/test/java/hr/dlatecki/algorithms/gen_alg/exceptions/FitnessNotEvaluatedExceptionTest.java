@@ -30,7 +30,6 @@ public class FitnessNotEvaluatedExceptionTest {
         
         FitnessNotEvaluatedException a = new FitnessNotEvaluatedException();
         Assert.assertNull(a.getMessage());
-        
         FitnessNotEvaluatedException b = new FitnessNotEvaluatedException(MESSAGE);
         Assert.assertEquals(MESSAGE, b.getMessage());
     }

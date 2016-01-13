@@ -71,7 +71,8 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
     private void checkSelectionSize(int size) {
         
         if (size < 1) {
-            throw new IllegalArgumentException("Selection size cannot be less than 1.");
+            throw new IllegalArgumentException(
+                    "Selection size cannot be less than 1. Provided value was: " + size + ".");
         }
     }
     

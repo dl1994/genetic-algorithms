@@ -38,7 +38,8 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
     public final Collection<C> generatePopulation(int size) {
         
         if (size < 0) {
-            throw new IllegalArgumentException("Cannot generate population of negative size.");
+            throw new IllegalArgumentException(
+                    "Cannot generate population of negative size. Provided value was: " + size + ".");
         }
         
         return createPopulation(size);
