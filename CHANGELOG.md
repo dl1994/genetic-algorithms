@@ -1,5 +1,13 @@
 # Development history
 
+### v0.3.7
+Added new abstract class AbstractDoubleArrayToBinaryCodec which implements encoding and decoding methods and defines
+abstract methods how to encode and decode a single double value into bytes. Moved all relevant code from
+DoubleArrayToNaturalBinaryCodec to the new abstract class. DoubleArrayToNaturalBinaryCodec is now fully implemented,
+however some methods are still missing in AbstractDoubleArrayToBinaryCodec. Added skeleton for
+DoubleArrayToGrayBinaryCodec in order have link to it in documentation.
+
+
 ### v0.3.6
 Created DoubleArrayToNaturalBinaryCodec, but it is not finished yet. It currently only encodes values if 8 bits per
 value are specified.
