@@ -1,3 +1,5 @@
+// Copyright (C) 2016 Domagoj Latečki
+/* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.codecs.abstracts;
 
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
@@ -7,7 +9,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     /**
      * Number of code bits per single <code>double</code> value.
      */
-    protected int bitsPerNumber;
+    protected int bitsPerValue;
     /**
      * Minimum value which will be encoded. All values smaller than this will have bits set to all zeroes.
      */
@@ -42,7 +44,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
                             + ", upperBound = " + upperBound + ".");
         }
         
-        this.bitsPerNumber = bitsPerNumber;
+        this.bitsPerValue = bitsPerNumber;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
         
@@ -52,20 +54,20 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     @Override
     public byte[] encode(double[] item) {
         
-        int numOfBytes = (int) Math.ceil((item.length * bitsPerNumber) / 8.0);
+        int numOfBytes = (int) Math.ceil((item.length * bitsPerValue) / 8.0);
         byte[] output = new byte[numOfBytes];
         
-        if (bitsPerNumber == 8) {
+        if (bitsPerValue == 8) {
             encode8Bits(item, output);
-        } else if (bitsPerNumber < 16) {
+        } else if (bitsPerValue < 16) {
             encode9To15Bits(item, output);
-        } else if (bitsPerNumber == 16) {
+        } else if (bitsPerValue == 16) {
             encode16Bits(item, output);
-        } else if (bitsPerNumber < 24) {
+        } else if (bitsPerValue < 24) {
             encode17To23Bits(item, output);
-        } else if (bitsPerNumber == 24) {
+        } else if (bitsPerValue == 24) {
             encode24Bits(item, output);
-        } else if (bitsPerNumber < 32) {
+        } else if (bitsPerValue < 32) {
             encode25To31Bits(item, output);
         } else {
             encode32Bits(item, output);
@@ -163,8 +165,26 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     @Override
     public double[] decode(byte[] bytes) {
         
-        // TODO Auto-generated method stub
-        return null;
+        int numOfValues = (int) Math.floor((bytes.length * 8.0) / bitsPerValue);
+        double[] output = new double[numOfValues];
+        
+        if (bitsPerValue == 8) {
+            // TODO: decoding
+        } else if (bitsPerValue < 16) {
+            // TODO: decoding
+        } else if (bitsPerValue == 16) {
+            // TODO: decoding
+        } else if (bitsPerValue < 24) {
+            // TODO: decoding
+        } else if (bitsPerValue == 24) {
+            // TODO: decoding
+        } else if (bitsPerValue < 32) {
+            // TODO: decoding
+        } else {
+            // TODO: decoding
+        }
+        
+        return output;
     }
     
     /**
