@@ -1,5 +1,8 @@
 # Development history
 
+### v0.3.8
+Finished encoding in AbstractDoubleArrayToBinaryCodec.
+
 ### v0.3.7
 Added new abstract class AbstractDoubleArrayToBinaryCodec which implements encoding and decoding methods and defines
 abstract methods how to encode and decode a single double value into bytes. Moved all relevant code from

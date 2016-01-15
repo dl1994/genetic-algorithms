@@ -4,16 +4,11 @@ package hr.dlatecki.algorithms.gen_alg.codecs;
 
 import hr.dlatecki.algorithms.gen_alg.codecs.abstracts.AbstractDoubleArrayToBinaryCodec;
 
-// TODO: check javadoc information
 /**
  * An implementation of <code>AbstractDoubleArrayToBinaryCodec</code> which encodes <code>double</code>s with natural
  * binary code. Values can range from specified <code>lowerBound</code> to specified <code>upperBound</code>, with all
  * zeroes representing <code>lowerBound</code> and all ones representing <code>upperBound</code>. Minimum and maximum
- * number of bits per value is specified in <code>AbstractDoubleArrayToBinaryCodec</code>.<br>
- * <br>
- * This implementation of <code>double/byte</code> codec is useful when desired values in search space are not
- * neccecarily next to each other, but rather far apart and randomly distributed. If values in search space are expected
- * to be relatively close together, use <code>DoubleArrayToGrayBinaryCodec</code> instead.
+ * number of bits per value is specified in <code>AbstractDoubleArrayToBinaryCodec</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
