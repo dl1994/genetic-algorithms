@@ -1,7 +1,7 @@
 # Development history
 
 ### v0.3.8
-Finished encoding in AbstractDoubleArrayToBinaryCodec.
+Finished encoding in AbstractDoubleArrayToBinaryCodec. Added several missing package-info files.
 
 ### v0.3.7
 Added new abstract class AbstractDoubleArrayToBinaryCodec which implements encoding and decoding methods and defines
