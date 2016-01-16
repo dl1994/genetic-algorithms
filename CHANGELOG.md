@@ -1,5 +1,8 @@
 # Development history
 
+### v0.3.9
+AbstractDoubleArrayToBinaryCodec is now finished, but it is not tested yet.
+
 ### v0.3.8
 Finished encoding in AbstractDoubleArrayToBinaryCodec. Added several missing package-info files.
 
@@ -9,7 +12,6 @@ abstract methods how to encode and decode a single double value into bytes. Move
 DoubleArrayToNaturalBinaryCodec to the new abstract class. DoubleArrayToNaturalBinaryCodec is now fully implemented,
 however some methods are still missing in AbstractDoubleArrayToBinaryCodec. Added skeleton for
 DoubleArrayToGrayBinaryCodec in order have link to it in documentation.
-
 
 ### v0.3.6
 Created DoubleArrayToNaturalBinaryCodec, but it is not finished yet. It currently only encodes values if 8 bits per
@@ -56,19 +58,15 @@ selection. AbstractPopulationGenerator now throws exception if requested populat
 comparison method in AbstractChromosome.
 
 ### v0.2.1
-
 Added tests for FitnessNotEvaluatedException. Updated documentation for all classes and packages, they now include
 @since tags to indicate in which JDK version the specific class or package was added.
 
 ### v0.2.0
-
 Added abstract classes for operators and population. Created package for exceptions and added exception for
 non-evaluated fitness. Added package-info for all new packages.
 
 ### v0.1.1
-
 Added package-info for all relevant packages.
 
 ### v0.1.0
-
 Defined interfaces for operators and population.

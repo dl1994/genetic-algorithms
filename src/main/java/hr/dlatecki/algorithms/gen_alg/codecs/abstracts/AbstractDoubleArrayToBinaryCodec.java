@@ -259,15 +259,34 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      */
     private void decode8Bits(double[] values, byte[] bytes) {
         
-        int i = 0;
-        for (byte bits : bytes) {
-            values[i] = decodeValue(bits);
-            i++;
+        for (int i = 0; i < values.length; i++) {
+            values[i] = decodeValue(bytes[i]);
         }
     }
     
+    /**
+     * Used to decode stored <code>byte</code>s into values when each value is between 9 and 15 bits, inclusive.
+     * 
+     * @param values in which decoded values will be stored.
+     * @param bytes array to decode.
+     */
     private void decode9To15Bits(double[] values, byte[] bytes) {
-    
+        
+        int j = 0;
+        int bitPosition = 0;
+        for (int i = 0; i < values.length; i++) {
+            int rot = bitsPerValue - 8;
+            int oldBitPosition = bitPosition;
+            long temp = (bytes[j] << bitPosition) & BYTE_MASK;
+            long valueBits = 0L;
+            
+            bitPosition = (rot + bitPosition) % 8;
+            valueBits |= temp << rot;
+            rot = 8 - rot - oldBitPosition;
+            valueBits |= bytes[j + 1] >>> rot;
+            values[i] = decodeValue(valueBits);
+            j++;
+        }
     }
     
     /**
@@ -278,26 +297,38 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      */
     private void decode16Bits(double[] values, byte[] bytes) {
         
-        int i = 0;
-        int bitCounter = 0;
-        for (byte bits : bytes) {
-            long valueBits = 0L;
-            
-            if (bitCounter == 0) {
-                valueBits = bits << 8;
-                bitCounter++;
-            } else {
-                valueBits |= bits;
-                bitCounter = 0;
-            }
-            
-            values[i] = decodeValue(valueBits);
-            i++;
+        int j = 0;
+        for (int i = 0; i < values.length; i++) {
+            values[i] = decodeValue((bytes[j] << 8) & bytes[j + 1]);
+            j += 2;
         }
     }
     
+    /**
+     * Used to decode stored <code>byte</code>s into values when each value is between 17 and 23 bits, inclusive.
+     * 
+     * @param values in which decoded values will be stored.
+     * @param bytes array to decode.
+     */
     private void decode17To23Bits(double[] values, byte[] bytes) {
-    
+        
+        int j = 0;
+        int bitPosition = 0;
+        for (int i = 0; i < values.length; i++) {
+            int rot = bitsPerValue - 8;
+            int oldBitPosition = bitPosition;
+            long temp = (bytes[j] << bitPosition) & BYTE_MASK;
+            long valueBits = 0L;
+            
+            bitPosition = (rot + bitPosition) % 8;
+            valueBits |= temp << rot;
+            rot = bitsPerValue - 16 + oldBitPosition;
+            valueBits |= bytes[j + 1] << rot;
+            rot = 8 - rot;
+            valueBits |= bytes[j + 2] >>> rot;
+            values[i] = decodeValue(valueBits);
+            j += 2;
+        }
     }
     
     /**
@@ -308,29 +339,40 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      */
     private void decode24Bits(double[] values, byte[] bytes) {
         
-        int i = 0;
-        int bitCounter = 0;
-        for (byte bits : bytes) {
-            long valueBits = 0L;
-            
-            if (bitCounter == 0) {
-                valueBits = bits << 16;
-                bitCounter++;
-            } else if (bitCounter == 1) {
-                valueBits |= bits << 8;
-                bitCounter++;
-            } else {
-                valueBits |= bits;
-                bitCounter = 0;
-            }
-            
-            values[i] = decodeValue(valueBits);
-            i++;
+        int j = 0;
+        for (int i = 0; i < values.length; i++) {
+            values[i] = decodeValue((bytes[j] << 16) & (bytes[j + 1] << 8) & bytes[j + 2]);
+            j += 3;
         }
     }
     
+    /**
+     * Used to decode stored <code>byte</code>s into values when each value is between 25 and 31 bits, inclusive.
+     * 
+     * @param values in which decoded values will be stored.
+     * @param bytes array to decode.
+     */
     private void decode25To31Bits(double[] values, byte[] bytes) {
-    
+        
+        int j = 0;
+        int bitPosition = 0;
+        for (int i = 0; i < values.length; i++) {
+            int rot = bitsPerValue - 8;
+            int oldBitPosition = bitPosition;
+            long temp = (bytes[j] << bitPosition) & BYTE_MASK;
+            long valueBits = 0L;
+            
+            bitPosition = (rot + bitPosition) % 8;
+            valueBits |= temp << rot;
+            rot = bitsPerValue - 24 + oldBitPosition;
+            valueBits |= bytes[j + 1] << rot;
+            rot = bitsPerValue - 16 + oldBitPosition;
+            valueBits |= bytes[j + 2] << rot;
+            rot = 8 - rot;
+            valueBits |= bytes[j + 3] >>> rot;
+            values[i] = decodeValue(valueBits);
+            j += 3;
+        }
     }
     
     /**
@@ -341,27 +383,10 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      */
     private void decode32Bits(double[] values, byte[] bytes) {
         
-        int i = 0;
-        int bitCounter = 0;
-        for (byte bits : bytes) {
-            long valueBits = 0L;
-            
-            if (bitCounter == 0) {
-                valueBits = bits << 24;
-                bitCounter++;
-            } else if (bitCounter == 1) {
-                valueBits |= bits << 16;
-                bitCounter++;
-            } else if (bitCounter == 2) {
-                valueBits |= bits << 8;
-                bitCounter++;
-            } else {
-                valueBits |= bits;
-                bitCounter = 0;
-            }
-            
-            values[i] = decodeValue(valueBits);
-            i++;
+        int j = 0;
+        for (int i = 0; i < values.length; i++) {
+            values[i] = decodeValue((bytes[j] << 24) & (bytes[j + 1] << 16) & (bytes[j + 2] << 8) & (bytes[j + 3]));
+            j += 4;
         }
     }
     
