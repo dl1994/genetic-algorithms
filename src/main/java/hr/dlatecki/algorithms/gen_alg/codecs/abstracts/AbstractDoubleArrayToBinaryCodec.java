@@ -13,6 +13,7 @@ import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8
+ * @see IByteArrayCodec
  */
 public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCodec<double[]> {
     
@@ -46,19 +47,39 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     protected double step;
     
     /**
+     * Fetches the minimum number of bits per value.
+     * 
+     * @return Minimum number of bits per value.
+     */
+    public static int getMinNumOfBitsPerValue() {
+        
+        return MIN_BITS_PER_VALUE;
+    }
+    
+    /**
+     * Fetches the maximum number of bits per value.
+     * 
+     * @return Maximum number of bits per value.
+     */
+    public static int getMaxNumOfBitsPerValue() {
+        
+        return MAX_BITS_PER_VALUE;
+    }
+    
+    /**
      * Constructs a <code>AbstractDoubleArrayToBinaryCodec</code> object with provided coding parameters.
      * 
-     * @param bitsPerNumber number of code bits per single <code>double</code> value. Minimum value is
+     * @param bitsPerValue number of code bits per single <code>double</code> value. Minimum value is
      *            {@value #MIN_BITS_PER_VALUE}, and maximum value is {@value #MAX_BITS_PER_VALUE}.
      * @param lowerBound minimum value to encode. All values smaller than this will have bits set to all zeroes.
      * @param upperBound maximum value to encode. All values greater than this will have bits set to all ones.
      * @throws IllegalArgumentException thrown if number of code bits is less than {@value #MIN_BITS_PER_VALUE} or
      *             greater than {@value #MAX_BITS_PER_VALUE}.
      */
-    public AbstractDoubleArrayToBinaryCodec(int bitsPerNumber, double lowerBound, double upperBound) {
-        if (bitsPerNumber < MIN_BITS_PER_VALUE || bitsPerNumber > MAX_BITS_PER_VALUE) {
+    public AbstractDoubleArrayToBinaryCodec(int bitsPerValue, double lowerBound, double upperBound) {
+        if (bitsPerValue < MIN_BITS_PER_VALUE || bitsPerValue > MAX_BITS_PER_VALUE) {
             throw new IllegalArgumentException("Valid range for number of bits is [" + MIN_BITS_PER_VALUE + ", "
-                    + MAX_BITS_PER_VALUE + "]. Provided value was " + bitsPerNumber + ".");
+                    + MAX_BITS_PER_VALUE + "]. Provided value was " + bitsPerValue + ".");
         }
         
         if (lowerBound >= upperBound) {
@@ -67,11 +88,11 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
                             + ", upperBound = " + upperBound + ".");
         }
         
-        this.bitsPerValue = bitsPerNumber;
+        this.bitsPerValue = bitsPerValue;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
         
-        step = (upperBound - lowerBound) / Math.pow(2.0, bitsPerNumber);
+        step = (upperBound - lowerBound) / Math.pow(2.0, bitsPerValue);
     }
     
     @Override
