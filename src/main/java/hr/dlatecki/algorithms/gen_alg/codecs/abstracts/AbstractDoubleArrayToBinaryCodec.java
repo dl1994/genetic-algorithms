@@ -108,7 +108,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     @Override
     public byte[] encode(double[] item) {
         
-        int numOfBytes = (int) Math.ceil((item.length * bitsPerValue) / 8.0);
+        int numOfBytes = (int) Math.ceil(item.length * bitsPerValue / 8.0);
         byte[] output = new byte[numOfBytes];
         
         if (bitsPerValue == 8) {
@@ -164,7 +164,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             bitPosition = rot;
             bytes[i] |= (byte) (encodedValue >>> rot);
             rot = 8 - rot;
-            bytes[i + 1] |= (byte) ((encodedValue << rot) & BYTE_MASK);
+            bytes[i + 1] |= (byte) (encodedValue << rot & BYTE_MASK);
             i++;
         }
     }
@@ -204,9 +204,9 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             bytes[i] |= (byte) (encodedValue >>> rot);
             rot = bitsPerValue + bitPosition - 16;
             bitPosition = rot;
-            bytes[i + 1] |= (byte) ((encodedValue >>> rot) & BYTE_MASK);
+            bytes[i + 1] |= (byte) (encodedValue >>> rot & BYTE_MASK);
             rot = 8 - rot;
-            bytes[i + 2] |= (byte) ((encodedValue << rot) & BYTE_MASK);
+            bytes[i + 2] |= (byte) (encodedValue << rot & BYTE_MASK);
             i += 2;
         }
     }
@@ -224,7 +224,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             long encodedValue = encodeValue(value);
             
             bytes[i] = (byte) (encodedValue >>> 16L);
-            bytes[i + 1] = (byte) ((encodedValue >>> 8L) & BYTE_MASK);
+            bytes[i + 1] = (byte) (encodedValue >>> 8L & BYTE_MASK);
             bytes[i + 2] = (byte) (encodedValue & BYTE_MASK);
             i += 3;
         }
@@ -246,12 +246,12 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             
             bytes[i] |= (byte) (encodedValue >>> rot);
             rot = bitsPerValue + bitPosition - 16;
-            bytes[i + 1] |= (byte) ((encodedValue >>> rot) & BYTE_MASK);
+            bytes[i + 1] |= (byte) (encodedValue >>> rot & BYTE_MASK);
             rot = bitsPerValue + bitPosition - 24;
             bitPosition = rot;
-            bytes[i + 2] |= (byte) ((encodedValue >>> rot) & BYTE_MASK);
+            bytes[i + 2] |= (byte) (encodedValue >>> rot & BYTE_MASK);
             rot = 8 - rot;
-            bytes[i + 3] |= (byte) ((encodedValue << rot) & BYTE_MASK);
+            bytes[i + 3] |= (byte) (encodedValue << rot & BYTE_MASK);
             i += 3;
         }
     }
@@ -269,8 +269,8 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             long encodedValue = encodeValue(value);
             
             bytes[i] = (byte) (encodedValue >>> 24L);
-            bytes[i + 1] = (byte) ((encodedValue >>> 16L) & BYTE_MASK);
-            bytes[i + 2] = (byte) ((encodedValue >>> 8L) & BYTE_MASK);
+            bytes[i + 1] = (byte) (encodedValue >>> 16L & BYTE_MASK);
+            bytes[i + 2] = (byte) (encodedValue >>> 8L & BYTE_MASK);
             bytes[i + 3] = (byte) (encodedValue & BYTE_MASK);
             i += 4;
         }
@@ -279,7 +279,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     @Override
     public double[] decode(byte[] bytes) {
         
-        int numOfValues = (int) Math.floor((bytes.length * 8.0) / bitsPerValue);
+        int numOfValues = (int) Math.floor(bytes.length * 8.0 / bitsPerValue);
         double[] output = new double[numOfValues];
         
         if (bitsPerValue == 8) {
@@ -327,7 +327,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         for (int i = 0; i < values.length; i++) {
             int rot = bitsPerValue - 8;
             int oldBitPosition = bitPosition;
-            long temp = (bytes[j] << bitPosition) & BYTE_MASK;
+            long temp = bytes[j] << bitPosition & BYTE_MASK;
             long valueBits = 0L;
             
             bitPosition = (rot + bitPosition) % 8;
@@ -349,7 +349,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         
         int j = 0;
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue((bytes[j] << 8) & bytes[j + 1]);
+            values[i] = decodeValue(bytes[j] << 8 & bytes[j + 1]);
             j += 2;
         }
     }
@@ -367,7 +367,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         for (int i = 0; i < values.length; i++) {
             int rot = bitsPerValue - 8;
             int oldBitPosition = bitPosition;
-            long temp = (bytes[j] << bitPosition) & BYTE_MASK;
+            long temp = bytes[j] << bitPosition & BYTE_MASK;
             long valueBits = 0L;
             
             bitPosition = (rot + bitPosition) % 8;
@@ -391,7 +391,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         
         int j = 0;
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue((bytes[j] << 16) & (bytes[j + 1] << 8) & bytes[j + 2]);
+            values[i] = decodeValue(bytes[j] << 16 & bytes[j + 1] << 8 & bytes[j + 2]);
             j += 3;
         }
     }
@@ -409,7 +409,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         for (int i = 0; i < values.length; i++) {
             int rot = bitsPerValue - 8;
             int oldBitPosition = bitPosition;
-            long temp = (bytes[j] << bitPosition) & BYTE_MASK;
+            long temp = bytes[j] << bitPosition & BYTE_MASK;
             long valueBits = 0L;
             
             bitPosition = (rot + bitPosition) % 8;
@@ -435,7 +435,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         
         int j = 0;
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue((bytes[j] << 24) & (bytes[j + 1] << 16) & (bytes[j + 2] << 8) & (bytes[j + 3]));
+            values[i] = decodeValue(bytes[j] << 24 & bytes[j + 1] << 16 & bytes[j + 2] << 8 & bytes[j + 3]);
             j += 4;
         }
     }

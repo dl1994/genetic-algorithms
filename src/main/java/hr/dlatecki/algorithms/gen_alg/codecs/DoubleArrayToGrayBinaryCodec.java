@@ -56,7 +56,7 @@ public class DoubleArrayToGrayBinaryCodec extends DoubleArrayToNaturalBinaryCode
         
         long binaryValue = super.encodeValue(value, lowerBound, upperBound, step, bitsPerValue);
         
-        return binaryValue ^ (binaryValue >>> 1);
+        return binaryValue ^ binaryValue >>> 1;
     }
     
     @Override

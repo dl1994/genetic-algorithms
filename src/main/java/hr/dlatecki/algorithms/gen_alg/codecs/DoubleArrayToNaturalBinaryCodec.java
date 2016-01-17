@@ -44,7 +44,7 @@ public class DoubleArrayToNaturalBinaryCodec extends AbstractDoubleArrayToBinary
         long mask = 0L;
         
         for (int i = 0; i < bitsPerValue; i++) {
-            mask = (mask << 1L) | 1L;
+            mask = mask << 1L | 1L;
         }
         
         return encodedValue & mask;
