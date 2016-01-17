@@ -34,15 +34,33 @@ public class DoubleArrayToGrayBinaryCodec extends DoubleArrayToNaturalBinaryCode
     }
     
     @Override
-    protected long encodeValue(double value) {
+    protected long calculateEncodedLowerBound(double lowerBound, int bitsPerValue) {
         
-        long binaryValue = super.encodeValue(value);
+        return 0L;
+    }
+    
+    @Override
+    protected long calculateEncodedUpperBound(double upperBound, int bitsPerValue) {
+        
+        long encodedValue = 1L;
+        
+        for (int i = 0; i < bitsPerValue; i++) {
+            encodedValue = encodedValue << 1L;
+        }
+        
+        return encodedValue;
+    }
+    
+    @Override
+    protected long encodeValue(double value, double lowerBound, double upperBound, double step, int bitsPerValue) {
+        
+        long binaryValue = super.encodeValue(value, lowerBound, upperBound, step, bitsPerValue);
         
         return binaryValue ^ (binaryValue >>> 1);
     }
     
     @Override
-    protected double decodeValue(long value) {
+    protected double decodeValue(long value, double lowerBound, double upperBound, double step, int bitsPerValue) {
         
         long binaryValue = value;
         
@@ -50,6 +68,6 @@ public class DoubleArrayToGrayBinaryCodec extends DoubleArrayToNaturalBinaryCode
             binaryValue = binaryValue ^ mask;
         }
         
-        return super.decodeValue(binaryValue);
+        return super.decodeValue(binaryValue, lowerBound, upperBound, step, bitsPerValue);
     }
 }

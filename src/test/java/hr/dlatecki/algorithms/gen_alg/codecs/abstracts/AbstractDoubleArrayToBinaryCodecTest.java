@@ -19,6 +19,10 @@ public class AbstractDoubleArrayToBinaryCodecTest {
      */
     private static final int BITS_PER_VALUE = 8;
     /**
+     * Lower precision to use in encoding/decoding tests when comparing <code>double</code> numbers.
+     */
+    public static final double LOWER_PRECISION = 10E-3;
+    /**
      * Lower bound to pass to the constructor in constructor test. Must be less than {@link #UPPER_BOUND}.
      */
     private static final double LOWER_BOUND = -1.0;
@@ -27,9 +31,32 @@ public class AbstractDoubleArrayToBinaryCodecTest {
      */
     private static final double UPPER_BOUND = 1.0;
     /**
+     * Input array in encoding/decoding tests.
+     */
+    private static final double[] INPUT_ARRAY =
+            { 0.5, -0.5, 1.1, -1.1, 1.0, -1.0, 0.33, -0.33, 0.15, 0.17, -0.13, -0.98 };
+    /**
+     * Expected output array in encoding/decoding tests.
+     */
+    private static final double[] OUTPUT_ARRAY = new double[INPUT_ARRAY.length];
+    /**
      * Expected step value in the constructor test.
      */
     private static final double EXPECTED_STEP = (UPPER_BOUND - LOWER_BOUND) / Math.pow(2.0, BITS_PER_VALUE);
+    
+    static {
+        for (int i = 0; i < INPUT_ARRAY.length; i++) {
+            double value = INPUT_ARRAY[i];
+            
+            if (value <= LOWER_BOUND) {
+                OUTPUT_ARRAY[i] = LOWER_BOUND;
+            } else if (value >= UPPER_BOUND) {
+                OUTPUT_ARRAY[i] = UPPER_BOUND;
+            } else {
+                OUTPUT_ARRAY[i] = value;
+            }
+        }
+    }
     
     /**
      * Class which extends <code>AbstractDoubleArrayToBinaryCodec</code> in order to gain access to protected parameters
@@ -53,57 +80,31 @@ public class AbstractDoubleArrayToBinaryCodecTest {
         }
         
         @Override
-        protected long encodeValue(double value) {
+        protected long calculateEncodedLowerBound(double lowerBound, int bitsPerValue) {
             
             // TODO Auto-generated method stub
             return 0;
         }
         
         @Override
-        protected double decodeValue(long value) {
+        protected long calculateEncodedUpperBound(double upperBound, int bitsPerValue) {
             
             // TODO Auto-generated method stub
             return 0;
         }
         
-        /**
-         * Fetches the number of bits per value from the superclass.
-         * 
-         * @return Bites per value from the superclass.
-         */
-        public int getBitsPerValue() {
+        @Override
+        protected long encodeValue(double value, double lowerBound, double upperBound, double step, int bitsPerValue) {
             
-            return bitsPerValue;
+            // TODO Auto-generated method stub
+            return 0;
         }
         
-        /**
-         * Fetches the lower bound from the superclass.
-         * 
-         * @return Lower bound from the superclass.
-         */
-        public double getLowerBound() {
+        @Override
+        protected double decodeValue(long value, double lowerBound, double upperBound, double step, int bitsPerValue) {
             
-            return lowerBound;
-        }
-        
-        /**
-         * Fetches the upper bound from the superclass.
-         * 
-         * @return Lower upper from the superclass.
-         */
-        public double getUpperBound() {
-            
-            return upperBound;
-        }
-        
-        /**
-         * Fetches the step from the superclass.
-         * 
-         * @return Step from the superclass.
-         */
-        public double getStep() {
-            
-            return step;
+            // TODO Auto-generated method stub
+            return 0;
         }
     }
     
@@ -114,11 +115,20 @@ public class AbstractDoubleArrayToBinaryCodecTest {
     public void testConstructor() {
         
         AbstractDoubleArrayToBinaryCodecExtender a =
-                new AbstractDoubleArrayToBinaryCodecExtender(BITS_PER_VALUE, LOWER_BOUND, UPPER_BOUND);
-        Assert.assertEquals(BITS_PER_VALUE, a.getBitsPerValue());
-        Assert.assertEquals(LOWER_BOUND, a.getLowerBound(), TestUtilities.PRECISION);
-        Assert.assertEquals(UPPER_BOUND, a.getUpperBound(), TestUtilities.PRECISION);
-        Assert.assertEquals(EXPECTED_STEP, a.getStep(), TestUtilities.PRECISION);
+                new AbstractDoubleArrayToBinaryCodecExtender(BITS_PER_VALUE, LOWER_BOUND, UPPER_BOUND) {
+                    
+                    @Override
+                    protected long encodeValue(double value, double lowerBound, double upperBound, double step,
+                            int bitsPerValue) {
+                            
+                        Assert.assertEquals(BITS_PER_VALUE, bitsPerValue);
+                        Assert.assertEquals(LOWER_BOUND, lowerBound, TestUtilities.PRECISION);
+                        Assert.assertEquals(UPPER_BOUND, upperBound, TestUtilities.PRECISION);
+                        Assert.assertEquals(EXPECTED_STEP, step, TestUtilities.PRECISION);
+                        
+                        return 0;
+                    }
+                };
     }
     
     /**
@@ -151,5 +161,16 @@ public class AbstractDoubleArrayToBinaryCodecTest {
     public void testConstructorThrowsExceptionForWrongBounds() {
         
         new AbstractDoubleArrayToBinaryCodecExtender(BITS_PER_VALUE, UPPER_BOUND, LOWER_BOUND);
+    }
+    
+    /**
+     * Tests the encoding and decoding when specified number of bits per value is 8, 16, 24 or 32.
+     */
+    @Test
+    public void testEncodingAndDecodingForWholeByteSizes() {
+        
+        AbstractDoubleArrayToBinaryCodecExtender a =
+                new AbstractDoubleArrayToBinaryCodecExtender(8, LOWER_BOUND, UPPER_BOUND);
+        // TODO: finish
     }
 }

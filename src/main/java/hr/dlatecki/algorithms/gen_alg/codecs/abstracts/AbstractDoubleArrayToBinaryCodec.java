@@ -32,19 +32,27 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     /**
      * Number of code bits per single <code>double</code> value.
      */
-    protected int bitsPerValue;
+    private int bitsPerValue;
     /**
      * Minimum value which will be encoded. All values smaller than this will have bits set to all zeroes.
      */
-    protected double lowerBound;
+    private double lowerBound;
     /**
      * Maximum value which will be encoded. All values greater than this will have bits set to all ones.
      */
-    protected double upperBound;
+    private double upperBound;
     /**
      * Minimum difference between two values when encoding and decoding.
      */
-    protected double step;
+    private double step;
+    /**
+     * Encoded <code>lowerBound</code>.
+     */
+    private long encodedLowerBound;
+    /**
+     * Encoded <code>upperBound</code>.
+     */
+    private long encodedUpperBound;
     
     /**
      * Fetches the minimum number of bits per value.
@@ -93,6 +101,8 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         this.upperBound = upperBound;
         
         step = (upperBound - lowerBound) / Math.pow(2.0, bitsPerValue);
+        encodedLowerBound = calculateEncodedLowerBound(lowerBound, bitsPerValue);
+        encodedUpperBound = calculateEncodedUpperBound(upperBound, bitsPerValue);
     }
     
     @Override
@@ -436,7 +446,16 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      * @param value value to encode.
      * @return Bits of the encoded value stored in <code>long</code> variable.
      */
-    protected abstract long encodeValue(double value);
+    private long encodeValue(double value) {
+        
+        if (value <= lowerBound) {
+            return encodedLowerBound;
+        } else if (value >= upperBound) {
+            return encodedUpperBound;
+        } else {
+            return encodeValue(value, lowerBound, upperBound, step, bitsPerValue);
+        }
+    }
     
     /**
      * Decodes the given <code>long</code> value into the <code>double</code> value.
@@ -444,5 +463,66 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      * @param value value to decode.
      * @return <code>double</code> value which was decoded from the <code>long</code> value.
      */
-    protected abstract double decodeValue(long value);
+    private double decodeValue(long value) {
+        
+        if (value == encodedLowerBound) {
+            return lowerBound;
+        } else if (value == encodedUpperBound) {
+            return upperBound;
+        } else {
+            return decodeValue(value, lowerBound, upperBound, step, bitsPerValue);
+        }
+    }
+    
+    /**
+     * Calculates the encoded value of <code>lowerBound</code>. For example, in natural binary code this value will be
+     * encoded as all zeroes.
+     * 
+     * @param lowerBound lower bound to encode into <code>byte</code>s which represent the minimum value.
+     * @param bitsPerValue number of bits per number to use in encoding. Returned value must have this number of bits
+     *            set.
+     * @return Encoded <code>lowerBound</code>.
+     */
+    protected abstract long calculateEncodedLowerBound(double lowerBound, int bitsPerValue);
+    
+    /**
+     * Calculates the encoded value of <code>upperBound</code>. For example, in natural binary code this value will be
+     * encoded as all ones.
+     * 
+     * @param upperBound upper bound to encode into <code>byte</code>s which represent the maximum value.
+     * @param bitsPerValue number of bits per number to use in encoding. Returned value must have this number of bits
+     *            set.
+     * @return Encoded <code>upperBound</code>.
+     */
+    protected abstract long calculateEncodedUpperBound(double upperBound, int bitsPerValue);
+    
+    /**
+     * Encodes the given <code>double</code> value into the bits which are stored in a <code>long</code> variable. The
+     * <code>value</code> provided as an argument of this function will always be between <code>lowerBound</code> and
+     * <code>upperBound</code>.
+     * 
+     * @param value value to encode.
+     * @param lowerBound minimum value used in encoding/decoding.
+     * @param upperBound maximum value used in encoding/decoding.
+     * @param step distance between two values used in encoding/decoding.
+     * @param bitsPerValue number of bits per value used in encoding/decoding.
+     * @return Bits of the encoded value stored in <code>long</code> variable.
+     */
+    protected abstract long encodeValue(double value, double lowerBound, double upperBound, double step,
+            int bitsPerValue);
+            
+    /**
+     * Decodes the given <code>long</code> value into the <code>double</code> value. The <code>value</code> provided as
+     * an argument of this function will never be equal to encoded <code>lowerBound</code> or encoded
+     * <code>upperBound</code>.
+     * 
+     * @param value value to decode.
+     * @param lowerBound minimum value used in encoding/decoding.
+     * @param upperBound maximum value used in encoding/decoding.
+     * @param step distance between two values used in encoding/decoding.
+     * @param bitsPerValue number of bits per value used in encoding/decoding.
+     * @return <code>double</code> value which was decoded from the <code>long</code> value.
+     */
+    protected abstract double decodeValue(long value, double lowerBound, double upperBound, double step,
+            int bitsPerValue);
 }

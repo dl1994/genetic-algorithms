@@ -32,34 +32,33 @@ public class DoubleArrayToNaturalBinaryCodec extends AbstractDoubleArrayToBinary
     }
     
     @Override
-    protected long encodeValue(double value) {
+    protected long calculateEncodedLowerBound(double lowerBound, int bitsPerValue) {
         
-        long encodedValue;
-        
-        if (value <= lowerBound) {
-            encodedValue = 0L;
-        } else if (value >= upperBound) {
-            encodedValue = 0xFFFF_FFFFL;
-        } else {
-            encodedValue = (long) ((value - lowerBound) / step);
-        }
-        
-        return encodedValue;
+        return 0L;
     }
     
     @Override
-    protected double decodeValue(long value) {
+    protected long calculateEncodedUpperBound(double upperBound, int bitsPerValue) {
         
-        double decodedValue;
+        long encodedValue = 0xFFFF_FFFF_FFFF_FFFFL;
+        long mask = 0L;
         
-        if (value == 0L) {
-            decodedValue = lowerBound;
-        } else if (value == 0xFFFF_FFFFL) {
-            decodedValue = upperBound;
-        } else {
-            decodedValue = value * step + lowerBound;
+        for (int i = 0; i < bitsPerValue; i++) {
+            mask = (mask << 1L) | 1L;
         }
         
-        return decodedValue;
+        return encodedValue & mask;
+    }
+    
+    @Override
+    protected long encodeValue(double value, double lowerBound, double upperBound, double step, int bitsPerValue) {
+        
+        return (long) ((value - lowerBound) / step);
+    }
+    
+    @Override
+    protected double decodeValue(long value, double lowerBound, double upperBound, double step, int bitsPerValue) {
+        
+        return value * step + lowerBound;
     }
 }

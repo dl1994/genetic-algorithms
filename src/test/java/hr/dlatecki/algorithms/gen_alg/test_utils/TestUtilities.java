@@ -22,7 +22,7 @@ import org.junit.Assert;
 public class TestUtilities {
     
     /**
-     * Precision to use in tests when comparing double numbers.
+     * Default precision to use in tests when comparing <code>double</code> numbers.
      */
     public static final double PRECISION = 10E-5;
     /**
