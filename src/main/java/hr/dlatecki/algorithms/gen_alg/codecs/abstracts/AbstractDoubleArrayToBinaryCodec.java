@@ -4,12 +4,30 @@ package hr.dlatecki.algorithms.gen_alg.codecs.abstracts;
 
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
 
+/**
+ * An abstract implementation of <code>IByteArrayCodec</code> which encodes/decodes an array of <code>double</code>s.
+ * Each <code>double</code> value can be represented by a minimum of 8 and a maximum of 32 bits. This class has
+ * implemented methods for storing and reading bits in and from an array of <code>byte</code>s. Only methods for
+ * encoding/decoding <code>double</code>s into bits need to be implemented.
+ * 
+ * @author Domagoj Latečki
+ * @version 1.0
+ * @since 1.8
+ */
 public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCodec<double[]> {
     
     /**
-     * Mask for the lowers byte.
+     * Mask for the lowest byte.
      */
     private static final long BYTE_MASK = 0xFFL;
+    /**
+     * Minimal number of bits per value.
+     */
+    private static final int MIN_BITS_PER_VALUE = 8;
+    /**
+     * Maximum number of bits per value.
+     */
+    private static final int MAX_BITS_PER_VALUE = 32;
     /**
      * Number of code bits per single <code>double</code> value.
      */
@@ -30,16 +48,17 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     /**
      * Constructs a <code>AbstractDoubleArrayToBinaryCodec</code> object with provided coding parameters.
      * 
-     * @param bitsPerNumber number of code bits per single <code>double</code> value. Minimum value is 8, and maximum
-     *            value is 32.
+     * @param bitsPerNumber number of code bits per single <code>double</code> value. Minimum value is
+     *            {@value #MIN_BITS_PER_VALUE}, and maximum value is {@value #MAX_BITS_PER_VALUE}.
      * @param lowerBound minimum value to encode. All values smaller than this will have bits set to all zeroes.
      * @param upperBound maximum value to encode. All values greater than this will have bits set to all ones.
-     * @throws IllegalArgumentException thrown if number of code bits is less than 8 or greater than 32.
+     * @throws IllegalArgumentException thrown if number of code bits is less than {@value #MIN_BITS_PER_VALUE} or
+     *             greater than {@value #MAX_BITS_PER_VALUE}.
      */
     public AbstractDoubleArrayToBinaryCodec(int bitsPerNumber, double lowerBound, double upperBound) {
-        if (bitsPerNumber < 8 || bitsPerNumber > 32) {
-            throw new IllegalArgumentException(
-                    "Valid range for number of bits is [8, 32]. Provided value was " + bitsPerNumber + ".");
+        if (bitsPerNumber < MIN_BITS_PER_VALUE || bitsPerNumber > MAX_BITS_PER_VALUE) {
+            throw new IllegalArgumentException("Valid range for number of bits is [" + MIN_BITS_PER_VALUE + ", "
+                    + MAX_BITS_PER_VALUE + "]. Provided value was " + bitsPerNumber + ".");
         }
         
         if (lowerBound >= upperBound) {
