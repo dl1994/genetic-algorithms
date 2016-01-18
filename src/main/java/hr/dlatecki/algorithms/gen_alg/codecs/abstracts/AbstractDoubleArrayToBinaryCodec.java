@@ -18,9 +18,21 @@ import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
 public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCodec<double[]> {
     
     /**
-     * Mask for the lowest byte.
+     * Mask for the single lowest byte.
      */
     private static final long BYTE_MASK = 0xFFL;
+    /**
+     * Mask for the two lowest bytes.
+     */
+    private static final long TWO_BYTE_MASK = 0xFFFFL;
+    /**
+     * Mask for the three lowest bytes.
+     */
+    private static final long THREE_BYTE_MASK = 0xFF_FFFFL;
+    /**
+     * Mask for the four lowest bytes.
+     */
+    private static final long FOUR_BYTE_MASK = 0xFFFF_FFFFL;
     /**
      * Minimal number of bits per value.
      */
@@ -310,7 +322,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     private void decode8Bits(double[] values, byte[] bytes) {
         
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(bytes[i]);
+            values[i] = decodeValue(bytes[i] & BYTE_MASK);
         }
     }
     
@@ -349,7 +361,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         
         int j = 0;
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(bytes[j] << 8 & bytes[j + 1]);
+            values[i] = decodeValue(((bytes[j] & BYTE_MASK) << 8L) | (bytes[j + 1] & BYTE_MASK));
             j += 2;
         }
     }
@@ -391,7 +403,8 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         
         int j = 0;
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(bytes[j] << 16 & bytes[j + 1] << 8 & bytes[j + 2]);
+            values[i] = decodeValue(
+                    ((bytes[j] & BYTE_MASK) << 16L | (bytes[j + 1] & BYTE_MASK) << 8L | (bytes[j + 2] & BYTE_MASK)));
             j += 3;
         }
     }
@@ -435,7 +448,8 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         
         int j = 0;
         for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(bytes[j] << 24 & bytes[j + 1] << 16 & bytes[j + 2] << 8 & bytes[j + 3]);
+            values[i] = decodeValue(((bytes[j] & BYTE_MASK) << 24 | (bytes[j + 1] & BYTE_MASK) << 16L
+                    | (bytes[j + 2] & BYTE_MASK) << 8L | (bytes[j + 3] & BYTE_MASK)));
             j += 4;
         }
     }

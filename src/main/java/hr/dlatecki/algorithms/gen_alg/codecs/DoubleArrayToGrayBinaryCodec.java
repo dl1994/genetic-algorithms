@@ -44,7 +44,7 @@ public class DoubleArrayToGrayBinaryCodec extends DoubleArrayToNaturalBinaryCode
         
         long encodedValue = 1L;
         
-        for (int i = 0; i < bitsPerValue; i++) {
+        for (int i = 0, bound = bitsPerValue - 1; i < bound; i++) {
             encodedValue = encodedValue << 1L;
         }
         
@@ -64,7 +64,7 @@ public class DoubleArrayToGrayBinaryCodec extends DoubleArrayToNaturalBinaryCode
         
         long binaryValue = value;
         
-        for (long mask = binaryValue >>> 1; mask != 0; mask = mask >>> 1) {
+        for (long mask = binaryValue >>> 1L; mask != 0; mask = mask >>> 1L) {
             binaryValue = binaryValue ^ mask;
         }
         
