@@ -1,5 +1,9 @@
 # Development history
 
+### v0.4.0
+Redone encoding and decoding methods in AbstractDoubleArrayToBinaryCodec. Both methods are now fully tested and work
+as expected. AbstractDoubleArrayToBinaryCodec is not fully tested.
+
 ### v0.3.9
 AbstractDoubleArrayToBinaryCodec is now finished, but it is not tested yet.
 

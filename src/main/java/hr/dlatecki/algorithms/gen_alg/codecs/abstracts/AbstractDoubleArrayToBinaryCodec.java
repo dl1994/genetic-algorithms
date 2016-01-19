@@ -22,18 +22,6 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      */
     private static final long BYTE_MASK = 0xFFL;
     /**
-     * Mask for the two lowest bytes.
-     */
-    private static final long TWO_BYTE_MASK = 0xFFFFL;
-    /**
-     * Mask for the three lowest bytes.
-     */
-    private static final long THREE_BYTE_MASK = 0xFF_FFFFL;
-    /**
-     * Mask for the four lowest bytes.
-     */
-    private static final long FOUR_BYTE_MASK = 0xFFFF_FFFFL;
-    /**
      * Minimal number of bits per value.
      */
     private static final int MIN_BITS_PER_VALUE = 8;
@@ -65,6 +53,10 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
      * Encoded <code>upperBound</code>.
      */
     private long encodedUpperBound;
+    /**
+     * Used to mask first {@link #bitsPerValue} bits in <code>long</code> number.
+     */
+    private long bitMask;
     
     /**
      * Fetches the minimum number of bits per value.
@@ -87,7 +79,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     }
     
     /**
-     * Constructs a <code>AbstractDoubleArrayToBinaryCodec</code> object with provided coding parameters.
+     * Constructs an <code>AbstractDoubleArrayToBinaryCodec</code> object with provided coding parameters.
      * 
      * @param bitsPerValue number of code bits per single <code>double</code> value. Minimum value is
      *            {@value #MIN_BITS_PER_VALUE}, and maximum value is {@value #MAX_BITS_PER_VALUE}.
@@ -115,6 +107,10 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         step = (upperBound - lowerBound) / Math.pow(2.0, bitsPerValue);
         encodedLowerBound = calculateEncodedLowerBound(lowerBound, bitsPerValue);
         encodedUpperBound = calculateEncodedUpperBound(upperBound, bitsPerValue);
+        
+        for (int i = 0; i < bitsPerValue; i++) {
+            bitMask = (bitMask << 1L) | 1L;
+        }
     }
     
     @Override
@@ -123,169 +119,30 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         int numOfBytes = (int) Math.ceil(item.length * bitsPerValue / 8.0);
         byte[] output = new byte[numOfBytes];
         
-        if (bitsPerValue == 8) {
-            encode8Bits(item, output);
-        } else if (bitsPerValue < 16) {
-            encode9To15Bits(item, output);
-        } else if (bitsPerValue == 16) {
-            encode16Bits(item, output);
-        } else if (bitsPerValue < 24) {
-            encode17To23Bits(item, output);
-        } else if (bitsPerValue == 24) {
-            encode24Bits(item, output);
-        } else if (bitsPerValue < 32) {
-            encode25To31Bits(item, output);
-        } else {
-            encode32Bits(item, output);
+        int outputIndex = 0;
+        int currentBitCapacity = 8;
+        for (int i = 0; i < item.length; i++) {
+            long encodedValue = encodeValue(item[i]);
+            long mask = bitMask;
+            int remainingBits = bitsPerValue;
+            
+            while (remainingBits != 0) {
+                if (currentBitCapacity <= remainingBits) {
+                    output[outputIndex] |= ((encodedValue >>> (remainingBits - currentBitCapacity)) & BYTE_MASK);
+                    outputIndex++;
+                    remainingBits -= currentBitCapacity;
+                    mask = mask >>> currentBitCapacity;
+                    currentBitCapacity = 8;
+                    encodedValue &= mask;
+                } else {
+                    output[outputIndex] |= ((encodedValue << (currentBitCapacity - remainingBits)) & BYTE_MASK);
+                    currentBitCapacity -= remainingBits;
+                    remainingBits = 0;
+                }
+            }
         }
         
         return output;
-    }
-    
-    /**
-     * Used to encode and store values when each value is assigned exactly 8 bits.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode8Bits(double values[], byte[] bytes) {
-        
-        int i = 0;
-        for (double value : values) {
-            long encodedValue = encodeValue(value);
-            
-            bytes[i] = (byte) encodedValue;
-            i++;
-        }
-    }
-    
-    /**
-     * Used to encode and store values when each value is between 9 and 15 bits, inclusive.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode9To15Bits(double[] values, byte[] bytes) {
-        
-        int i = 0;
-        int bitPosition = 0;
-        for (double value : values) {
-            int rot = bitsPerValue + bitPosition - 8;
-            long encodedValue = encodeValue(value);
-            
-            bitPosition = rot;
-            bytes[i] |= (byte) (encodedValue >>> rot);
-            rot = 8 - rot;
-            bytes[i + 1] |= (byte) (encodedValue << rot & BYTE_MASK);
-            i++;
-        }
-    }
-    
-    /**
-     * Used to encode and store values when each value is assigned exactly 16 bits.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode16Bits(double values[], byte[] bytes) {
-        
-        int i = 0;
-        for (double value : values) {
-            long encodedValue = encodeValue(value);
-            
-            bytes[i] = (byte) (encodedValue >>> 8L);
-            bytes[i + 1] = (byte) (encodedValue & BYTE_MASK);
-            i += 2;
-        }
-    }
-    
-    /**
-     * Used to encode and store values when each value is between 17 and 23 bits, inclusive.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode17To23Bits(double[] values, byte[] bytes) {
-        
-        int i = 0;
-        int bitPosition = 0;
-        for (double value : values) {
-            int rot = bitsPerValue + bitPosition - 8;
-            long encodedValue = encodeValue(value);
-            
-            bytes[i] |= (byte) (encodedValue >>> rot);
-            rot = bitsPerValue + bitPosition - 16;
-            bitPosition = rot;
-            bytes[i + 1] |= (byte) (encodedValue >>> rot & BYTE_MASK);
-            rot = 8 - rot;
-            bytes[i + 2] |= (byte) (encodedValue << rot & BYTE_MASK);
-            i += 2;
-        }
-    }
-    
-    /**
-     * Used to encode and store values when each value is assigned exactly 24 bits.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode24Bits(double values[], byte[] bytes) {
-        
-        int i = 0;
-        for (double value : values) {
-            long encodedValue = encodeValue(value);
-            
-            bytes[i] = (byte) (encodedValue >>> 16L);
-            bytes[i + 1] = (byte) (encodedValue >>> 8L & BYTE_MASK);
-            bytes[i + 2] = (byte) (encodedValue & BYTE_MASK);
-            i += 3;
-        }
-    }
-    
-    /**
-     * Used to encode and store values when each value is between 25 and 31 bits, inclusive.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode25To31Bits(double[] values, byte[] bytes) {
-        
-        int i = 0;
-        int bitPosition = 0;
-        for (double value : values) {
-            int rot = bitsPerValue + bitPosition - 8;
-            long encodedValue = encodeValue(value);
-            
-            bytes[i] |= (byte) (encodedValue >>> rot);
-            rot = bitsPerValue + bitPosition - 16;
-            bytes[i + 1] |= (byte) (encodedValue >>> rot & BYTE_MASK);
-            rot = bitsPerValue + bitPosition - 24;
-            bitPosition = rot;
-            bytes[i + 2] |= (byte) (encodedValue >>> rot & BYTE_MASK);
-            rot = 8 - rot;
-            bytes[i + 3] |= (byte) (encodedValue << rot & BYTE_MASK);
-            i += 3;
-        }
-    }
-    
-    /**
-     * Used to encode and store values when each value is assigned exactly 24 bits.
-     * 
-     * @param values values to encode and store.
-     * @param bytes array in which encoded bits will be written.
-     */
-    private void encode32Bits(double values[], byte[] bytes) {
-        
-        int i = 0;
-        for (double value : values) {
-            long encodedValue = encodeValue(value);
-            
-            bytes[i] = (byte) (encodedValue >>> 24L);
-            bytes[i + 1] = (byte) (encodedValue >>> 16L & BYTE_MASK);
-            bytes[i + 2] = (byte) (encodedValue >>> 8L & BYTE_MASK);
-            bytes[i + 3] = (byte) (encodedValue & BYTE_MASK);
-            i += 4;
-        }
     }
     
     @Override
@@ -294,164 +151,30 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         int numOfValues = (int) Math.floor(bytes.length * 8.0 / bitsPerValue);
         double[] output = new double[numOfValues];
         
-        if (bitsPerValue == 8) {
-            decode8Bits(output, bytes);
-        } else if (bitsPerValue < 16) {
-            decode9To15Bits(output, bytes);
-        } else if (bitsPerValue == 16) {
-            decode16Bits(output, bytes);
-        } else if (bitsPerValue < 24) {
-            decode17To23Bits(output, bytes);
-        } else if (bitsPerValue == 24) {
-            decode24Bits(output, bytes);
-        } else if (bitsPerValue < 32) {
-            decode25To31Bits(output, bytes);
-        } else {
-            decode32Bits(output, bytes);
+        int byteIndex = 0;
+        int currentBitPosition = 0;
+        for (int i = 0; i < output.length; i++) {
+            long valueToDecode = 0L;
+            int remainingBits = bitsPerValue;
+            
+            while (remainingBits != 0) {
+                if (8 - currentBitPosition <= remainingBits) {
+                    remainingBits -= (8 - currentBitPosition);
+                    valueToDecode |= ((((bytes[byteIndex] << currentBitPosition)
+                            & BYTE_MASK) >>> currentBitPosition) << remainingBits);
+                    currentBitPosition = 0;
+                    byteIndex++;
+                } else {
+                    valueToDecode |= (bytes[byteIndex] >>> (7 - currentBitPosition));
+                    currentBitPosition += remainingBits;
+                    remainingBits = 0;
+                }
+            }
+            
+            output[i] = decodeValue(valueToDecode & bitMask);
         }
         
         return output;
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is assigned exactly 8 bits.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode8Bits(double[] values, byte[] bytes) {
-        
-        for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(bytes[i] & BYTE_MASK);
-        }
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is between 9 and 15 bits, inclusive.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode9To15Bits(double[] values, byte[] bytes) {
-        
-        int j = 0;
-        int bitPosition = 0;
-        for (int i = 0; i < values.length; i++) {
-            int rot = bitsPerValue - 8;
-            int oldBitPosition = bitPosition;
-            long temp = bytes[j] << bitPosition & BYTE_MASK;
-            long valueBits = 0L;
-            
-            bitPosition = (rot + bitPosition) % 8;
-            valueBits |= temp << rot;
-            rot = 8 - rot - oldBitPosition;
-            valueBits |= bytes[j + 1] >>> rot;
-            values[i] = decodeValue(valueBits);
-            j++;
-        }
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is assigned exactly 16 bits.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode16Bits(double[] values, byte[] bytes) {
-        
-        int j = 0;
-        for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(((bytes[j] & BYTE_MASK) << 8L) | (bytes[j + 1] & BYTE_MASK));
-            j += 2;
-        }
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is between 17 and 23 bits, inclusive.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode17To23Bits(double[] values, byte[] bytes) {
-        
-        int j = 0;
-        int bitPosition = 0;
-        for (int i = 0; i < values.length; i++) {
-            int rot = bitsPerValue - 8;
-            int oldBitPosition = bitPosition;
-            long temp = bytes[j] << bitPosition & BYTE_MASK;
-            long valueBits = 0L;
-            
-            bitPosition = (rot + bitPosition) % 8;
-            valueBits |= temp << rot;
-            rot = bitsPerValue - 16 + oldBitPosition;
-            valueBits |= bytes[j + 1] << rot;
-            rot = 8 - rot;
-            valueBits |= bytes[j + 2] >>> rot;
-            values[i] = decodeValue(valueBits);
-            j += 2;
-        }
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is assigned exactly 24 bits.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode24Bits(double[] values, byte[] bytes) {
-        
-        int j = 0;
-        for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(
-                    ((bytes[j] & BYTE_MASK) << 16L | (bytes[j + 1] & BYTE_MASK) << 8L | (bytes[j + 2] & BYTE_MASK)));
-            j += 3;
-        }
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is between 25 and 31 bits, inclusive.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode25To31Bits(double[] values, byte[] bytes) {
-        
-        int j = 0;
-        int bitPosition = 0;
-        for (int i = 0; i < values.length; i++) {
-            int rot = bitsPerValue - 8;
-            int oldBitPosition = bitPosition;
-            long temp = bytes[j] << bitPosition & BYTE_MASK;
-            long valueBits = 0L;
-            
-            bitPosition = (rot + bitPosition) % 8;
-            valueBits |= temp << rot;
-            rot = bitsPerValue - 24 + oldBitPosition;
-            valueBits |= bytes[j + 1] << rot;
-            rot = bitsPerValue - 16 + oldBitPosition;
-            valueBits |= bytes[j + 2] << rot;
-            rot = 8 - rot;
-            valueBits |= bytes[j + 3] >>> rot;
-            values[i] = decodeValue(valueBits);
-            j += 3;
-        }
-    }
-    
-    /**
-     * Used to decode stored <code>byte</code>s into values when each value is assigned exactly 32 bits.
-     * 
-     * @param values in which decoded values will be stored.
-     * @param bytes array to decode.
-     */
-    private void decode32Bits(double[] values, byte[] bytes) {
-        
-        int j = 0;
-        for (int i = 0; i < values.length; i++) {
-            values[i] = decodeValue(((bytes[j] & BYTE_MASK) << 24 | (bytes[j + 1] & BYTE_MASK) << 16L
-                    | (bytes[j + 2] & BYTE_MASK) << 8L | (bytes[j + 3] & BYTE_MASK)));
-            j += 4;
-        }
     }
     
     /**

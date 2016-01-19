@@ -31,10 +31,16 @@ public class AbstractDoubleArrayToBinaryCodecTest {
      */
     private static final double EXPECTED_STEP = (UPPER_BOUND - LOWER_BOUND) / Math.pow(2.0, BITS_PER_VALUE);
     /**
+     * Additional value used in encoding/decoding methods.
+     */
+    private static final double MIDDLE_VALUE = 0.0;
+    /**
      * Array used to test encoding/decoding.
      */
-    private static final double[] TEST_ARRAY =
-            { UPPER_BOUND, LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND };
+    private static final double[] TEST_ARRAY = { UPPER_BOUND, LOWER_BOUND, MIDDLE_VALUE, LOWER_BOUND, UPPER_BOUND,
+            LOWER_BOUND, UPPER_BOUND, MIDDLE_VALUE, UPPER_BOUND, MIDDLE_VALUE, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND,
+            MIDDLE_VALUE, MIDDLE_VALUE, LOWER_BOUND, MIDDLE_VALUE, LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND,
+            LOWER_BOUND, MIDDLE_VALUE, MIDDLE_VALUE, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND, MIDDLE_VALUE, UPPER_BOUND };
             
     /**
      * Class which extends <code>AbstractDoubleArrayToBinaryCodec</code> in order to gain access to protected parameters
@@ -96,7 +102,15 @@ public class AbstractDoubleArrayToBinaryCodecTest {
             } else if (Math.abs(Math.abs(value) - Math.abs(UPPER_BOUND)) <= TestUtilities.PRECISION) {
                 return encodedUpperBound;
             } else {
-                throw new RuntimeException("Unexpected value was passed to encoding function. Value was: " + value);
+                long output = 0L;
+                boolean isOne = true;
+                
+                for (int i = 0; i < bitsPerValue; i++) {
+                    output = (output << 1L) | (isOne ? 1L : 0L);
+                    isOne ^= isOne;
+                }
+                
+                return output;
             }
         }
         
@@ -108,7 +122,20 @@ public class AbstractDoubleArrayToBinaryCodecTest {
             } else if (value == encodedUpperBound) {
                 return UPPER_BOUND;
             } else {
-                throw new RuntimeException("Unexpected value was passed to decoding function. Value was: " + value);
+                long expected = 0L;
+                boolean isOne = true;
+                
+                for (int i = 0; i < bitsPerValue; i++) {
+                    expected = (expected << 1L) | (isOne ? 1L : 0L);
+                    isOne ^= isOne;
+                }
+                
+                if (expected == value) {
+                    return 0.0;
+                } else {
+                    throw new RuntimeException("Unexpected value was encountered while decoding with " + bitsPerValue
+                            + " bits per value.");
+                }
             }
         }
     }
@@ -168,25 +195,16 @@ public class AbstractDoubleArrayToBinaryCodecTest {
     }
     
     /**
-     * Tests the encoding and decoding when specified number of bits per value is 8, 16, 24 or 32.
+     * Tests the encoding and decoding methods.
      */
     @Test
-    public void testEncodingAndDecodingForWholeByteSizes() {
+    public void testEncodingAndDecoding() {
         
-        AbstractDoubleArrayToBinaryCodecExtender a =
-                new AbstractDoubleArrayToBinaryCodecExtender(8, LOWER_BOUND, UPPER_BOUND);
-        TestUtilities.assertArrayElementsEqual(TEST_ARRAY, a.decode(a.encode(TEST_ARRAY)));
-        
-        a = new AbstractDoubleArrayToBinaryCodecExtender(16, LOWER_BOUND, UPPER_BOUND);
-        
-        TestUtilities.assertArrayElementsEqual(TEST_ARRAY, a.decode(a.encode(TEST_ARRAY)));
-        
-        a = new AbstractDoubleArrayToBinaryCodecExtender(24, LOWER_BOUND, UPPER_BOUND);
-        
-        TestUtilities.assertArrayElementsEqual(TEST_ARRAY, a.decode(a.encode(TEST_ARRAY)));
-        
-        a = new AbstractDoubleArrayToBinaryCodecExtender(32, LOWER_BOUND, UPPER_BOUND);
-        
-        TestUtilities.assertArrayElementsEqual(TEST_ARRAY, a.decode(a.encode(TEST_ARRAY)));
+        for (int i = AbstractDoubleArrayToBinaryCodec.getMinNumOfBitsPerValue(), bound =
+                AbstractDoubleArrayToBinaryCodec.getMaxNumOfBitsPerValue(); i <= bound; i++) {
+            AbstractDoubleArrayToBinaryCodecExtender a =
+                    new AbstractDoubleArrayToBinaryCodecExtender(i, LOWER_BOUND, UPPER_BOUND);
+            TestUtilities.assertArrayElementsEqual(TEST_ARRAY, a.decode(a.encode(TEST_ARRAY)));
+        }
     }
 }
