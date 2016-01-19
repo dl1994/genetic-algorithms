@@ -1,3 +1,5 @@
+// Copyright (C) 2016 Domagoj Latečki
+/* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.codecs.abstracts;
 
 import org.junit.Assert;
@@ -106,7 +108,7 @@ public class AbstractDoubleArrayToBinaryCodecTest {
                 boolean isOne = true;
                 
                 for (int i = 0; i < bitsPerValue; i++) {
-                    output = (output << 1L) | (isOne ? 1L : 0L);
+                    output = output << 1L | (isOne ? 1L : 0L);
                     isOne ^= isOne;
                 }
                 
@@ -126,7 +128,7 @@ public class AbstractDoubleArrayToBinaryCodecTest {
                 boolean isOne = true;
                 
                 for (int i = 0; i < bitsPerValue; i++) {
-                    expected = (expected << 1L) | (isOne ? 1L : 0L);
+                    expected = expected << 1L | (isOne ? 1L : 0L);
                     isOne ^= isOne;
                 }
                 

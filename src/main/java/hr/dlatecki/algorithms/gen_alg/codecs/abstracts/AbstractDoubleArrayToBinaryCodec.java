@@ -109,7 +109,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         encodedUpperBound = calculateEncodedUpperBound(upperBound, bitsPerValue);
         
         for (int i = 0; i < bitsPerValue; i++) {
-            bitMask = (bitMask << 1L) | 1L;
+            bitMask = bitMask << 1L | 1L;
         }
     }
     
@@ -128,14 +128,14 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             
             while (remainingBits != 0) {
                 if (currentBitCapacity <= remainingBits) {
-                    output[outputIndex] |= ((encodedValue >>> (remainingBits - currentBitCapacity)) & BYTE_MASK);
+                    output[outputIndex] |= encodedValue >>> remainingBits - currentBitCapacity & BYTE_MASK;
                     outputIndex++;
                     remainingBits -= currentBitCapacity;
                     mask = mask >>> currentBitCapacity;
                     currentBitCapacity = 8;
                     encodedValue &= mask;
                 } else {
-                    output[outputIndex] |= ((encodedValue << (currentBitCapacity - remainingBits)) & BYTE_MASK);
+                    output[outputIndex] |= encodedValue << currentBitCapacity - remainingBits & BYTE_MASK;
                     currentBitCapacity -= remainingBits;
                     remainingBits = 0;
                 }
@@ -159,13 +159,13 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
             
             while (remainingBits != 0) {
                 if (8 - currentBitPosition <= remainingBits) {
-                    remainingBits -= (8 - currentBitPosition);
-                    valueToDecode |= ((((bytes[byteIndex] << currentBitPosition)
-                            & BYTE_MASK) >>> currentBitPosition) << remainingBits);
+                    remainingBits -= 8 - currentBitPosition;
+                    valueToDecode |= (bytes[byteIndex] << currentBitPosition
+                            & BYTE_MASK) >>> currentBitPosition << remainingBits;
                     currentBitPosition = 0;
                     byteIndex++;
                 } else {
-                    valueToDecode |= (bytes[byteIndex] >>> (7 - currentBitPosition));
+                    valueToDecode |= bytes[byteIndex] >>> 7 - currentBitPosition;
                     currentBitPosition += remainingBits;
                     remainingBits = 0;
                 }
