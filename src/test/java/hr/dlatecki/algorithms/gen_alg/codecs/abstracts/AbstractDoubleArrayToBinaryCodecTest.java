@@ -21,6 +21,10 @@ public class AbstractDoubleArrayToBinaryCodecTest {
      */
     private static final int BITS_PER_VALUE = 8;
     /**
+     * Size of test array.
+     */
+    private static final int TEST_ARRAY_SIZE = 1_000;
+    /**
      * Lower bound to pass to the constructor in constructor test. Must be less than {@link #UPPER_BOUND}.
      */
     private static final double LOWER_BOUND = -1.0;
@@ -39,11 +43,22 @@ public class AbstractDoubleArrayToBinaryCodecTest {
     /**
      * Array used to test encoding/decoding.
      */
-    private static final double[] TEST_ARRAY = { UPPER_BOUND, LOWER_BOUND, MIDDLE_VALUE, LOWER_BOUND, UPPER_BOUND,
-            LOWER_BOUND, UPPER_BOUND, MIDDLE_VALUE, UPPER_BOUND, MIDDLE_VALUE, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND,
-            MIDDLE_VALUE, MIDDLE_VALUE, LOWER_BOUND, MIDDLE_VALUE, LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND,
-            LOWER_BOUND, MIDDLE_VALUE, MIDDLE_VALUE, UPPER_BOUND, LOWER_BOUND, UPPER_BOUND, MIDDLE_VALUE, UPPER_BOUND };
+    private static final double[] TEST_ARRAY = new double[TEST_ARRAY_SIZE];
+    
+    static {
+        for (int i = 0; i < TEST_ARRAY_SIZE; i++) {
+            int num = TestUtilities.RAND.nextInt(3);
             
+            if (num == 0) {
+                TEST_ARRAY[i] = LOWER_BOUND;
+            } else if (num == 1) {
+                TEST_ARRAY[i] = MIDDLE_VALUE;
+            } else {
+                TEST_ARRAY[i] = UPPER_BOUND;
+            }
+        }
+    }
+    
     /**
      * Class which extends <code>AbstractDoubleArrayToBinaryCodec</code> in order to gain access to protected parameters
      * in tests.
@@ -109,7 +124,7 @@ public class AbstractDoubleArrayToBinaryCodecTest {
                 
                 for (int i = 0; i < bitsPerValue; i++) {
                     output = output << 1L | (isOne ? 1L : 0L);
-                    isOne ^= isOne;
+                    isOne = !isOne;
                 }
                 
                 return output;
@@ -129,7 +144,7 @@ public class AbstractDoubleArrayToBinaryCodecTest {
                 
                 for (int i = 0; i < bitsPerValue; i++) {
                     expected = expected << 1L | (isOne ? 1L : 0L);
-                    isOne ^= isOne;
+                    isOne = !isOne;
                 }
                 
                 if (expected == value) {

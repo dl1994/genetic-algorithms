@@ -59,18 +59,30 @@ public class TestUtilities {
     }
     
     /**
-     * Tests if two arrays of <code>double</code>s have equal elements.
+     * Tests if two arrays of <code>double</code>s have equal elements. Default precision is used.
+     * 
+     * @param expected array of expected values.
+     * @param actual actual values.
+     * @param precision precision to use when comparing <code>double</code>s.
+     */
+    public static void assertArrayElementsEqual(double[] expected, double[] actual, double precision) {
+        
+        Assert.assertEquals(expected.length, actual.length);
+        
+        for (int i = 0; i < expected.length; i++) {
+            Assert.assertEquals(expected[i], actual[i], precision);
+        }
+    }
+    
+    /**
+     * Tests if two arrays of <code>double</code>s have equal elements. Default precision is used.
      * 
      * @param expected array of expected values.
      * @param actual actual values.
      */
     public static void assertArrayElementsEqual(double[] expected, double[] actual) {
         
-        Assert.assertEquals(expected.length, actual.length);
-        
-        for (int i = 0; i < expected.length; i++) {
-            Assert.assertEquals(expected[i], actual[i], TestUtilities.PRECISION);
-        }
+        assertArrayElementsEqual(expected, actual, PRECISION);
     }
     
     /**

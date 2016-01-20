@@ -40,14 +40,13 @@ public class DoubleArrayToNaturalBinaryCodec extends AbstractDoubleArrayToBinary
     @Override
     protected long calculateEncodedUpperBound(double upperBound, int bitsPerValue) {
         
-        long encodedValue = 0xFFFF_FFFF_FFFF_FFFFL;
-        long mask = 0L;
+        long encodedValue = 0L;
         
         for (int i = 0; i < bitsPerValue; i++) {
-            mask = mask << 1L | 1L;
+            encodedValue = encodedValue << 1L | 1L;
         }
         
-        return encodedValue & mask;
+        return encodedValue;
     }
     
     @Override

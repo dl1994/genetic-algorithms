@@ -1,5 +1,9 @@
 # Development history
 
+### v0.4.1
+Added tests for DoubleArrayToNaturalBinaryCodec, minor changes in AbstractDoubleArrayToBinaryCodec. Test for
+AbstractDoubleArrayToBinaryCodec now generates random test array of predefined size.
+
 ### v0.4.0
 Redone encoding and decoding methods in AbstractDoubleArrayToBinaryCodec. Both methods are now fully tested and work
 as expected. AbstractDoubleArrayToBinaryCodec is not fully tested.

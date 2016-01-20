@@ -155,7 +155,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
         int currentBitPosition = 0;
         for (int i = 0; i < output.length; i++) {
             long valueToDecode = 0L;
-            int remainingBits = bitsPerValue;
+            int remainingBits = (byte) bitsPerValue;
             
             while (remainingBits != 0) {
                 if (8 - currentBitPosition <= remainingBits) {
@@ -165,7 +165,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
                     currentBitPosition = 0;
                     byteIndex++;
                 } else {
-                    valueToDecode |= bytes[byteIndex] >>> 7 - currentBitPosition;
+                    valueToDecode |= (((bytes[byteIndex] & BYTE_MASK) >>> (8 - remainingBits - currentBitPosition)));
                     currentBitPosition += remainingBits;
                     remainingBits = 0;
                 }
