@@ -21,14 +21,14 @@ public class DoubleArrayToNaturalBinaryCodec extends AbstractDoubleArrayToBinary
     /**
      * Constructs a <code>DoubleArrayToNaturalBinaryCodec</code> object with provided coding parameters.
      * 
-     * @param bitsPerNumber number of code bits per single <code>double</code> value. Minimum value is 8, and maximum
+     * @param bitsPerValue number of code bits per single <code>double</code> value. Minimum value is 8, and maximum
      *            value is 32.
      * @param lowerBound minimum value to encode. All values smaller than this will have bits set to all zeroes.
      * @param upperBound maximum value to encode. All values greater than this will have bits set to all ones.
      * @throws IllegalArgumentException thrown if number of code bits is less than 8 or greater than 32.
      */
-    public DoubleArrayToNaturalBinaryCodec(int bitsPerNumber, double lowerBound, double upperBound) {
-        super(bitsPerNumber, lowerBound, upperBound);
+    public DoubleArrayToNaturalBinaryCodec(int bitsPerValue, double lowerBound, double upperBound) {
+        super(bitsPerValue, lowerBound, upperBound);
     }
     
     @Override
