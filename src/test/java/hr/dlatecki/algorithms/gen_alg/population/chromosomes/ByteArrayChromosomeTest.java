@@ -18,21 +18,37 @@ import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 public class ByteArrayChromosomeTest {
     
     /**
+     * Size of first array to use in tests.
+     */
+    private static final int ARRAY_1_SIZE = 500;
+    /**
+     * Size of second and third arrays to use in tests.
+     */
+    private static final int ARRAY_2_3_SIZE = 1_000;
+    /**
      * First array of <code>byte</code>s used in tests.
      */
-    private static final byte[] ARRAY_1 = { 0, 1, 5 };
+    private static final byte[] ARRAY_1 = new byte[ARRAY_1_SIZE];
     /**
      * Second array of <code>byte</code>s used in tests.
      */
-    private static final byte[] ARRAY_2 = { 7, 11, -5, -3, 1, 0 };
+    private static final byte[] ARRAY_2 = new byte[ARRAY_2_3_SIZE];
     /**
-     * Third array of <code>byte</code>s used in tests. Must have same length as {@link #ARRAY_2}.
+     * Third array of <code>byte</code>s used in tests.
      */
-    private static final byte[] ARRAY_3 = { 4, 0, 3, 2, 5, -100 };
+    private static final byte[] ARRAY_3 = new byte[ARRAY_2_3_SIZE];
     /**
      * Number used in tests. Must be different from first element of {@link #ARRAY_2}.
      */
-    private static final byte NUMBER = 14;
+    private static final byte NUMBER;
+    
+    static {
+        TestUtilities.RAND.nextBytes(ARRAY_1);
+        TestUtilities.RAND.nextBytes(ARRAY_2);
+        TestUtilities.RAND.nextBytes(ARRAY_3);
+        
+        NUMBER = (byte) (ARRAY_2[0] >> 1);
+    }
     
     /**
      * Tests the constructor, getter and setter.

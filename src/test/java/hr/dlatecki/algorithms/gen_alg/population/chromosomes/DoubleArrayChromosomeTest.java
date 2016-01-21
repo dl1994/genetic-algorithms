@@ -18,21 +18,46 @@ import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 public class DoubleArrayChromosomeTest {
     
     /**
+     * Size of first array to use in tests.
+     */
+    private static final int ARRAY_1_SIZE = 500;
+    /**
+     * Size of second and third arrays to use in tests.
+     */
+    private static final int ARRAY_2_3_SIZE = 1_000;
+    /**
+     * Range of <code>double</code> values to use in tests. This value will be used as positive and negative bound.
+     */
+    private static final double RANGE = 100.0;
+    /**
      * First array of <code>double</code>s used in tests.
      */
-    private static final double[] ARRAY_1 = { 1.0, 2.0, 3.0 };
+    private static final double[] ARRAY_1 = new double[ARRAY_1_SIZE];
     /**
      * Second array of <code>double</code>s used in tests.
      */
-    private static final double[] ARRAY_2 = { 5.0, -2.0, 2.0, 1.0, 11.9, 7.7 };
+    private static final double[] ARRAY_2 = new double[ARRAY_2_3_SIZE];
     /**
-     * Third array of <code>double</code>s used in tests. Must have same length as {@link #ARRAY_2}.
+     * Third array of <code>double</code>s used in tests.
      */
-    private static final double[] ARRAY_3 = { -5.0, -1.0, 5.0, 3.0, 1341.9, -9.7 };
+    private static final double[] ARRAY_3 = new double[ARRAY_2_3_SIZE];
     /**
      * Number used in tests. Must be different from first element of {@link #ARRAY_2}.
      */
-    private static final double NUMBER = 0.0;
+    private static final double NUMBER;
+    
+    static {
+        for (int i = 0; i < ARRAY_1_SIZE; i++) {
+            ARRAY_1[i] = TestUtilities.RAND.nextDouble() * RANGE * 2.0 - RANGE;
+        }
+        
+        for (int i = 0; i < ARRAY_2_3_SIZE; i++) {
+            ARRAY_2[i] = TestUtilities.RAND.nextDouble() * RANGE * 2.0 - RANGE;
+            ARRAY_3[i] = TestUtilities.RAND.nextDouble() * RANGE * 2.0 - RANGE;
+        }
+        
+        NUMBER = ARRAY_2[0] / 2.0;
+    }
     
     /**
      * Tests the constructor, getter and setter.
