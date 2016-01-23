@@ -2,6 +2,7 @@
 /* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.codecs.abstracts;
 
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
@@ -69,6 +70,10 @@ public class AbstractDoubleArrayToBinaryCodecTest {
      */
     private static class AbstractDoubleArrayToBinaryCodecExtender extends AbstractDoubleArrayToBinaryCodec {
         
+        /**
+         * Serial version UID.
+         */
+        private static final long serialVersionUID = -5127874756776732529L;
         /**
          * Encoded {@link #LOWER_BOUND}.
          */
@@ -165,6 +170,11 @@ public class AbstractDoubleArrayToBinaryCodecTest {
         
         new AbstractDoubleArrayToBinaryCodecExtender(BITS_PER_VALUE, LOWER_BOUND, UPPER_BOUND) {
             
+            /**
+             * Serial version UID.
+             */
+            private static final long serialVersionUID = 1L;
+            
             @Override
             protected long encodeValue(double value, double lowerBound, double upperBound, double step,
                     int bitsPerValue) {
@@ -223,5 +233,20 @@ public class AbstractDoubleArrayToBinaryCodecTest {
                     new AbstractDoubleArrayToBinaryCodecExtender(i, LOWER_BOUND, UPPER_BOUND);
             TestUtilities.assertArrayElementsEqual(TEST_ARRAY, a.decode(a.encode(TEST_ARRAY)));
         }
+    }
+    
+    /**
+     * Tests the serialization.
+     * 
+     * @throws IOException thrown if any stream is unable to read or write.
+     * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
+     */
+    @Test
+    public void testSerialization() throws IOException, ClassNotFoundException {
+        
+        AbstractDoubleArrayToBinaryCodec toSend =
+                new AbstractDoubleArrayToBinaryCodecExtender(BITS_PER_VALUE, LOWER_BOUND, UPPER_BOUND);
+        Object recieved = TestUtilities.serializeDeserialize(toSend);
+        Assert.assertTrue(recieved instanceof AbstractDoubleArrayToBinaryCodec);
     }
 }

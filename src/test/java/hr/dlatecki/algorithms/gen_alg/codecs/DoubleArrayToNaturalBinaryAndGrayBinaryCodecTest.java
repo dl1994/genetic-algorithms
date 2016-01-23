@@ -2,7 +2,9 @@
 /* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.codecs;
 
+import java.io.IOException;
 import java.util.function.Function;
+import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.codecs.abstracts.AbstractDoubleArrayToBinaryCodec;
 import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
@@ -18,6 +20,10 @@ import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
  */
 public class DoubleArrayToNaturalBinaryAndGrayBinaryCodecTest {
     
+    /**
+     * Specifies the number of bits per <code>double</code> value to pass to the constructor in serialization test.
+     */
+    private static final int BITS_PER_VALUE = 8;
     /**
      * Size of test arrays.
      */
@@ -93,5 +99,35 @@ public class DoubleArrayToNaturalBinaryAndGrayBinaryCodecTest {
             AbstractDoubleArrayToBinaryCodec a = codecGenerator.apply(i);
             TestUtilities.assertArrayElementsEqual(OUTPUT_ARRAY, a.decode(a.encode(INPUT_ARRAY)), expectedPrecision);
         }
+    }
+    
+    /**
+     * Tests the serialization for natural binary codec.
+     * 
+     * @throws IOException thrown if any stream is unable to read or write.
+     * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
+     */
+    @Test
+    public void testSerializationForNaturalBinaryCodec() throws IOException, ClassNotFoundException {
+        
+        DoubleArrayToNaturalBinaryCodec toSend =
+                new DoubleArrayToNaturalBinaryCodec(BITS_PER_VALUE, LOWER_BOUND, UPPER_BOUND);
+        Object recieved = TestUtilities.serializeDeserialize(toSend);
+        Assert.assertTrue(recieved instanceof DoubleArrayToNaturalBinaryCodec);
+    }
+    
+    /**
+     * Tests the serialization for gray binary codec.
+     * 
+     * @throws IOException thrown if any stream is unable to read or write.
+     * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
+     */
+    @Test
+    public void testSerializationForGrayBinaryCodec() throws IOException, ClassNotFoundException {
+        
+        DoubleArrayToGrayBinaryCodec toSend =
+                new DoubleArrayToGrayBinaryCodec(BITS_PER_VALUE, LOWER_BOUND, UPPER_BOUND);
+        Object recieved = TestUtilities.serializeDeserialize(toSend);
+        Assert.assertTrue(recieved instanceof DoubleArrayToGrayBinaryCodec);
     }
 }
