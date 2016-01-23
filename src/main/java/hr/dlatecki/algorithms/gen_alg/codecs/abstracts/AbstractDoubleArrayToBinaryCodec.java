@@ -36,27 +36,27 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
     /**
      * Number of code bits per single <code>double</code> value.
      */
-    private int bitsPerValue;
+    private final int bitsPerValue;
     /**
      * Minimum value which will be encoded. All values smaller than this will have bits set to all zeroes.
      */
-    private double lowerBound;
+    private final double lowerBound;
     /**
      * Maximum value which will be encoded. All values greater than this will have bits set to all ones.
      */
-    private double upperBound;
+    private final double upperBound;
     /**
      * Minimum difference between two values when encoding and decoding.
      */
-    private double step;
+    private final double step;
     /**
      * Encoded <code>lowerBound</code>.
      */
-    private long encodedLowerBound;
+    private final long encodedLowerBound;
     /**
      * Encoded <code>upperBound</code>.
      */
-    private long encodedUpperBound;
+    private final long encodedUpperBound;
     /**
      * Used to mask first {@link #bitsPerValue} bits in <code>long</code> number.
      */

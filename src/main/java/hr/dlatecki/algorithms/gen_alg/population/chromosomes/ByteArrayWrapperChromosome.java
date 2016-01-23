@@ -37,7 +37,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     /**
      * Initial setting of the <code>immutable</code> flag.
      */
-    private boolean initialImmutable;
+    private final boolean initialImmutable;
     /**
      * Item wrapped by this object.
      */

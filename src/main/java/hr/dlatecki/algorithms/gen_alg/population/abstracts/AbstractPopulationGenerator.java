@@ -23,7 +23,7 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
     /**
      * Object used to generate random numbers.
      */
-    protected Random rand;
+    protected final Random rand;
     
     /**
      * Constructs the population generator using the provided <code>Random</code> object.

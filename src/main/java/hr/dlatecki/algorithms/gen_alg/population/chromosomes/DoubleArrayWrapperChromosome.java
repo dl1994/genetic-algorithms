@@ -37,7 +37,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     /**
      * Initial setting of the <code>immutable</code> flag.
      */
-    private boolean initialImmutable;
+    private final boolean initialImmutable;
     /**
      * Item wrapped by this object.
      */
