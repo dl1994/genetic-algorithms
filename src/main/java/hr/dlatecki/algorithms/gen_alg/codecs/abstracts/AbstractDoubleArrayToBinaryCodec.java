@@ -18,6 +18,10 @@ import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
 public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCodec<double[]> {
     
     /**
+     * Serial version UID.
+     */
+    private static final long serialVersionUID = -3583416420870841421L;
+    /**
      * Mask for the single lowest byte.
      */
     private static final long BYTE_MASK = 0xFFL;

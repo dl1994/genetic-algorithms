@@ -2,7 +2,6 @@
 /* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.population.chromosomes;
 
-import java.util.Arrays;
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IDoubleArrayCodec;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 
@@ -14,8 +13,10 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * it, and the array can always be decoded into an object with same attributes. Encoding and decoding process is
  * performed by the coder which is provided upon creation of the instance of this class.<br>
  * <br>
- * To construct a chromosome using an item, use {@link #fromMutable(Object, IDoubleArrayCodec)} or
- * {@link #fromImmutable(Object, IDoubleArrayCodec)} static methods of this class.
+ * There are no public constructors for this class. To construct a chromosome using an item, use
+ * {@link #fromMutable(Object, IDoubleArrayCodec)} or {@link #fromImmutable(Object, IDoubleArrayCodec)} static methods
+ * of this class. To construct a chromosome using an array of <code>double</code>s, use
+ * {@link #fromValues(double[], IDoubleArrayCodec)} static method.
  * 
  * @author Domagoj Latečki
  * @version 1.0
@@ -28,7 +29,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 6889342943515258765L;
+    private static final long serialVersionUID = -3111288639517128623L;
     /**
      * Indicates if the currently stored item is immutable.
      */
@@ -40,7 +41,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     /**
      * Item wrapped by this object.
      */
-    private I item;
+    private transient I item;
     /**
      * Codec which is used in item encoding/decoding.
      */
@@ -79,16 +80,33 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     }
     
     /**
+     * Constructs a <code>DoubleArrayWrapperChromosome</code> object using the provided array of <code>double</code>s
+     * and codec. The array will be copied into this object, so outside changes to the array will have no effect on the
+     * contents of this object. It will also be decoded into an item by the codec. The item will be wrapped in this
+     * object.
+     * 
+     * @param values values of the chromosome.
+     * @param codec codec to use in item encoding/decoding process.
+     * @return Constructed chromosome.
+     */
+    public static <I> DoubleArrayWrapperChromosome<I> fromValues(double[] values, IDoubleArrayCodec<I> codec) {
+        
+        return new DoubleArrayWrapperChromosome<I>(values, codec);
+    }
+    
+    /**
      * Constructs a <code>DoubleArrayWrapperChromosome</code> object with provided codec. If the item which will be
      * wrapped in this object is meant to be immutable, then set the <code>immutable</code> flag to <code>true</code>.
      * When flag is set to <code>true</code> the provided item will be set as the wrapped item. If the flag is set to
      * <code>false</code>, then the new item will be created by decoding an array which was encoded from the provided
      * item. This will ensure that the item wrapped in this object cannot be changed from outside of this object.
      * 
+     * @param values array of <code>double</code>s to which will be passed to the superclass constructor.
      * @param immutable indicates if item which will be stored in this object is immutable.
      * @param codec codec to use in item encoding/decoding process.
      */
-    public DoubleArrayWrapperChromosome(boolean immutable, IDoubleArrayCodec<I> codec) {
+    private DoubleArrayWrapperChromosome(double[] values, boolean immutable, IDoubleArrayCodec<I> codec) {
+        super(values);
         this.immutable = initialImmutable = immutable;
         this.codec = codec;
     }
@@ -107,10 +125,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      * @param codec codec to use in item encoding/decoding process.
      */
     private DoubleArrayWrapperChromosome(I item, boolean immutable, IDoubleArrayCodec<I> codec) {
-        this(immutable, codec);
-        
-        values = codec.encode(item);
-        
+        this(codec.encode(item), immutable, codec);
         this.item = immutable ? item : codec.decode(values);
     }
     
@@ -126,9 +141,8 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      * @param values values of the chromosome.
      * @param codec codec to use in item encoding/decoding process.
      */
-    public DoubleArrayWrapperChromosome(double[] values, IDoubleArrayCodec<I> codec) {
-        this(true, codec);
-        this.values = Arrays.copyOf(values, values.length);
+    private DoubleArrayWrapperChromosome(double[] values, IDoubleArrayCodec<I> codec) {
+        this(values, true, codec);
         
         item = codec.decode(this.values);
     }

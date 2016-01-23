@@ -19,6 +19,11 @@ import hr.dlatecki.algorithms.gen_alg.codecs.abstracts.AbstractDoubleArrayToBina
 public class DoubleArrayToNaturalBinaryCodec extends AbstractDoubleArrayToBinaryCodec {
     
     /**
+     * Serial version UID.
+     */
+    private static final long serialVersionUID = -3107399042761628480L;
+    
+    /**
      * Constructs a <code>DoubleArrayToNaturalBinaryCodec</code> object with provided coding parameters.
      * 
      * @param bitsPerValue number of code bits per single <code>double</code> value. Minimum value is 8, and maximum

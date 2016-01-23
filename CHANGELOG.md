@@ -1,5 +1,10 @@
 # Development history
 
+### v0.4.2
+Several changes in ByteArrayWrapperChromosome and DoubleArrayWrapperChromosome, there are no more public constructors.
+Object can now only be created via static methods. Codec interfaces now extend Serializable interface in order to make
+all codecs serializable. Added answer to the Question of Life, the Universe and Everything.
+
 ### v0.4.1
 Added tests for DoubleArrayToNaturalBinaryCodec and DoubleArrayToGrayBinaryCodec, minor changes in
 AbstractDoubleArrayToBinaryCodec. Test for AbstractDoubleArrayToBinaryCodec now generates random test array of

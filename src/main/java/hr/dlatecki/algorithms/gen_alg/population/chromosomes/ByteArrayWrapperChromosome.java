@@ -2,7 +2,6 @@
 /* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.population.chromosomes;
 
-import java.util.Arrays;
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 
@@ -14,8 +13,10 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * it, and the array can always be decoded into an object with same attributes. Encoding and decoding process is
  * performed by the coder which is provided upon creation of the instance of this class.<br>
  * <br>
- * To construct a chromosome using an item, use {@link #fromMutable(Object, IByteArrayCodec)} or
- * {@link #fromImmutable(Object, IByteArrayCodec)} static methods of this class.
+ * There are no public constructors for this class. To construct a chromosome using an item, use
+ * {@link #fromMutable(Object, IByteArrayCodec)} or {@link #fromImmutable(Object, IByteArrayCodec)} static methods of
+ * this class. To construct a chromosome using an array of <code>byte</code>s, use
+ * {@link #fromBytes(byte[], IByteArrayCodec)} static method.
  * 
  * @author Domagoj Latečki
  * @version 1.0
@@ -28,7 +29,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 1351582272510994412L;
+    private static final long serialVersionUID = 8999018448549838791L;
     /**
      * Indicates if the currently stored item is immutable.
      */
@@ -40,7 +41,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     /**
      * Item wrapped by this object.
      */
-    private I item;
+    private transient I item;
     /**
      * Codec which is used in item encoding/decoding.
      */
@@ -79,16 +80,33 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     }
     
     /**
+     * Constructs a <code>ByteArrayWrapperChromosome</code> object using the provided array of <code>byte</code>s and
+     * codec. The array will be copied into this object, so outside changes to the array will have no effect on the
+     * contents of this object. It will also be decoded into an item by the codec. The item will be wrapped in this
+     * object.
+     * 
+     * @param bytes bytes of the chromosome.
+     * @param codec codec to use in item encoding/decoding process.
+     * @return Constructed chromosome.
+     */
+    public static <I> ByteArrayWrapperChromosome<I> fromBytes(byte[] bytes, IByteArrayCodec<I> codec) {
+        
+        return new ByteArrayWrapperChromosome<>(bytes, codec);
+    }
+    
+    /**
      * Constructs a <code>ByteArrayWrapperChromosome</code> object with provided codec. If the item which will be
      * wrapped in this object is meant to be immutable, then set the <code>immutable</code> flag to <code>true</code>.
      * When flag is set to <code>true</code> the provided item will be set as the wrapped item. If the flag is set to
      * <code>false</code>, then the new item will be created by decoding an array which was encoded from the provided
      * item. This will ensure that the item wrapped in this object cannot be changed from outside of this object.
      * 
+     * @param bytes array of <code>byte</code>s to which will be passed to the superclass constructor.
      * @param immutable indicates if item which will be stored in this object is immutable.
      * @param codec codec to use in item encoding/decoding process.
      */
-    public ByteArrayWrapperChromosome(boolean immutable, IByteArrayCodec<I> codec) {
+    private ByteArrayWrapperChromosome(byte[] bytes, boolean immutable, IByteArrayCodec<I> codec) {
+        super(bytes);
         this.immutable = initialImmutable = immutable;
         this.codec = codec;
     }
@@ -107,10 +125,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
      * @param codec codec to use in item encoding/decoding process.
      */
     private ByteArrayWrapperChromosome(I item, boolean immutable, IByteArrayCodec<I> codec) {
-        this(immutable, codec);
-        
-        bytes = codec.encode(item);
-        
+        this(codec.encode(item), immutable, codec);
         this.item = immutable ? item : codec.decode(bytes);
     }
     
@@ -126,9 +141,8 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
      * @param bytes bytes of the chromosome.
      * @param codec codec to use in item encoding/decoding process.
      */
-    public ByteArrayWrapperChromosome(byte[] bytes, IByteArrayCodec<I> codec) {
-        this(true, codec);
-        this.bytes = Arrays.copyOf(bytes, bytes.length);
+    private ByteArrayWrapperChromosome(byte[] bytes, IByteArrayCodec<I> codec) {
+        this(bytes, true, codec);
         
         item = codec.decode(this.bytes);
     }

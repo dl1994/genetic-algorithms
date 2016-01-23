@@ -18,16 +18,11 @@ public class DoubleArrayChromosome extends AbstractChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 8412545818730407936L;
+    private static final long serialVersionUID = -1967402422543381161L;
     /**
      * Array of values that represent this chromosome.
      */
     protected double[] values;
-    
-    /**
-     * This constructor is used only in derived classes so that they may have a constructor without parameters.
-     */
-    protected DoubleArrayChromosome() {}
     
     /**
      * Constructs a <code>DoubleArrayChromosome</code> using the provided array of values. Values are copied in order to

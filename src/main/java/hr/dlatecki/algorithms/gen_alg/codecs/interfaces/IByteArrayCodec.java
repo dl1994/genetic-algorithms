@@ -2,6 +2,8 @@
 /* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.codecs.interfaces;
 
+import java.io.Serializable;
+
 /**
  * Interface which specifies methods for encoding and decoding an object into and from an array of <code>byte</code>s.
  * 
@@ -10,7 +12,7 @@ package hr.dlatecki.algorithms.gen_alg.codecs.interfaces;
  * @param <I> the type of object to encode/decode.
  * @since 1.8
  */
-public interface IByteArrayCodec<I> {
+public interface IByteArrayCodec<I> extends Serializable {
     
     /**
      * Encodes the object into an array of <code>byte</code>s.

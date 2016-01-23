@@ -18,16 +18,11 @@ public class ByteArrayChromosome extends AbstractChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 2877386459918853843L;
+    private static final long serialVersionUID = -1162118371870588963L;
     /**
      * Array of bytes that represent this chromosome.
      */
     protected byte[] bytes;
-    
-    /**
-     * This constructor is used only in derived classes so that they may have a constructor without parameters.
-     */
-    protected ByteArrayChromosome() {}
     
     /**
      * Constructs a <code>ByteArrayChromosome</code> using the provided array of bytes. Bytes are copied in order to
