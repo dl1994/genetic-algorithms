@@ -18,11 +18,26 @@ public class DoubleArrayChromosome extends AbstractChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = -1967402422543381161L;
+    private static final long serialVersionUID = -3983347067165233461L;
     /**
      * Array of values that represent this chromosome.
      */
     protected double[] values;
+    
+    /**
+     * Constructs a <code>DoubleArrayChromosome</code> using the provided array of values.
+     * 
+     * @param values values which will be assigned to the chromosome.
+     * @param copyValues indicates if provided array of <code>double</code>s should be copied into a new array to use it
+     *            this object.
+     */
+    protected DoubleArrayChromosome(double[] values, boolean copyValues) {
+        if (copyValues) {
+            this.values = Arrays.copyOf(values, values.length);
+        } else {
+            this.values = values;
+        }
+    }
     
     /**
      * Constructs a <code>DoubleArrayChromosome</code> using the provided array of values. Values are copied in order to

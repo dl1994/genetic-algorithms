@@ -29,7 +29,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = -3111288639517128623L;
+    private static final long serialVersionUID = -1417534859246791439L;
     /**
      * Indicates if the currently stored item is immutable.
      */
@@ -104,9 +104,12 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      * @param values array of <code>double</code>s to which will be passed to the superclass constructor.
      * @param immutable indicates if item which will be stored in this object is immutable.
      * @param codec codec to use in item encoding/decoding process.
+     * @param copyValues indicates if provided array of <code>double</code>s should be copied into a new array to use it
+     *            this object.
      */
-    private DoubleArrayWrapperChromosome(double[] values, boolean immutable, IDoubleArrayCodec<I> codec) {
-        super(values);
+    private DoubleArrayWrapperChromosome(double[] values, boolean immutable, IDoubleArrayCodec<I> codec,
+            boolean copyValues) {
+        super(values, copyValues);
         this.immutable = initialImmutable = immutable;
         this.codec = codec;
     }
@@ -125,7 +128,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      * @param codec codec to use in item encoding/decoding process.
      */
     private DoubleArrayWrapperChromosome(I item, boolean immutable, IDoubleArrayCodec<I> codec) {
-        this(codec.encode(item), immutable, codec);
+        this(codec.encode(item), immutable, codec, false);
         this.item = immutable ? item : codec.decode(values);
     }
     
@@ -142,7 +145,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      * @param codec codec to use in item encoding/decoding process.
      */
     private DoubleArrayWrapperChromosome(double[] values, IDoubleArrayCodec<I> codec) {
-        this(values, true, codec);
+        this(values, true, codec, true);
         
         item = codec.decode(this.values);
     }

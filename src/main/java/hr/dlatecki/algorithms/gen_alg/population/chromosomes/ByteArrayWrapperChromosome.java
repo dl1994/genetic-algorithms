@@ -29,7 +29,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 8999018448549838791L;
+    private static final long serialVersionUID = 2531568532715746906L;
     /**
      * Indicates if the currently stored item is immutable.
      */
@@ -104,9 +104,11 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
      * @param bytes array of <code>byte</code>s to which will be passed to the superclass constructor.
      * @param immutable indicates if item which will be stored in this object is immutable.
      * @param codec codec to use in item encoding/decoding process.
+     * @param copyBytes indicates if provided array of <code>byte</code>s should be copied into a new array to use it
+     *            this object.
      */
-    private ByteArrayWrapperChromosome(byte[] bytes, boolean immutable, IByteArrayCodec<I> codec) {
-        super(bytes);
+    private ByteArrayWrapperChromosome(byte[] bytes, boolean immutable, IByteArrayCodec<I> codec, boolean copyBytes) {
+        super(bytes, copyBytes);
         this.immutable = initialImmutable = immutable;
         this.codec = codec;
     }
@@ -125,7 +127,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
      * @param codec codec to use in item encoding/decoding process.
      */
     private ByteArrayWrapperChromosome(I item, boolean immutable, IByteArrayCodec<I> codec) {
-        this(codec.encode(item), immutable, codec);
+        this(codec.encode(item), immutable, codec, false);
         this.item = immutable ? item : codec.decode(bytes);
     }
     
@@ -142,7 +144,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
      * @param codec codec to use in item encoding/decoding process.
      */
     private ByteArrayWrapperChromosome(byte[] bytes, IByteArrayCodec<I> codec) {
-        this(bytes, true, codec);
+        this(bytes, true, codec, true);
         
         item = codec.decode(this.bytes);
     }

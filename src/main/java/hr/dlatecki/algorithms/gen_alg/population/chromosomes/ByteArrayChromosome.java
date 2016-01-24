@@ -18,11 +18,26 @@ public class ByteArrayChromosome extends AbstractChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = -1162118371870588963L;
+    private static final long serialVersionUID = -1446980837399892967L;
     /**
      * Array of bytes that represent this chromosome.
      */
     protected byte[] bytes;
+    
+    /**
+     * Constructs a <code>ByteArrayChromosome</code> using the provided array of bytes.
+     * 
+     * @param bytes bytes which will be assigned to the chromosome.
+     * @param copyBytes indicates if provided array of <code>byte</code>s should be copied into a new array to use it
+     *            this object.
+     */
+    protected ByteArrayChromosome(byte[] bytes, boolean copyBytes) {
+        if (copyBytes) {
+            this.bytes = Arrays.copyOf(bytes, bytes.length);
+        } else {
+            this.bytes = bytes;
+        }
+    }
     
     /**
      * Constructs a <code>ByteArrayChromosome</code> using the provided array of bytes. Bytes are copied in order to
@@ -31,7 +46,7 @@ public class ByteArrayChromosome extends AbstractChromosome {
      * @param bytes bytes which will be assigned to the chromosome.
      */
     public ByteArrayChromosome(byte[] bytes) {
-        this.bytes = Arrays.copyOf(bytes, bytes.length);
+        this(bytes, true);
     }
     
     /**
