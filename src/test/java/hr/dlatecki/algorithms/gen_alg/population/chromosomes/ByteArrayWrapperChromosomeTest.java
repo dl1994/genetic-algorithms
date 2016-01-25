@@ -2,6 +2,7 @@
 /* You may use, distribute and modify this code under the terms of the MIT license. */
 package hr.dlatecki.algorithms.gen_alg.population.chromosomes;
 
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
@@ -256,5 +257,24 @@ public class ByteArrayWrapperChromosomeTest {
         TestUtilities.assertArrayElementsEqual(STRING_2_BYTES, a.getBytes());
         Assert.assertNotSame(STRING_2_BYTES, a.getBytes());
         Assert.assertEquals(TEST_STRING_2, a.getItem());
+    }
+    
+    /**
+     * Tests the serialization.
+     * 
+     * @throws IOException thrown if any stream is unable to read or write.
+     * @throws ClassNotFoundException thrown if object in the stream cannot be deserialized.
+     */
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testSerialization() throws IOException, ClassNotFoundException {
+        
+        StringToByteCodec codec = new StringToByteCodec();
+        ByteArrayWrapperChromosome<String> toSend = ByteArrayWrapperChromosome.fromBytes(STRING_1_BYTES, codec);
+        Object recieved = TestUtilities.serializeDeserialize(toSend);
+        Assert.assertTrue(recieved instanceof ByteArrayWrapperChromosome);
+        TestUtilities.assertArrayElementsEqual(STRING_1_BYTES,
+                ((ByteArrayWrapperChromosome<String>) recieved).getBytes());
+        Assert.assertEquals(TEST_STRING_1, ((ByteArrayWrapperChromosome<String>) recieved).getItem());
     }
 }
