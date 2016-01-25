@@ -175,6 +175,11 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      */
     public I getItem() {
         
+        if (item == null) {
+            item = codec.decode(values);
+            immutable = true;
+        }
+        
         return immutable ? item : codec.decode(values);
     }
     

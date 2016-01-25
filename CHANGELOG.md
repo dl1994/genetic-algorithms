@@ -1,5 +1,8 @@
 # Development history
 
+### v0.4.3
+Minor changes in ByteArrayWrapperChromosome and DoubleArrayWrapperChromosome, added tests for both wrapper chromosomes.
+
 ### v0.4.2
 Several changes in ByteArrayWrapperChromosome and DoubleArrayWrapperChromosome, there are no more public constructors.
 Object can now only be created via static methods. Codec interfaces now extend Serializable interface in order to make

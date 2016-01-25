@@ -99,4 +99,19 @@ public class TestUtilities {
             Assert.assertEquals(expected[i], actual[i]);
         }
     }
+    
+    /**
+     * Tests if two arrays of <code>int</code>s have equal elements.
+     * 
+     * @param expected array of expected values.
+     * @param actual actual values.
+     */
+    public static void assertArrayElementsEqual(int[] expected, int[] actual) {
+        
+        Assert.assertEquals(expected.length, actual.length);
+        
+        for (int i = 0; i < expected.length; i++) {
+            Assert.assertEquals(expected[i], actual[i]);
+        }
+    }
 }

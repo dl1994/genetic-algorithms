@@ -176,6 +176,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
         
         if (item == null) {
             item = codec.decode(bytes);
+            immutable = true;
         }
         
         return immutable ? item : codec.decode(bytes);
