@@ -46,7 +46,8 @@ public class UniformDistributionMutation<C extends DoubleArrayChromosome> extend
     
     /**
      * Constructs an uniform distribution mutation using the provided variance. Variance must be a positive number. The
-     * ranges of the distribution will be symmetrical and are calculated from the provided variance value.
+     * ranges of the distribution will be symmetrical and are calculated from the provided variance value. Mutation
+     * intensity affects the variance which will be used in the distribution.
      * 
      * @param rand object used to generate random numbers.
      * @param mutationIntensity intensity at which mutation will occur. Valid value range is [0, 1].
@@ -63,7 +64,7 @@ public class UniformDistributionMutation<C extends DoubleArrayChromosome> extend
     
     /**
      * Constructs an uniform distribution mutation using the provided lower and upper limits. Upper limit must be
-     * greater than the lower limit.
+     * greater than the lower limit. Mutation intensity affects the variance which will be used in the distribution.
      * 
      * @param rand object used to generate random numbers.
      * @param mutationIntensity intensity at which mutation will occur. Valid value range is [0, 1].

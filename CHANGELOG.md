@@ -1,5 +1,8 @@
 # Development history
 
+### v0.5.1
+Added BitFlipMutation.
+
 ### v0.5.0
 Added several mutation operators for arrays of doubles. Change in the mutation interface, mutationChance is now
 mutationIntensity.

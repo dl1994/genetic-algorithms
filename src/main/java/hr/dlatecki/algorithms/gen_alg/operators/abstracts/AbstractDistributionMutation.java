@@ -25,7 +25,8 @@ public abstract class AbstractDistributionMutation<C extends DoubleArrayChromoso
     
     /**
      * Constructs an abstract distribution mutation operator with provided parameters. Mutation intensity must be in
-     * range [0, 1]. Variance must be a positive number.
+     * range [0, 1]. Variance must be a positive number. Mutation intensity affects the variance which will be used in
+     * the distribution.
      * 
      * @param rand object used to generate random numbers.
      * @param mutationIntensity intensity at which mutation will occur. Valid value range is [0, 1].
