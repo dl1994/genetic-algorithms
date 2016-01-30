@@ -169,7 +169,7 @@ public abstract class AbstractDoubleArrayToBinaryCodec implements IByteArrayCode
                     currentBitPosition = 0;
                     byteIndex++;
                 } else {
-                    valueToDecode |= (((bytes[byteIndex] & BYTE_MASK) >>> (8 - remainingBits - currentBitPosition)));
+                    valueToDecode |= (bytes[byteIndex] & BYTE_MASK) >>> 8 - remainingBits - currentBitPosition;
                     currentBitPosition += remainingBits;
                     remainingBits = 0;
                 }

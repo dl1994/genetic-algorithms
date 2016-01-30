@@ -102,8 +102,8 @@ public class UniformDistributionMutation<C extends DoubleArrayChromosome> extend
     @Override
     protected double calculateNewValue(double oldValue, double variance) {
         
-        double currentLowerLimit = ((SQRT_12 * variance) / range) * lowerLimit;
-        double currentUpperLimit = ((SQRT_12 * variance) / range) * upperLimit;
+        double currentLowerLimit = SQRT_12 * variance / range * lowerLimit;
+        double currentUpperLimit = SQRT_12 * variance / range * upperLimit;
         double currentRange = currentUpperLimit - currentLowerLimit;
         
         return oldValue + currentRange * rand.nextDouble() + currentLowerLimit;

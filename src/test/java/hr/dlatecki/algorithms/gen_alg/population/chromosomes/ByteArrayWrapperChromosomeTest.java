@@ -140,7 +140,7 @@ public class ByteArrayWrapperChromosomeTest {
             final int prime = 31;
             int result = 1;
             
-            result = prime * result + ((string == null) ? 0 : string.hashCode());
+            result = prime * result + (string == null ? 0 : string.hashCode());
             
             return result;
         }

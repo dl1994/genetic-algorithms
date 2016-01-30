@@ -54,7 +54,7 @@ public class DoubleArrayToNaturalBinaryAndGrayBinaryCodecTest {
         double modifiedBound = UPPER_BOUND * (1.0 + OUT_OF_BOUNDS_PERC);
         
         for (int i = 0; i < TEST_ARRAY_SIZE; i++) {
-            INPUT_ARRAY[i] = (TestUtilities.RAND.nextDouble() * range - modifiedBound);
+            INPUT_ARRAY[i] = TestUtilities.RAND.nextDouble() * range - modifiedBound;
             
             if (INPUT_ARRAY[i] <= LOWER_BOUND) {
                 OUTPUT_ARRAY[i] = LOWER_BOUND;
