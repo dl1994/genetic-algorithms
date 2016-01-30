@@ -37,10 +37,10 @@ public class AbstractMutationOperatorTest {
          * Constructor used to pass arguments to superclass constructor.
          * 
          * @param rand <code>Random</code> object to be passed to superclass constructor.
-         * @param mutationChance value of mutation chance to be passed to superclass constructor.
+         * @param mutationIntensity value of mutation intensity to be passed to superclass constructor.
          */
-        public AbstractMutationOperatorExtender(Random rand, double mutationChance) {
-            super(rand, mutationChance);
+        public AbstractMutationOperatorExtender(Random rand, double mutationIntensity) {
+            super(rand, mutationIntensity);
         }
         
         @Override
@@ -50,13 +50,13 @@ public class AbstractMutationOperatorTest {
         }
         
         /**
-         * Fetches the mutation chance stored in the superclass.
+         * Fetches the mutation intensity stored in the superclass.
          * 
-         * @return Mutation chance stored in the superclass.
+         * @return Mutation intensity stored in the superclass.
          */
-        public double getMutationChance() {
+        public double getMutationIntensity() {
             
-            return mutationChance;
+            return mutationIntensity;
         }
     }
     
@@ -68,7 +68,7 @@ public class AbstractMutationOperatorTest {
         
         AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         Assert.assertEquals(TestUtilities.RAND, a.getRand());
-        Assert.assertEquals(MUTATION_CHANCE, a.getMutationChance(), TestUtilities.PRECISION);
+        Assert.assertEquals(MUTATION_CHANCE, a.getMutationIntensity(), TestUtilities.PRECISION);
     }
     
     /**
@@ -79,11 +79,11 @@ public class AbstractMutationOperatorTest {
         
         AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         
-        a.setMutationChance(0.0);
-        a.setMutationChance(1.0);
-        a.setMutationChance(MUTATION_CHANCE / 2.0);
+        a.setMutationIntensity(0.0);
+        a.setMutationIntensity(1.0);
+        a.setMutationIntensity(MUTATION_CHANCE / 2.0);
         
-        Assert.assertEquals(MUTATION_CHANCE / 2.0, a.getMutationChance(), TestUtilities.PRECISION);
+        Assert.assertEquals(MUTATION_CHANCE / 2.0, a.getMutationIntensity(), TestUtilities.PRECISION);
     }
     
     /**
@@ -94,7 +94,7 @@ public class AbstractMutationOperatorTest {
         
         AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         
-        a.setMutationChance(-0.1);
+        a.setMutationIntensity(-0.1);
     }
     
     /**
@@ -105,6 +105,6 @@ public class AbstractMutationOperatorTest {
         
         AbstractMutationOperatorExtender a = new AbstractMutationOperatorExtender(TestUtilities.RAND, MUTATION_CHANCE);
         
-        a.setMutationChance(1.1);
+        a.setMutationIntensity(1.1);
     }
 }

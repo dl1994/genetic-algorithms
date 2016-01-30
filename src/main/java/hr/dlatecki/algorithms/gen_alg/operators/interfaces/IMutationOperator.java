@@ -31,8 +31,8 @@ public interface IMutationOperator<C extends IChromosome> {
     /**
      * Sets the probability for mutation to occur. Provided value must be in range [0, 1].
      * 
-     * @param chance probability for mutation to occur. Valid value range is [0, 1].
+     * @param intensity intensity at which mutation will occur. Valid value range is [0, 1].
      * @throws IllegalArgumentException thrown if provided value is invalid.
      */
-    public void setMutationChance(double chance);
+    public void setMutationIntensity(double intensity);
 }

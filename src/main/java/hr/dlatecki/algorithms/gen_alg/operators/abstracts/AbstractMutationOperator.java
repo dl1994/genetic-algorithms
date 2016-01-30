@@ -21,32 +21,32 @@ public abstract class AbstractMutationOperator<C extends IChromosome> extends Ab
         implements IMutationOperator<C> {
         
     /**
-     * Probability for mutation to occur.
+     * Intensity at which mutation will occur.
      */
-    protected double mutationChance;
+    protected double mutationIntensity;
     
     /**
-     * Constructs a mutation operator with provided <code>Random</code> object and mutation chance. Mutation chance must
-     * be in range [0, 1].
+     * Constructs a mutation operator with provided <code>Random</code> object and mutation chance. Mutation intensity
+     * must be in range [0, 1].
      * 
      * @param rand object used to generate random numbers.
-     * @param mutationChance probability for mutation to occur. Valid value range is [0, 1].
+     * @param mutationIntensity intensity at which mutation will occur. Valid value range is [0, 1].
      * @throws IllegalArgumentException thrown if provided value for mutation chance is invalid.
      */
-    public AbstractMutationOperator(Random rand, double mutationChance) {
+    public AbstractMutationOperator(Random rand, double mutationIntensity) {
         super(rand);
         
-        setMutationChance(mutationChance);
+        setMutationIntensity(mutationIntensity);
     }
     
     @Override
-    public final void setMutationChance(double chance) {
+    public final void setMutationIntensity(double intensity) {
         
-        if (chance < 0.0 || chance > 1.0) {
+        if (intensity < 0.0 || intensity > 1.0) {
             throw new IllegalArgumentException(
-                    "Mutation chance must be in range [0, 1]. Provided value was: " + chance + ".");
+                    "Intensity must be in range [0, 1]. Provided value was: " + intensity + ".");
         }
         
-        mutationChance = chance;
+        mutationIntensity = intensity;
     }
 }

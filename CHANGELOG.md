@@ -1,5 +1,8 @@
 # Development history
 
+### v0.5.0
+Added several mutation operators.
+
 ### v0.4.3
 Minor changes in ByteArrayWrapperChromosome and DoubleArrayWrapperChromosome, added tests for both wrapper chromosomes.
 
