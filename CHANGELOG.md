@@ -1,7 +1,8 @@
 # Development history
 
 ### v0.5.0
-Added several mutation operators.
+Added several mutation operators for arrays of doubles. Change in the mutation interface, mutationChance is now
+mutationIntensity.
 
 ### v0.4.3
 Minor changes in ByteArrayWrapperChromosome and DoubleArrayWrapperChromosome, added tests for both wrapper chromosomes.
