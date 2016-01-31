@@ -1,5 +1,14 @@
 # Development history
 
+### v0.6.0
+Added ArithmeticMeanCrossover operator.
+
+### v0.5.3
+Defined an annotation which indicates that a method should be always overridden. There is no annotation processor yet.
+
+### v0.5.2
+IChromosome interface now defines an additional method which is used to create an empty copy of the chromosome.
+
 ### v0.5.1
 Added BitFlipMutation.
 

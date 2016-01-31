@@ -10,12 +10,12 @@ import hr.dlatecki.algorithms.gen_alg.population.chromosomes.ByteArrayChromosome
  * An implementation of mutation operator which flips bits in order to mutate the chromosome. Bits are flipped with
  * provided probability rate.<br>
  * <br>
- * This mutation can only be used on chromosomes which extend the <code>ByteArrayChromosome</code>.
+ * This mutation operator can only be used on chromosomes which extend the <code>ByteArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8
- * @param <C> the type of chromosome which will be used in the mutation operator.
+ * @param <C> the type of chromosome which will be used in mutation operator.
  * @see AbstractMutationOperator
  * @see ByteArrayChromosome
  */

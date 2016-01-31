@@ -3,6 +3,7 @@
 package hr.dlatecki.algorithms.gen_alg.population.interfaces;
 
 import java.io.Serializable;
+import hr.dlatecki.algorithms.gen_alg.annotations.AlwaysOverride;
 import hr.dlatecki.algorithms.gen_alg.exceptions.FitnessNotEvaluatedException;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 
@@ -51,5 +52,6 @@ public interface IChromosome extends Comparable<IChromosome>, Cloneable, Seriali
      * 
      * @return A new chromosome of the same type as this chromosome.
      */
+    @AlwaysOverride
     public IChromosome newLikeThis();
 }

@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Test;
 import hr.dlatecki.algorithms.gen_alg.exceptions.FitnessNotEvaluatedException;
+import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
 import hr.dlatecki.algorithms.gen_alg.test_utils.TestUtilities;
 
 /**
@@ -110,6 +111,12 @@ public class AbstractChromosomeTest {
             
             ((AbstractChromosomeExtender) target).contaianer = new MutableContainer(contaianer.getNumber());
         }
+        
+        @Override
+        public IChromosome newLikeThis() {
+            
+            return null;
+        }
     }
     
     /**
@@ -147,6 +154,12 @@ public class AbstractChromosomeTest {
             protected void deepCopyTo(AbstractChromosome target) throws CloneNotSupportedException {
                 
                 throw new CloneNotSupportedException();
+            }
+            
+            @Override
+            public IChromosome newLikeThis() {
+                
+                return null;
             }
         };
         

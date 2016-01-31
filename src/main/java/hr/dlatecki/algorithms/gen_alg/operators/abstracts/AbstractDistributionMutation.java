@@ -7,7 +7,9 @@ import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromoso
 
 /**
  * An abstract class for mutation operators that rely on come kind of probability distribution. The mutation intensity
- * affects the variance of the distribution. Variance is scaled linearly according to the mutation intensity.
+ * affects the variance of the distribution. Variance is scaled linearly according to the mutation intensity.<br>
+ * <br>
+ * This mutation operator can only be used on chromosomes which extend <code>DoubleArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0

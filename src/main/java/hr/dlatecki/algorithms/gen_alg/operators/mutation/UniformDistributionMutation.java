@@ -14,9 +14,9 @@ import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromoso
  * has an equal chance of being selected as the value which will be added to the current value.<br>
  * <br>
  * More info about the uniform distribution can be found
- * <a href = "https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">here</a>. <br>
+ * <a href = "https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">here</a>.<br>
  * <br>
- * This mutation can only be used on chromosomes which extend the <code>DoubleArrayChromosome</code>.
+ * This mutation operator can only be used on chromosomes which extend <code>DoubleArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
