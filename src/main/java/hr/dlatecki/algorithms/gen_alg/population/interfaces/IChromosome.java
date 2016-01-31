@@ -45,4 +45,11 @@ public interface IChromosome extends Comparable<IChromosome>, Cloneable, Seriali
      * @return A clone of this chromosome.
      */
     public IChromosome clone();
+    
+    /**
+     * Creates a new empty chromosome that is the same type as the chromosome it was created from.
+     * 
+     * @return A new chromosome of the same type as this chromosome.
+     */
+    public IChromosome newLikeThis();
 }

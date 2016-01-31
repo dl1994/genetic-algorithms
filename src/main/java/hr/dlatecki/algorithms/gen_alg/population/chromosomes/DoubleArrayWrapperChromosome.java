@@ -95,6 +95,17 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     }
     
     /**
+     * A constructor used in {@link #newLikeThis()} method. Creates an empty <code>DoubleArrayWrapperChromosome</code>.
+     * 
+     * @param immutable indicates if item which will be stored in this object is immutable.
+     * @param codec codec to use in item encoding/decoding process.
+     */
+    protected DoubleArrayWrapperChromosome(boolean immutable, IDoubleArrayCodec<I> codec) {
+        this.immutable = initialImmutable = immutable;
+        this.codec = codec;
+    }
+    
+    /**
      * Constructs a <code>DoubleArrayWrapperChromosome</code> object with provided codec. If the item which will be
      * wrapped in this object is meant to be immutable, then set the <code>immutable</code> flag to <code>true</code>.
      * When flag is set to <code>true</code> the provided item will be set as the wrapped item. If the flag is set to
@@ -195,5 +206,11 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
         values = codec.encode(item);
         
         this.item = immutable ? item : codec.decode(values);
+    }
+    
+    @Override
+    public DoubleArrayWrapperChromosome<I> newLikeThis() {
+        
+        return new DoubleArrayWrapperChromosome<>(initialImmutable, codec);
     }
 }

@@ -25,6 +25,11 @@ public class ByteArrayChromosome extends AbstractChromosome {
     protected byte[] bytes;
     
     /**
+     * An empty constructor used in {@link #newLikeThis()} method.
+     */
+    protected ByteArrayChromosome() {}
+    
+    /**
      * Constructs a <code>ByteArrayChromosome</code> using the provided array of bytes.
      * 
      * @param bytes bytes which will be assigned to the chromosome.
@@ -75,4 +80,10 @@ public class ByteArrayChromosome extends AbstractChromosome {
     
     @Override
     protected void deepCopyTo(AbstractChromosome target) throws CloneNotSupportedException {}
+    
+    @Override
+    public ByteArrayChromosome newLikeThis() {
+        
+        return new ByteArrayChromosome();
+    }
 }

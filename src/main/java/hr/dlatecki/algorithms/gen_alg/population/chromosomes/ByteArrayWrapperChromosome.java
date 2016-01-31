@@ -95,6 +95,17 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     }
     
     /**
+     * A constructor used in {@link #newLikeThis()} method. Creates an empty <code>ByteArrayWrapperChromosome</code>.
+     * 
+     * @param immutable indicates if <code>item</code> is immutable.
+     * @param codec codec to use in item encoding/decoding process.
+     */
+    protected ByteArrayWrapperChromosome(boolean immutable, IByteArrayCodec<I> codec) {
+        this.immutable = initialImmutable = immutable;
+        this.codec = codec;
+    }
+    
+    /**
      * Constructs a <code>ByteArrayWrapperChromosome</code> object with provided codec. If the item which will be
      * wrapped in this object is meant to be immutable, then set the <code>immutable</code> flag to <code>true</code>.
      * When flag is set to <code>true</code> the provided item will be set as the wrapped item. If the flag is set to
@@ -194,5 +205,11 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
         bytes = codec.encode(item);
         
         this.item = immutable ? item : codec.decode(bytes);
+    }
+    
+    @Override
+    public ByteArrayWrapperChromosome<I> newLikeThis() {
+        
+        return new ByteArrayWrapperChromosome<>(initialImmutable, codec);
     }
 }

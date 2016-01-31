@@ -25,6 +25,11 @@ public class DoubleArrayChromosome extends AbstractChromosome {
     protected double[] values;
     
     /**
+     * An empty constructor used in {@link #newLikeThis()} method.
+     */
+    protected DoubleArrayChromosome() {}
+    
+    /**
      * Constructs a <code>DoubleArrayChromosome</code> using the provided array of values.
      * 
      * @param values values which will be assigned to the chromosome.
@@ -75,4 +80,10 @@ public class DoubleArrayChromosome extends AbstractChromosome {
     
     @Override
     protected void deepCopyTo(AbstractChromosome target) throws CloneNotSupportedException {}
+    
+    @Override
+    public DoubleArrayChromosome newLikeThis() {
+        
+        return new DoubleArrayChromosome();
+    }
 }
