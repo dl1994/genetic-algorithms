@@ -1,5 +1,5 @@
-// Copyright (C) 2016 Domagoj Latečki
-/* You may use, distribute and modify this code under the terms of the MIT license. */
+// Copyright (C) Domagoj Latečki
+// You may use, distribute and modify this code under the terms of the MIT license.
 /**
  * Contains sub-packages which define interfaces and abstract classes for chromosomes, population generators and fitness
  * tests. Also contains several implementations of the chromosomes and population generators.

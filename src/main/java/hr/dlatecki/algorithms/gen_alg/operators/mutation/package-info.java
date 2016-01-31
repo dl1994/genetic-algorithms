@@ -1,5 +1,5 @@
-// Copyright (C) 2016 Domagoj Latečki
-/* You may use, distribute and modify this code under the terms of the MIT license. */
+// Copyright (C) Domagoj Latečki
+// You may use, distribute and modify this code under the terms of the MIT license.
 /**
  * Contains implementations of the mutation operators.
  * 
