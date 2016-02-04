@@ -4,7 +4,7 @@ package hr.dlatecki.algorithms.gen_alg.operators.mutation;
 
 import java.util.Random;
 import hr.dlatecki.algorithms.gen_alg.operators.abstracts.AbstractDistributionMutation;
-import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromosome;
+import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractDoubleArrayChromosome;
 
 /**
  * An implementation of mutation operator which uses the uniform distribution to generate mutated values. The new value
@@ -16,17 +16,18 @@ import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromoso
  * More info about the uniform distribution can be found
  * <a href = "https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">here</a>.<br>
  * <br>
- * This mutation operator can only be used on chromosomes which extend <code>DoubleArrayChromosome</code>.
+ * This mutation operator can only be used on chromosomes which extend <code>AbstractDoubleArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8
  * @param <C> the type of chromosome which will be used in the mutation operator.
  * @see AbstractDistributionMutation
- * @see DoubleArrayChromosome
+ * @see AbstractDoubleArrayChromosome
  */
-public class UniformDistributionMutation<C extends DoubleArrayChromosome> extends AbstractDistributionMutation<C> {
-    
+public class UniformDistributionMutation<C extends AbstractDoubleArrayChromosome>
+        extends AbstractDistributionMutation<C> {
+        
     /**
      * Value of the square roof of 12. Used as a constant to slightly speed up the calculation of the new value.
      */

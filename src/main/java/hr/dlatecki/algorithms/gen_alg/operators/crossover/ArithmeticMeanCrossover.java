@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.SortedSet;
 import hr.dlatecki.algorithms.gen_alg.exceptions.IncompatibleParentsException;
 import hr.dlatecki.algorithms.gen_alg.operators.abstracts.AbstractCrossoverOperator;
-import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromosome;
+import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractDoubleArrayChromosome;
 
 /**
  * An implementation of a crossover operator used for chromosomes based on an array of <code>double</code>s. The
@@ -28,15 +28,16 @@ import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromoso
  * </table>
  * <br>
  * <br>
- * This crossover operator can only be used on chromosomes which extend <code>DoubleArrayChromosome</code>.
+ * This crossover operator can only be used on chromosomes which extend <code>AbstractDoubleArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8
  * @param <C> the type of chromosome which will be used in the crossover operator.
+ * @see AbstractDoubleArrayChromosome
  * @see AbstractCrossoverOperator
  */
-public class ArithmeticMeanCrossover<C extends DoubleArrayChromosome> extends AbstractCrossoverOperator<C> {
+public class ArithmeticMeanCrossover<C extends AbstractDoubleArrayChromosome> extends AbstractCrossoverOperator<C> {
     
     /**
      * Constructs an <code>ArithmeticMeanCrossover</code> operator.

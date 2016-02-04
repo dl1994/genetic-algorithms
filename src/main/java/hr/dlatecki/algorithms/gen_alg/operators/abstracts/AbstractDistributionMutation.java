@@ -3,21 +3,22 @@
 package hr.dlatecki.algorithms.gen_alg.operators.abstracts;
 
 import java.util.Random;
-import hr.dlatecki.algorithms.gen_alg.population.chromosomes.DoubleArrayChromosome;
+import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractDoubleArrayChromosome;
 
 /**
  * An abstract class for mutation operators that rely on come kind of probability distribution. The mutation intensity
  * affects the variance of the distribution. Variance is scaled linearly according to the mutation intensity.<br>
  * <br>
- * This mutation operator can only be used on chromosomes which extend <code>DoubleArrayChromosome</code>.
+ * This mutation operator can only be used on chromosomes which extend <code>AbstractDoubleArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8a
  * @param <C> the type of chromosome which will be used in the mutation operator.
+ * @see AbstractDoubleArrayChromosome
  * @see AbstractMutationOperator
  */
-public abstract class AbstractDistributionMutation<C extends DoubleArrayChromosome>
+public abstract class AbstractDistributionMutation<C extends AbstractDoubleArrayChromosome>
         extends AbstractMutationOperator<C> {
         
     /**

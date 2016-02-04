@@ -3,6 +3,7 @@
 package hr.dlatecki.algorithms.gen_alg.population.chromosomes;
 
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IByteArrayCodec;
+import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractByteArrayChromosome;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 
 /**
@@ -22,14 +23,14 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * @version 1.0
  * @param <I> type of the object to wrap.
  * @since 1.8
- * @see ByteArrayChromosome
+ * @see AbstractByteArrayChromosome
  */
-public final class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
+public final class ByteArrayWrapperChromosome<I> extends AbstractByteArrayChromosome {
     
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 2531568532715746906L;
+    private static final long serialVersionUID = 7442518821699954977L;
     /**
      * Indicates if the currently stored item is immutable.
      */

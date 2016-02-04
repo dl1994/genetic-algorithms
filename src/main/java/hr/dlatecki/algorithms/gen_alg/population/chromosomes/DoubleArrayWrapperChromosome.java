@@ -4,6 +4,7 @@ package hr.dlatecki.algorithms.gen_alg.population.chromosomes;
 
 import hr.dlatecki.algorithms.gen_alg.codecs.interfaces.IDoubleArrayCodec;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
+import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractDoubleArrayChromosome;
 
 /**
  * An implementation of the chromosome which contains an array of <code>double</code>s and a reference to the wrapped
@@ -22,14 +23,14 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * @version 1.0
  * @param <I> type of the object to wrap.
  * @since 1.8
- * @see DoubleArrayChromosome
+ * @see AbstractDoubleArrayChromosome
  */
-public final class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
+public final class DoubleArrayWrapperChromosome<I> extends AbstractDoubleArrayChromosome {
     
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = -1417534859246791439L;
+    private static final long serialVersionUID = 6747896354126996861L;
     /**
      * Indicates if the currently stored item is immutable.
      */
