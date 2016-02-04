@@ -22,18 +22,22 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
         implements ISelectionOperator<C> {
         
     /**
+     * This constant is here only to make it available in the documentation due to Eclipse IDE bug.
+     */
+    private static final int MIN_SELECTION_SIZE = ISelectionOperator.MIN_SELECTION_SIZE;
+    /**
      * Defines a number of chromosomes to be selected in this selection operator.
      */
     private int selectionSize;
     
     /**
      * Constructs a selection operator with provided <code>Random</code> object and selection size. Selection size must
-     * be a number greater than or equal to {@link #MIN_SELECTION_SIZE}.
+     * be a number greater than or equal to {@value #MIN_SELECTION_SIZE}.
      * 
      * @param rand object used to generate random numbers.
      * @param selectionSize number of chromosomes to select. Must be a number greater than or equal to
-     *            {@link #MIN_SELECTION_SIZE}.
-     * @throws IllegalArgumentException thrown if provided selection size is less than {@link #MIN_SELECTION_SIZE}.
+     *            {@value #MIN_SELECTION_SIZE}.
+     * @throws IllegalArgumentException thrown if provided selection size is less than {@value #MIN_SELECTION_SIZE}.
      */
     public AbstractSelectionOperator(Random rand, int selectionSize) {
         super(rand);
@@ -64,10 +68,10 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
     }
     
     /**
-     * Checks if provided selection size is greater or equal to {@link #MIN_SELECTION_SIZE}.
+     * Checks if provided selection size is greater or equal to {@value #MIN_SELECTION_SIZE}.
      * 
      * @param size selection size.
-     * @throws IllegalArgumentException thrown if provided selection size is less than {@link #MIN_SELECTION_SIZE}.
+     * @throws IllegalArgumentException thrown if provided selection size is less than {@value #MIN_SELECTION_SIZE}.
      */
     private void checkSelectionSize(int size) {
         

@@ -41,14 +41,14 @@ public interface ISelectionOperator<C extends IChromosome> {
      * Selects chromosomes from given set based on their fitness values. Chromosomes with higher fitness values have
      * higher chance to be selected. The provided set of chromosomes is expected to be sorted by fitness in descending
      * order. Number of selected chromosomes is defined by the second argument, which must be greater than or equal to
-     * {@link #MIN_SELECTION_SIZE}.
+     * {@value #MIN_SELECTION_SIZE}.
      * 
      * @param pool set from which chromosomes will be selected based on their fitness.
      * @param size number of chromosomes to select. Must be a number greater than or equal to
-     *            {@link #MIN_SELECTION_SIZE}.
+     *            {@value #MIN_SELECTION_SIZE}.
      * @return Set which contains selected chromosomes. The set is sorted by fitness of the chromosomes, in descending
      *         order.
-     * @throws IllegalArgumentException thrown if provided size is less than {@link #MIN_SELECTION_SIZE}.
+     * @throws IllegalArgumentException thrown if provided size is less than {@value #MIN_SELECTION_SIZE}.
      */
     public SortedSet<C> select(SortedSet<C> pool, int size);
     
