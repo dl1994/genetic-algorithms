@@ -1,5 +1,8 @@
 # Development history
 
+### v0.6.1
+Removed annotations package and all its contents.
+
 ### v0.6.0
 Added ArithmeticMeanCrossover operator.
 
