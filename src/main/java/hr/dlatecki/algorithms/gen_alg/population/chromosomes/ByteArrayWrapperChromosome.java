@@ -24,7 +24,7 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * @since 1.8
  * @see ByteArrayChromosome
  */
-public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
+public final class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
     
     /**
      * Serial version UID.
@@ -76,7 +76,7 @@ public class ByteArrayWrapperChromosome<I> extends ByteArrayChromosome {
      */
     public static <I> ByteArrayWrapperChromosome<I> fromImmutable(I item, IByteArrayCodec<I> codec) {
         
-        return new ByteArrayWrapperChromosome<I>(item, true, codec);
+        return new ByteArrayWrapperChromosome<>(item, true, codec);
     }
     
     /**

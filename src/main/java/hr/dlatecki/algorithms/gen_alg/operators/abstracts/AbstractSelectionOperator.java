@@ -28,11 +28,12 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
     
     /**
      * Constructs a selection operator with provided <code>Random</code> object and selection size. Selection size must
-     * be a number greater than or equal to 1.
+     * be a number greater than or equal to {@link #MIN_SELECTION_SIZE}.
      * 
      * @param rand object used to generate random numbers.
-     * @param selectionSize number of chromosomes to select. Must be a number greater than or equal to 1.
-     * @throws IllegalArgumentException thrown if provided selection size is less than 1.
+     * @param selectionSize number of chromosomes to select. Must be a number greater than or equal to
+     *            {@link #MIN_SELECTION_SIZE}.
+     * @throws IllegalArgumentException thrown if provided selection size is less than {@link #MIN_SELECTION_SIZE}.
      */
     public AbstractSelectionOperator(Random rand, int selectionSize) {
         super(rand);
@@ -63,16 +64,16 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
     }
     
     /**
-     * Checks if provided selection size is greater or equal to 1.
+     * Checks if provided selection size is greater or equal to {@link #MIN_SELECTION_SIZE}.
      * 
      * @param size selection size.
-     * @throws IllegalArgumentException thrown if provided selection size is less than 1.
+     * @throws IllegalArgumentException thrown if provided selection size is less than {@link #MIN_SELECTION_SIZE}.
      */
     private void checkSelectionSize(int size) {
         
-        if (size < 1) {
+        if (size < MIN_SELECTION_SIZE) {
             throw new IllegalArgumentException(
-                    "Selection size cannot be less than 1. Provided value was: " + size + ".");
+                    "Selection size cannot be less than " + MIN_SELECTION_SIZE + ". Provided value was: " + size + ".");
         }
     }
     
@@ -80,13 +81,14 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
      * Performs the selection. Chromosomes are selected based on their fitness values, with chromosomes with higher
      * fitness having higher chance of being selected. The provided set of chromosomes is expected to be sorted by
      * fitness in descending order. Number of selected chromosomes is defined by the second argument, which will always
-     * be greater than or equal to 1 (this is insured in <code>AbstractSelectionOperator</code>) before calling this
-     * method. This method is not supposed to be invoked externally. Instead, the {@link #select(SortedSet)} or
-     * {@link #select(SortedSet, int)} is invoked externally, and then this method is invoked by either of them after
-     * the size is confirmed to be correct.
+     * be greater than or equal to {@link #MIN_SELECTION_SIZE} (this is insured in
+     * <code>AbstractSelectionOperator</code>) before calling this method. This method is not supposed to be invoked
+     * externally. Instead, the {@link #select(SortedSet)} or {@link #select(SortedSet, int)} is invoked externally, and
+     * then this method is invoked by either of them after the size is confirmed to be correct.
      * 
      * @param pool set from which chromosomes will be selected based on their fitness.
-     * @param size number of chromosomes to select. Guaranteed to be greater than or equal to 1.
+     * @param size number of chromosomes to select. Guaranteed to be greater than or equal to
+     *            {@link #MIN_SELECTION_SIZE}.
      * @return Set which contains selected chromosomes. The set is sorted by fitness of the chromosomes, in descending
      *         order.
      */

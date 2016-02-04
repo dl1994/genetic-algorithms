@@ -20,6 +20,11 @@ import hr.dlatecki.algorithms.gen_alg.population.interfaces.IChromosome;
 public interface ISelectionOperator<C extends IChromosome> {
     
     /**
+     * Minimum selection size.
+     */
+    public static final int MIN_SELECTION_SIZE = 2;
+    
+    /**
      * Selects chromosomes from given set based on their fitness values. Chromosomes with higher fitness values have
      * higher chance to be selected. The provided set of chromosomes is expected to be sorted by fitness in descending
      * order. Number of selected chromosomes can be defined by invoking {@link #setSelectionSize(int)}. Alternatively,
@@ -36,22 +41,24 @@ public interface ISelectionOperator<C extends IChromosome> {
      * Selects chromosomes from given set based on their fitness values. Chromosomes with higher fitness values have
      * higher chance to be selected. The provided set of chromosomes is expected to be sorted by fitness in descending
      * order. Number of selected chromosomes is defined by the second argument, which must be greater than or equal to
-     * 1.
+     * {@link #MIN_SELECTION_SIZE}.
      * 
      * @param pool set from which chromosomes will be selected based on their fitness.
-     * @param size number of chromosomes to select. Must be a number greater than or equal to 1.
+     * @param size number of chromosomes to select. Must be a number greater than or equal to
+     *            {@link #MIN_SELECTION_SIZE}.
      * @return Set which contains selected chromosomes. The set is sorted by fitness of the chromosomes, in descending
      *         order.
-     * @throws IllegalArgumentException thrown if provided size is less than 1.
+     * @throws IllegalArgumentException thrown if provided size is less than {@link #MIN_SELECTION_SIZE}.
      */
     public SortedSet<C> select(SortedSet<C> pool, int size);
     
     /**
      * Sets the number of chromosomes to be selected by the selection operator. Provided value must be a number greater
-     * than or equal to 1.
+     * than or equal to {@link #MIN_SELECTION_SIZE}.
      * 
-     * @param size number of chromosomes to select. Must be a number greater than or equal to 1.
-     * @throws IllegalArgumentException thrown if provided size is less than 1.
+     * @param size number of chromosomes to select. Must be a number greater than or equal to
+     *            {@link #MIN_SELECTION_SIZE}.
+     * @throws IllegalArgumentException thrown if provided size is less than {@link #MIN_SELECTION_SIZE}.
      */
     public void setSelectionSize(int size);
 }

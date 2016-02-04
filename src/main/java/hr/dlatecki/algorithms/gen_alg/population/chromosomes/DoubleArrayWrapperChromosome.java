@@ -24,7 +24,7 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
  * @since 1.8
  * @see DoubleArrayChromosome
  */
-public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
+public final class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
     
     /**
      * Serial version UID.
@@ -76,7 +76,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      */
     public static <I> DoubleArrayWrapperChromosome<I> fromImmutable(I item, IDoubleArrayCodec<I> codec) {
         
-        return new DoubleArrayWrapperChromosome<I>(item, true, codec);
+        return new DoubleArrayWrapperChromosome<>(item, true, codec);
     }
     
     /**
@@ -91,7 +91,7 @@ public class DoubleArrayWrapperChromosome<I> extends DoubleArrayChromosome {
      */
     public static <I> DoubleArrayWrapperChromosome<I> fromValues(double[] values, IDoubleArrayCodec<I> codec) {
         
-        return new DoubleArrayWrapperChromosome<I>(values, codec);
+        return new DoubleArrayWrapperChromosome<>(values, codec);
     }
     
     /**
