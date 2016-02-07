@@ -51,6 +51,23 @@ public class ArithmeticMeanCrossover<C extends AbstractDoubleArrayChromosome> ex
     @Override
     public C doCrossover(SortedSet<C> parents) {
         
+        @SuppressWarnings("unchecked")
+        C child = (C) parents.first().newLikeThis();
+        
+        child.setValues(calculateChildValues(parents));
+        
+        return child;
+    }
+    
+    /**
+     * Calculates the values of the child array using the parent arrays.
+     * 
+     * @param parents set of parent chromosome from which values of the child array will be calculated.
+     * @return Array which contains values for the child chromosome.
+     * @throws IncompatibleParentsException thrown if provided parents are incompatible for crossover.
+     */
+    private double[] calculateChildValues(SortedSet<C> parents) {
+        
         double[] childValues = null;
         
         for (C parent : parents) {
@@ -73,11 +90,6 @@ public class ArithmeticMeanCrossover<C extends AbstractDoubleArrayChromosome> ex
             childValues[i] /= numOfParents;
         }
         
-        @SuppressWarnings("unchecked")
-        C child = (C) parents.first().newLikeThis();
-        
-        child.setValues(childValues);
-        
-        return child;
+        return childValues;
     }
 }

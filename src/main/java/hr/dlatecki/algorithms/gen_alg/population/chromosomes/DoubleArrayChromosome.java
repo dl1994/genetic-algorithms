@@ -6,7 +6,7 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractChromosome;
 import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractDoubleArrayChromosome;
 
 /**
- * An implementation of the chromosome which is represented by an array of <code>double</code> values.
+ * An implementation of <code>AbstractDoubleArrayChromosome</code>.
  * 
  * @author Domagoj Latečki
  * @version 1.0

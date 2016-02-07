@@ -1,7 +1,7 @@
 # Development history
 
 ### v0.6.1
-Removed annotations package and all its contents. Added MIN_SELECTION_SIZE constant in ISelection operator interface.
+Removed annotations package and all its contents. Added MIN\_SELECTION\_SIZE constant in ISelection operator interface.
 All chromosome implementations are now marked as final.
 
 ### v0.6.0
