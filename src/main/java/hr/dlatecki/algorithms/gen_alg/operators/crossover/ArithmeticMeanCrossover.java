@@ -76,7 +76,7 @@ public class ArithmeticMeanCrossover<C extends AbstractDoubleArrayChromosome> ex
             if (childValues == null) {
                 childValues = values;
             } else if (values.length != childValues.length) {
-                throw new IncompatibleParentsException();
+                throw new IncompatibleParentsException("One or more parents have arrays of different length.");
             } else {
                 for (int i = 0; i < childValues.length; i++) {
                     childValues[i] += values[i];

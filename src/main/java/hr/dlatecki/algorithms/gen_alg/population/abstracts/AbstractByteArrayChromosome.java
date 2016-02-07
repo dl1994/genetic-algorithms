@@ -76,4 +76,14 @@ public abstract class AbstractByteArrayChromosome extends AbstractChromosome {
             this.bytes = Arrays.copyOf(bytes, bytes.length);
         }
     }
+    
+    /**
+     * Fetches the length of the internally stored array of <code>byte</code>s.
+     * 
+     * @return Length of the internal array.
+     */
+    public int getArrayLangth() {
+        
+        return bytes.length;
+    }
 }

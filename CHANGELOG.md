@@ -2,7 +2,8 @@
 
 ### v0.6.2
 Added TooFewParentsException. AbstractCrossoverOperator now has default behaviour for doCrossover(SortedSet<C>) method
-and defines an abstract method which must be overridden in derived classes to generate a child chromosome.
+and defines an abstract method which must be overridden in derived classes to generate a child chromosome. Added 
+methods for fetching array length in AbstractDoubleArrayChromosome and AbstractByteArrayChromosome.
 
 ### v0.6.1
 Removed annotations package and all its contents. Added MIN\_SELECTION\_SIZE constant in ISelection operator interface.

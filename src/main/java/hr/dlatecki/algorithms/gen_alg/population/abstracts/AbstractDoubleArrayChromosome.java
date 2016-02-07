@@ -76,4 +76,14 @@ public abstract class AbstractDoubleArrayChromosome extends AbstractChromosome {
             this.values = Arrays.copyOf(values, values.length);
         }
     }
+    
+    /**
+     * Fetches the length of the internally stored array of <code>double</code>s.
+     * 
+     * @return Length of the internal array.
+     */
+    public int getArrayLangth() {
+        
+        return values.length;
+    }
 }
