@@ -49,7 +49,7 @@ public class ArithmeticMeanCrossover<C extends AbstractDoubleArrayChromosome> ex
     }
     
     @Override
-    public C doCrossover(SortedSet<C> parents) {
+    protected C createChild(SortedSet<C> parents) {
         
         @SuppressWarnings("unchecked")
         C child = (C) parents.first().newLikeThis();
