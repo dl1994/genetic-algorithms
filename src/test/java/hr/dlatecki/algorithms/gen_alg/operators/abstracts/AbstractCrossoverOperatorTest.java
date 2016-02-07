@@ -27,7 +27,7 @@ public class AbstractCrossoverOperatorTest {
         AbstractCrossoverOperator<IChromosome> a = new AbstractCrossoverOperator<IChromosome>(TestUtilities.RAND) {
             
             @Override
-            public IChromosome doCrossover(SortedSet<IChromosome> parents) {
+            public IChromosome createChild(SortedSet<IChromosome> parents) {
                 
                 return null;
             }
