@@ -6,9 +6,9 @@
 	<groupId>hr.dlatecki.java.libraries</groupId>
 	<artifactId>genetic-algorithms</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.2</version>
+	<version>0.6.3</version>
 	<name>Genetic Algorithm Library</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/dl1994/genetic-algorithms</url>
 	
 	<description>Library which contains classes and interfaces for working with genetic algorithms.</description>
 	

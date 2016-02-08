@@ -8,8 +8,9 @@ package hr.dlatecki.algorithms.gen_alg.exceptions;
  * @author Domagoj Latečki
  * @version 1.0
  * @since 1.8
+ * @see GeneticAlgorithmException
  */
-public class FitnessNotEvaluatedException extends RuntimeException {
+public class FitnessNotEvaluatedException extends GeneticAlgorithmException {
     
     /**
      * Serial version UID.

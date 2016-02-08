@@ -1,5 +1,8 @@
 # Development history
 
+### v0.6.3
+Added GeneticAlgorithmException, all genetic algorithm exceptions are now derived from this exception.
+
 ### v0.6.2
 Added TooFewParentsException and TooManyCrossoverPointsException. AbstractCrossoverOperator now has default behaviour
 for doCrossover(SortedSet<C>) method and defines an abstract method which must be overridden in derived classes to
