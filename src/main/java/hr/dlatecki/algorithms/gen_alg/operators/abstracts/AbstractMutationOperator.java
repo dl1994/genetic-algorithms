@@ -39,6 +39,11 @@ public abstract class AbstractMutationOperator<C extends IChromosome> extends Ab
         setMutationIntensity(mutationIntensity);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws IllegalArgumentException thrown if provided value is invalid.
+     */
     @Override
     public final void setMutationIntensity(double intensity) {
         

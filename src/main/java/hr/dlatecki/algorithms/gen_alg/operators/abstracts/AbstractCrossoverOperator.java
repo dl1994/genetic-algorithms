@@ -32,6 +32,12 @@ public abstract class AbstractCrossoverOperator<C extends IChromosome> extends A
         super(rand);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws IncompatibleParentsException thrown if provided parents are incompatible for crossover.
+     * @throws TooFewParentsException thrown if less than 2 parents are provided for the crossover.
+     */
     @Override
     public C doCrossover(SortedSet<C> parents) {
         

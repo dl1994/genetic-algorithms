@@ -34,12 +34,16 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
         this.rand = rand;
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws IllegalArgumentException thrown if specified size if not greater than or equal to 1.
+     */
     @Override
     public final Collection<C> generatePopulation(int size) {
         
         if (size < 0) {
-            throw new IllegalArgumentException(
-                    "Cannot generate population of negative size. Provided value was: " + size + ".");
+            throw new IllegalArgumentException("Population size must be at least 1. Provided value was: " + size + ".");
         }
         
         return createPopulation(size);
@@ -48,7 +52,7 @@ public abstract class AbstractPopulationGenerator<C extends IChromosome> impleme
     /**
      * Creates the population of chromosomes of provided size. All chromosomes should have initial fitness value of 0.
      * Chromosomes are supposed to be generated randomly in order to cover as large search space as possible. The
-     * <code>size</code> argument is guaranteed to be greater than or equal to 0. This is insured by
+     * <code>size</code> argument is guaranteed to be greater than or equal to 1. This is insured by
      * <code>AbstractPopulationGenerator</code>, which will call this method when {@link #generatePopulation(int)}
      * method is invoked externally.
      * 

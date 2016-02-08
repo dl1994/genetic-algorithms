@@ -19,12 +19,12 @@ import hr.dlatecki.algorithms.gen_alg.population.abstracts.AbstractPopulationGen
 public interface IPopulationGenerator<C extends IChromosome> {
     
     /**
-     * Generates the population of chromosomes of provided size. The specified size must be greater than or equal to 0.
+     * Generates the population of chromosomes of provided size. The specified size must be greater than or equal to 1.
      * 
      * @param size size of population to generate.
      * @return Collection of chromosomes which represents generated population. All chromosomes will have initial
      *         fitness value of 0.
-     * @throws IllegalArgumentException thrown if specified size if not greater than or equal to 0.
+     * @throws IllegalArgumentException thrown if specified size if not greater than or equal to 1.
      */
     public Collection<C> generatePopulation(int size);
 }

@@ -27,7 +27,7 @@ public interface IChromosome extends Comparable<IChromosome>, Cloneable, Seriali
      * @return Current fitness value of this chromosome.
      * @throws FitnessNotEvaluatedException thrown if fitness of this chromosome is not yet evaluated.
      */
-    public double getFitness() throws FitnessNotEvaluatedException;
+    public double getFitness();
     
     /**
      * Sets the fitness value of this chromosome.

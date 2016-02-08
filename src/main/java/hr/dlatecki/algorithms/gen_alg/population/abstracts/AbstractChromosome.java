@@ -47,6 +47,11 @@ public abstract class AbstractChromosome implements IChromosome {
         return fitness > other.getFitness() ? -1 : 1;
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws FitnessNotEvaluatedException thrown if fitness of this chromosome is not yet evaluated.
+     */
     @Override
     public final double getFitness() throws FitnessNotEvaluatedException {
         

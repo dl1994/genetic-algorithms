@@ -48,6 +48,11 @@ public class ArithmeticMeanCrossover<C extends AbstractDoubleArrayChromosome> ex
         super(rand);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws IncompatibleParentsException thrown if provided parents are incompatible for crossover.
+     */
     @Override
     protected C createChild(SortedSet<C> parents) {
         

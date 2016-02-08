@@ -45,6 +45,11 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
         setSelectionSize(selectionSize);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws IllegalArgumentException thrown if provided size is less than {@link #MIN_SELECTION_SIZE}.
+     */
     @Override
     public final void setSelectionSize(int size) {
         
@@ -59,6 +64,11 @@ public abstract class AbstractSelectionOperator<C extends IChromosome> extends A
         return select(pool, selectionSize);
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws IllegalArgumentException thrown if provided size is less than {@value #MIN_SELECTION_SIZE}.
+     */
     @Override
     public final SortedSet<C> select(SortedSet<C> pool, int size) {
         
