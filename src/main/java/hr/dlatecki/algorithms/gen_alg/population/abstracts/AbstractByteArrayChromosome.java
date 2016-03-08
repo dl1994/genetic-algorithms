@@ -3,6 +3,7 @@
 package hr.dlatecki.algorithms.gen_alg.population.abstracts;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 /**
  * An abstract chromosome which is represented by an array of <code>byte</code>s.
@@ -85,5 +86,29 @@ public abstract class AbstractByteArrayChromosome extends AbstractChromosome {
     public int getArrayLangth() {
         
         return bytes.length;
+    }
+    
+    /**
+     * Fetches a byte with specified index stored in the internal array.
+     * 
+     * @param index index of the byte which will be fetched.
+     * @return Byte from the internal array stored under specified index.
+     * @throws IndexOutOfBoundsException thrown if provided <code>index</code> is outside of internal array bounds.
+     */
+    public byte getByte(int index) {
+        
+        return bytes[index];
+    }
+    
+    /**
+     * Performs an action for each element of the internal array.
+     * 
+     * @param action action which will be performed for each element of the internal array.
+     */
+    public void forEach(Consumer<Byte> action) {
+        
+        for (int i = 0; i < bytes.length; i++) {
+            action.accept(bytes[i]);
+        }
     }
 }

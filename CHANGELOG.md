@@ -1,5 +1,10 @@
 # Development history
 
+### v0.6.4
+AbstractDoubleArrayChromosome and AbstractByteArrayChromosome now have a method for fetching a single value stored in
+the internal array. Additionally, they now also have a forEach(Consumer<INTERNAL\_ARRAY\_ELEMENT\_TYPE>) method which
+iterates every element of the internal array and performs the provided action.
+
 ### v0.6.3
 Added GeneticAlgorithmException, all genetic algorithm exceptions are now derived from this exception.
 
