@@ -18,7 +18,7 @@ public abstract class AbstractByteArrayChromosome extends AbstractChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 5882144342907451099L;
+    private static final long serialVersionUID = 7733663607007688849L;
     /**
      * Array of bytes that represent this chromosome.
      */

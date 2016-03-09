@@ -18,7 +18,7 @@ public abstract class AbstractDoubleArrayChromosome extends AbstractChromosome {
     /**
      * Serial version UID.
      */
-    private static final long serialVersionUID = 7920710305208104502L;
+    private static final long serialVersionUID = 508198025622464779L;
     /**
      * Array of values that represent this chromosome.
      */
