@@ -1,5 +1,3 @@
-// Copyright (C) Domagoj Latečki
-// You may use, distribute and modify this code under the terms of the MIT license.
 /**
  * Contains abstract implementations of several codec types.
  * 
