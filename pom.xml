@@ -7,7 +7,7 @@
 	<artifactId>genetic-algorithms</artifactId>
 	<packaging>jar</packaging>
 	<version>0.6.4</version>
-	<name>Genetic Algorithm Library</name>
+	<name>Genetic algorithm library</name>
 	<url>https://github.com/dl1994/genetic-algorithms</url>
 	
 	<description>Library which contains classes and interfaces for working with genetic algorithms.</description>
